@@ -1,0 +1,190 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+const title = "Knowledge Base";
+const description = "Essential guides and frameworks for education business leaders, investors, and executives.";
+
+// Get all knowledge base articles
+const allArticles = await getCollection('knowledge-base');
+
+// Sort by date descending
+const articles = allArticles
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
+  .map((entry) => ({
+    slug: entry.id.replace(/\.md$/, ''),
+    title: entry.data.title,
+    description: entry.data.description,
+    date: entry.data.publishedAt.toISOString().split('T')[0],
+    practiceArea: entry.data.practiceArea,
+  }));
+
+// Group by practice area
+const grouped = articles.reduce((acc: Record<string, any[]>, article) => {
+  const area = article.practiceArea || 'General';
+  if (!acc[area]) acc[area] = [];
+  acc[area].push(article);
+  return acc;
+}, {});
+
+const practiceAreas = Object.keys(grouped);
+
+const practiceAreaColors: Record<string, string> = {
+  'Executive Search': '#3B82F6',
+  'Board Advisory': '#8B5CF6',
+  'Fractional Leadership': '#10B981',
+  'General': '#F59E0B',
+};
+---
+
+<Layout title={title} description={description}>
+  <!-- Hero -->
+  <section class="kb-hero">
+    <div class="container-wide">
+      <div style="max-width: 800px;">
+        <p class="section-label">Knowledge Base</p>
+        <h1>Essential frameworks and strategies</h1>
+        <p style="font-size: 1.0625rem; margin-top: var(--space-md); color: var(--color-fg-muted);">
+          Practical guides for education business leaders, investors, and executives navigating executive search, board advisory, and fractional leadership decisions.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Practice Areas -->
+  {practiceAreas.map((area, index) => (
+    <section class="section animate-on-scroll" style={`animation-delay: ${index * 0.1}s;`}>
+      <div class="container-wide">
+        <div style="display: flex; align-items: center; gap: var(--space-md); margin-bottom: var(--space-2xl);">
+          <div class="practice-area-badge" style={`background: ${practiceAreaColors[area] || practiceAreaColors['General']}; color: white;`}>
+            {area.charAt(0)}
+          </div>
+          <div>
+            <h2 style="margin: 0; font-size: 1.75rem;">{area}</h2>
+            <p style="margin: 0; font-size: 0.875rem; color: var(--color-fg-muted);">{grouped[area].length} {grouped[area].length === 1 ? 'article' : 'articles'}</p>
+          </div>
+        </div>
+
+        <div class="kb-grid">
+          {grouped[area].map((article: any, articleIndex: number) => (
+            <a href={`/knowledge-base/${article.slug}`} class="kb-card card" style={`animation-delay: ${(articleIndex + 1) * 0.1}s;`}>
+              <div class="kb-card-header">
+                <h3>{article.title}</h3>
+              </div>
+              <p class="kb-description">{article.description}</p>
+              <div class="kb-footer">
+                <time datetime={article.date}>
+                  {new Date(article.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                </time>
+                <span class="kb-link">Read &rarr;</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- CTA Section -->
+  <section class="section section-subtle">
+    <div class="container" style="text-align: center;">
+      <h2 style="margin-bottom: var(--space-md);">Need more guidance?</h2>
+      <p style="margin-bottom: var(--space-lg); color: var(--color-fg-muted); max-width: 480px; margin-left: auto; margin-right: auto;">
+        Our team works with education leaders on these challenges daily. Let's discuss your specific situation.
+      </p>
+      <a href="/contact" class="btn btn-primary">Get in Touch <span aria-hidden="true">&rarr;</span></a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .kb-hero {
+    padding: var(--space-3xl) 0 var(--space-2xl);
+  }
+
+  .kb-hero h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+  }
+
+  .practice-area-badge {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .kb-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+
+  .kb-card {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  .kb-card-header {
+    margin-bottom: var(--space-sm);
+  }
+
+  .kb-card h3 {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.4;
+  }
+
+  .kb-description {
+    flex: 1;
+    font-size: 0.9375rem;
+    margin-bottom: var(--space-lg);
+    color: var(--color-fg-muted);
+  }
+
+  .kb-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-border);
+    font-size: 0.8125rem;
+  }
+
+  .kb-footer time {
+    color: var(--color-fg-subtle);
+  }
+
+  .kb-link {
+    color: var(--color-accent);
+    font-weight: 500;
+  }
+
+  .kb-card:hover h3 {
+    color: var(--color-accent);
+  }
+
+  .kb-card:hover .kb-link {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .kb-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .container {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+  }
+</style>

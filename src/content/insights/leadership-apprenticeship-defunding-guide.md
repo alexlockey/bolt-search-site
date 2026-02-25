@@ -1,14 +1,13 @@
 ---
 title: "Leadership Apprenticeship Defunding: A Sales Survival Guide for Training Providers"
 description: "With the government pulling funding from management and leadership apprenticeships, training providers need to pivot fast. Here's a practical playbook."
-publishedAt: 2026-02-20
+publishedAt: 2025-01-01
 contentType: insights
-tags: ["apprenticeships", "defunding", "training-providers", "strategy"]
+tags: []
 sector: training-providers
-syndicate: true
-status: published
 author: "Bolt Search"
 readTime: "8 min read"
+status: "published"
 ---
 
 The government's decision to defund management and leadership apprenticeships has sent shockwaves through the training provider sector. For many providers, these programmes represented 30-50% of revenue. The question isn't whether this will hurt — it's how quickly you can adapt.

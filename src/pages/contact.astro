@@ -2,52 +2,106 @@
 import Layout from '../layouts/Layout.astro';
 
 const title = "Get in Touch";
-const description = "Contact Bolt Search to discuss your hiring, advisory, or leadership needs. Book a discovery call or email us directly.";
+const description = "Contact Bolt Search to discuss your hiring, advisory, or leadership needs. Reach out with your brief or inquiry.";
 ---
 
 <Layout title={title} description={description}>
   <!-- Hero -->
-  <section class="section">
-    <div class="container">
-      <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+  <section class="contact-hero">
+    <div class="container-wide">
+      <div style="max-width: 800px;">
         <h1>Let's Talk</h1>
-        <p style="font-size: 1.125rem; margin-top: var(--space-lg);">
-          Interested in executive search, board advisory, or fractional leadership? Let's discuss how we can help.
+        <p style="font-size: 1.125rem; margin-top: var(--space-lg); color: var(--color-fg-muted);">
+          Interested in executive search, board advisory, or fractional leadership? Share your brief and we'll discuss how we can help.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Contact Info -->
-  <section class="section section-subtle">
-    <div class="container">
-      <div style="max-width: 600px; margin: 0 auto;">
-        <h2 style="margin-bottom: var(--space-2xl);">Get in Touch</h2>
+  <!-- Contact Form & Info -->
+  <section class="section">
+    <div class="container-wide">
+      <div class="contact-grid">
+        <!-- Contact Form -->
+        <div class="form-section">
+          <h2 style="margin-bottom: var(--space-lg);">Send us a message</h2>
+          <form class="contact-form" action="https://formspree.io/f/placeholder" method="POST">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required placeholder="Your name" />
+            </div>
 
-        <div style="margin-bottom: var(--space-3xl);">
-          <h3 style="margin-bottom: var(--space-sm);">Email</h3>
-          <p style="font-size: 1.0625rem;">
-            <a href="mailto:alex@bolt-search.com">alex@bolt-search.com</a>
-          </p>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required placeholder="your@email.com" />
+            </div>
+
+            <div class="form-group">
+              <label for="company">Company</label>
+              <input type="text" id="company" name="company" placeholder="Your company" />
+            </div>
+
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <select id="subject" name="subject" required>
+                <option value="">Select a subject</option>
+                <option value="Executive Search">Executive Search</option>
+                <option value="Board Advisory">Board Advisory</option>
+                <option value="Fractional Leadership">Fractional Leadership</option>
+                <option value="Partnership/Other">Partnership/Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" required placeholder="Tell us about your needs..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: var(--space-md);">
+              Send Message <span aria-hidden="true">&rarr;</span>
+            </button>
+          </form>
         </div>
 
-        <div style="margin-bottom: var(--space-3xl);">
-          <h3 style="margin-bottom: var(--space-sm);">Book a Discovery Call</h3>
-          <p style="margin-bottom: var(--space-md);">
-            The fastest way to discuss your needs is to book a 30-minute discovery call.
-          </p>
-          <a href="https://calendly.com/bolt-search/discovery" target="_blank" rel="noopener" class="btn btn-primary">
-            Open Calendar <span aria-hidden="true">&rarr;</span>
-          </a>
+        <!-- Contact Info -->
+        <div class="info-section">
+          <div class="location-card">
+            <h3>Locations</h3>
+            <div class="location">
+              <h4>London</h4>
+              <p>UK HQ</p>
+            </div>
+            <div class="location">
+              <h4>Newcastle</h4>
+              <p>Northern operations</p>
+            </div>
+            <div class="location">
+              <h4>New York</h4>
+              <p>International reach</p>
+            </div>
+          </div>
+
+          <div class="quick-info">
+            <h3>Quick Links</h3>
+            <p style="margin-bottom: var(--space-lg); color: var(--color-fg-muted); font-size: 0.9375rem;">
+              Not sure where to start? Explore our services or book a discovery call.
+            </p>
+            <div style="display: flex; flex-direction: column; gap: var(--space-sm);">
+              <a href="/search" class="btn btn-outline" style="width: 100%;">Executive Search</a>
+              <a href="/advisory" class="btn btn-outline" style="width: 100%;">Board Advisory</a>
+              <a href="/fractional" class="btn btn-outline" style="width: 100%;">Fractional Leadership</a>
+              <a href="https://calendly.com/bolt-search/discovery" target="_blank" rel="noopener" class="btn btn-outline" style="width: 100%;">Book Discovery Call</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Best Fit Section -->
-  <section class="section">
-    <div class="container">
-      <h2 style="margin-bottom: var(--space-2xl);">Best Fit If You're...</h2>
+  <section class="section section-subtle">
+    <div class="container-wide">
+      <h2 style="margin-bottom: var(--space-2xl);">Who We Serve Best</h2>
       <div class="grid-2" style="margin-bottom: var(--space-2xl);">
         <div class="card">
           <h3 style="margin-bottom: var(--space-sm);">Hiring at Board or Senior Level</h3>
@@ -74,24 +128,128 @@ const description = "Contact Bolt Search to discuss your hiring, advisory, or le
           </p>
         </div>
       </div>
-
-      <div style="max-width: 600px;">
-        <p style="color: var(--color-fg-subtle);">
-          Not sure if we're the right fit? Email us and we'll point you in the right direction.
-        </p>
-      </div>
     </div>
   </section>
 </Layout>
 
 <style>
-  .container {
-    max-width: var(--content-width);
-    margin: 0 auto;
-    padding: 0 var(--space-lg);
+  .contact-hero {
+    padding: var(--space-3xl) 0 var(--space-2xl);
+  }
+
+  .contact-hero h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-3xl);
+    align-items: start;
+  }
+
+  .form-section h2 {
+    font-size: 1.75rem;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .form-group label {
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: var(--color-fg);
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--color-fg);
+    background: var(--color-bg-elevated);
+    transition: all 0.2s ease;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 150px;
+    font-family: inherit;
+  }
+
+  .form-group select {
+    cursor: pointer;
+  }
+
+  .info-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+
+  .location-card,
+  .quick-info {
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: var(--space-xl);
+  }
+
+  .location-card h3,
+  .quick-info h3 {
+    margin-bottom: var(--space-lg);
+    font-size: 1.125rem;
+  }
+
+  .location {
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .location:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .location h4 {
+    margin-bottom: var(--space-xs);
+    font-size: 1rem;
+  }
+
+  .location p {
+    font-size: 0.875rem;
+    color: var(--color-fg-subtle);
+    margin-bottom: 0;
   }
 
   @media (max-width: 768px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+    }
+
     .grid-2 {
       grid-template-columns: 1fr;
     }

@@ -1,0 +1,21 @@
+---
+title: "M&A Due Diligence for Education Businesses: A Leadership Perspective"
+description: "How leadership assessment and organisational due diligence can make or break education sector acquisitions."
+publishedAt: 2025-02-15
+contentType: "Board Advisory"
+author: "Alex Lockey"
+practiceArea: "Board Advisory"
+status: "published"
+---
+
+Education M&A failures rarely originate from financial or technical due diligence—they originate from leadership and organisational assessment gaps. Financial auditors can verify numbers, lawyers can confirm compliance, but assessing whether the leadership team of an acquired education business will genuinely integrate, adapt to new ownership, and execute post-acquisition strategy requires different expertise. Many acquisitions achieve financial closing only to fail at value creation because critical leadership and organisational risks were missed during due diligence.
+
+The most common gap in education sector due diligence is insufficient assessment of educator commitment and motivation. In education businesses, institutional knowledge and expertise reside in teaching staff and curriculum specialists—not in transferable systems. A finance person moving from one education provider to another transfers comparable capability; a specialist tutor or curriculum lead moving between organisations often represents a significant capability loss. Effective due diligence assesses whether key educators are motivated to remain post-acquisition, whether they understand the acquirer's educational philosophy, and whether tension between existing educational approach and acquirer's vision will create departures. These aren't interview conversations; they're structured organizational assessment by experienced education leaders.
+
+The second critical gap is leadership capability assessment beyond interview performance. Acquiring organisations typically assess target company leadership through interviews and CV review—insufficient for education businesses where leadership effectiveness in teaching-focused environments doesn't guarantee effectiveness in scaled, professionally managed organisations. An excellent Principal or Head of Centre might lack financial acumen, struggle with delegation, or resist operational process. Rigorous assessment requires structured evaluation of capabilities against requirements of roles post-acquisition, potentially identifying gaps that require remediating through transition support or replacement planning. This drives both better placement decisions and clearer post-acquisition transition plans.
+
+Cultural integration risk is the third common assessment failure. Education organisations develop distinctive cultures around teaching philosophy, student-centricity, and educational values. Acquirers often assume these are negotiable—they can enforce their culture and approach post-acquisition. This consistently proves false; education staff resist culture changes they perceive as compromising educational quality, and the friction costs far exceed anticipated savings. Rigorous cultural assessment prior to acquisition clarifies where cultures can genuinely integrate versus where fundamental tension exists. This informs acquisition price and post-acquisition integration strategy.
+
+The final due diligence gap is organisational capability assessment beyond leadership evaluation. Effective integration requires understanding organisational capability in critical functions: recruitment and retention, technology infrastructure, quality assurance processes, customer relationship management, commercial capability. Organisations with strong underlying operational capability integrate far more successfully than those where operational excellence is heavily dependent on individual leaders. Due diligence should assess whether capability is embedded in systems and processes or held by individuals; where it's individual-dependent, post-acquisition risk increases significantly.
+
+For education acquirers and boards evaluating strategic opportunities, engage experienced education advisors who understand both financial/legal due diligence and education-sector-specific organisational assessment. The cost of thorough leadership and organisational assessment is small relative to acquisition price and the strategic importance of getting integration right.

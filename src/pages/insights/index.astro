@@ -1,73 +1,47 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
 const title = "Insights & Analysis";
 const description = "Long-form analysis of the education, training, and skills sector. Market trends, leadership insights, and strategic analysis for education executives and investors.";
 
-const articles = [
-  {
-    slug: "leadership-apprenticeship-defunding-sales-survival-guide",
-    title: "Leadership Apprenticeship Defunding: A Sales Survival Guide for Training Providers",
-    date: "2026-02-20",
-    excerpt: "With the government pulling funding from management and leadership apprenticeships, training providers need to pivot fast. Here's a practical playbook for navigating the transition.",
-    tag: "Market Analysis",
-    readTime: "8 min read",
-    accent: "#3B82F6"
-  },
-  {
-    slug: "edtech-hiring-trends-2026",
-    title: "EdTech Hiring Trends: What the Funded Startups Are Actually Looking For",
-    date: "2026-02-15",
-    excerpt: "Analysis of 200+ EdTech hiring patterns reveals a shift from pure tech talent to commercial operators who understand education markets.",
-    tag: "Sector Intelligence",
-    readTime: "6 min read",
-    accent: "#10B981"
-  },
-  {
-    slug: "fe-college-leadership-pipeline-crisis",
-    title: "The FE College Leadership Pipeline Problem Nobody's Talking About",
-    date: "2026-02-08",
-    excerpt: "With 40% of FE principals due to retire in the next five years, colleges face an existential hiring challenge. What can leaders do now?",
-    tag: "Deep Dive",
-    readTime: "10 min read",
-    accent: "#8B5CF6"
-  },
-  {
-    slug: "corporate-learning-market-consolidation",
-    title: "Corporate Learning: Why Consolidation Is Coming",
-    date: "2026-01-30",
-    excerpt: "The corporate L&D market is fragmented. PE investors are circling. Which providers are acquisition targets, and which will acquire?",
-    tag: "Investment Thesis",
-    readTime: "7 min read",
-    accent: "#F59E0B"
-  },
-  {
-    slug: "vocational-education-workforce-planning",
-    title: "Vocational Education & Workforce Planning: A Government Paradox",
-    date: "2026-01-22",
-    excerpt: "Government policy increasingly emphasizes vocational training, but institutional support remains inconsistent. What does this mean for providers?",
-    tag: "Policy Analysis",
-    readTime: "9 min read",
-    accent: "#EC4899"
-  },
-  {
-    slug: "international-student-recruitment-post-brexit",
-    title: "International Student Recruitment: The Post-Brexit Opportunity",
-    date: "2026-01-15",
-    excerpt: "With Home Office visa reforms and growing interest from Asian markets, UK education institutions face both challenges and unprecedented opportunities.",
-    tag: "Market Analysis",
-    readTime: "8 min read",
-    accent: "#3B82F6"
-  }
-];
+// Get all insights from content collection
+const allInsights = await getCollection('insights');
+
+// Sort by date descending
+const articles = allInsights
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
+  .map((entry) => ({
+    slug: entry.id.replace(/\.md$/, ''),
+    title: entry.data.title,
+    date: entry.data.publishedAt.toISOString().split('T')[0],
+    excerpt: entry.data.description,
+    tag: entry.data.contentType,
+    readTime: entry.data.readTime || "5 min read",
+    accent: getColorByTag(entry.data.sector),
+  }));
 
 const tagStyles: Record<string, string> = {
-  'Market Analysis': '--tag-bg: #EFF6FF; --tag-color: #1D4ED8;',
-  'Sector Intelligence': '--tag-bg: #ECFDF5; --tag-color: #047857;',
-  'Deep Dive': '--tag-bg: #F5F3FF; --tag-color: #6D28D9;',
-  'Investment Thesis': '--tag-bg: #FFFBEB; --tag-color: #B45309;',
-  'Policy Analysis': '--tag-bg: #FDF2F8; --tag-color: #BE185D;'
+  'insights': '--tag-bg: #EFF6FF; --tag-color: #1D4ED8;',
+  'analysis': '--tag-bg: #ECFDF5; --tag-color: #047857;',
+  'market-analysis': '--tag-bg: #EFF6FF; --tag-color: #1D4ED8;',
+  'sector-intelligence': '--tag-bg: #ECFDF5; --tag-color: #047857;',
+  'research': '--tag-bg: #F5F3FF; --tag-color: #6D28D9;',
+  'training-providers': '--tag-bg: #F5F3FF; --tag-color: #6D28D9;',
+  'edtech': '--tag-bg: #FFFBEB; --tag-color: #B45309;',
+  'fe-colleges': '--tag-bg: #FDF2F8; --tag-color: #BE185D;',
 };
+
+function getColorByTag(sector: string): string {
+  const colors: Record<string, string> = {
+    'training-providers': '#3B82F6',
+    'edtech': '#10B981',
+    'fe-colleges': '#8B5CF6',
+    'investors': '#F59E0B',
+    'general': '#EC4899',
+  };
+  return colors[sector] || '#3B82F6';
+}
 ---
 
 <Layout title={title} description={description}>
@@ -85,33 +59,35 @@ const tagStyles: Record<string, string> = {
   </section>
 
   <!-- Featured article -->
-  <section class="section" style="padding-top: var(--space-2xl);">
-    <div class="container-wide">
-      <a href={`/insights/${articles[0].slug}`} class="featured-article">
-        <div class="featured-accent" style={`background: ${articles[0].accent};`}></div>
-        <div class="featured-content">
-          <div class="featured-meta">
-            <span class="tag-styled" style={tagStyles[articles[0].tag]}>{articles[0].tag}</span>
-            <span class="meta-text">{articles[0].readTime}</span>
+  {articles.length > 0 && (
+    <section class="section animate-on-scroll" style="padding-top: var(--space-2xl);">
+      <div class="container-wide">
+        <a href={`/insights/${articles[0].slug}`} class="featured-article">
+          <div class="featured-accent" style={`background: ${articles[0].accent};`}></div>
+          <div class="featured-content">
+            <div class="featured-meta">
+              <span class="tag-styled" style={tagStyles[articles[0].tag] || '--tag-bg: #EFF6FF; --tag-color: #1D4ED8;'}>{articles[0].tag}</span>
+              <span class="meta-text">{articles[0].readTime}</span>
+            </div>
+            <h2>{articles[0].title}</h2>
+            <p>{articles[0].excerpt}</p>
+            <span class="read-link">Read the full analysis &rarr;</span>
           </div>
-          <h2>{articles[0].title}</h2>
-          <p>{articles[0].excerpt}</p>
-          <span class="read-link">Read the full analysis &rarr;</span>
-        </div>
-      </a>
-    </div>
-  </section>
+        </a>
+      </div>
+    </section>
+  )}
 
   <!-- Articles Grid -->
   <section class="section">
     <div class="container-wide">
       <div class="articles-grid">
-        {articles.slice(1).map((article) => (
-          <a href={`/insights/${article.slug}`} class="article-card">
+        {articles.slice(1).map((article, index) => (
+          <a href={`/insights/${article.slug}`} class="article-card animate-on-scroll" style={`animation-delay: ${index * 0.1}s;`}>
             <div class="card-accent" style={`background: ${article.accent};`}></div>
             <div class="card-body">
               <div class="card-meta">
-                <span class="tag-styled" style={tagStyles[article.tag] || ''}>{article.tag}</span>
+                <span class="tag-styled" style={tagStyles[article.tag] || '--tag-bg: #EFF6FF; --tag-color: #1D4ED8;'}>{article.tag}</span>
                 <span class="meta-text">{article.readTime}</span>
               </div>
               <h3>{article.title}</h3>
@@ -134,7 +110,7 @@ const tagStyles: Record<string, string> = {
     <div class="container" style="text-align: center;">
       <h2 style="margin-bottom: var(--space-md);">Get insights like this weekly</h2>
       <p style="margin-bottom: var(--space-lg); color: var(--color-fg-muted); max-width: 480px; margin-left: auto; margin-right: auto;">
-        Subscribe to The Bolt Briefing — sector intelligence, leadership moves, and market analysis for education professionals.
+        Subscribe to The Bolt Briefing - sector intelligence, leadership moves, and market analysis for education professionals.
       </p>
       <a href="/subscribe" class="btn btn-primary">Subscribe to the Briefing <span aria-hidden="true">&rarr;</span></a>
     </div>

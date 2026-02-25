@@ -57,7 +57,7 @@ const navLinks = [
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
@@ -113,7 +113,7 @@ const navLinks = [
     .nav-logo:hover { color: var(--color-fg); }
 
     .nav-logo-img {
-      height: 28px;
+      height: 36px;
       width: auto;
     }
 
@@ -386,7 +386,7 @@ const navLinks = [
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="/" style="display: inline-block; margin-bottom: 1rem;">
-            <img src="/bolt-search-logo.png" alt="Bolt Search" style="height: 24px; width: auto; filter: brightness(0) invert(1);" />
+            <img src="/bolt-search-logo.png" alt="Bolt Search" style="height: 30px; width: auto; filter: brightness(0) invert(1);" />
           </a>
           <p>Trusted executive search, board advisory and fractional leadership for the UK education, training, and skills sector.</p>
         </div>
@@ -404,9 +404,8 @@ const navLinks = [
           <h4>Resources</h4>
           <ul>
             <li><a href="/insights">Insights</a></li>
-            <li><a href="/blog">Blog</a></li>
             <li><a href="/knowledge-base">Knowledge Base</a></li>
-            <li><a href="/briefing">Bolt Briefing</a></li>
+            <li><a href="/subscribe">Newsletter</a></li>
           </ul>
         </div>
 
@@ -422,7 +421,7 @@ const navLinks = [
 
       <div class="footer-bottom">
         <span>&copy; {currentYear} Bolt Search. All rights reserved.</span>
-        <span><a href="https://www.linkedin.com/in/alexlockey1/" target="_blank" rel="noopener">LinkedIn</a> · <a href="/subscribe">Newsletter</a></span>
+        <span>London - Newcastle - New York</span>
       </div>
     </div>
   </footer>
@@ -433,6 +432,41 @@ const navLinks = [
     const navLinks = document.getElementById('nav-links');
     menuToggle?.addEventListener('click', () => {
       navLinks?.classList.toggle('open');
+    });
+
+    // Scroll progress bar
+    const scrollProgress = document.createElement('div');
+    scrollProgress.className = 'scroll-progress';
+    document.body.appendChild(scrollProgress);
+
+    window.addEventListener('scroll', () => {
+      const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (window.scrollY / windowHeight) * 100;
+      scrollProgress.style.width = scrolled + '%';
+    });
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Stagger animations
+    document.querySelectorAll('.animate-on-scroll').forEach((el, index) => {
+      el.style.animationDelay = (index * 0.1) + 's';
     });
   </script>
 </body>
