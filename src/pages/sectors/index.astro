@@ -1,0 +1,103 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const sectors = [
+  {
+    slug: "training-providers",
+    name: "Training Providers",
+    description: "Apprenticeship providers, skills training organisations, corporate L&D, bootcamps, and employability programmes. Our core specialism.",
+    stats: "1,200+ companies tracked",
+    roles: "CEO, MD, Commercial Director, Director of Curriculum, Head of Quality, Operations Director"
+  },
+  {
+    slug: "edtech",
+    name: "EdTech",
+    description: "Learning platforms, LMS providers, assessment technology, educational software, and AI in education companies.",
+    stats: "400+ companies tracked",
+    roles: "CEO, CTO, Commercial Director, Head of Partnerships, VP Product, Customer Success Lead"
+  },
+  {
+    slug: "fe-colleges",
+    name: "FE Colleges",
+    description: "Further Education colleges and institutions delivering apprenticeships, vocational training, and adult education.",
+    stats: "350+ institutions",
+    roles: "Principal, Deputy Principal, VP Curriculum, Director of Apprenticeships, Director of Finance"
+  },
+  {
+    slug: "investors",
+    name: "Investors",
+    description: "Private equity firms, strategic buyers, venture capital, and education-focused investment funds active in the UK skills sector.",
+    stats: "150+ active investors",
+    roles: "Portfolio leadership, Operating Partners, Non-Executive Directors, Chair appointments"
+  }
+];
+---
+
+<Layout title="Sector Focus" description="Deep knowledge of the education ecosystem — training providers, EdTech, FE colleges, and investors.">
+  <section class="section">
+    <div class="container-wide">
+      <p class="section-label">Sector Focus</p>
+      <h1 style="margin-bottom: var(--space-md);">Deep knowledge of the education ecosystem</h1>
+      <p style="max-width: 600px; font-size: 1.0625rem; margin-bottom: var(--space-3xl);">
+        We track thousands of organisations across the UK education and skills landscape. Our sector intelligence informs every search, advisory engagement, and fractional placement.
+      </p>
+
+      <div class="sectors-list">
+        {sectors.map(sector => (
+          <div class="sector-detail card">
+            <div class="sector-header">
+              <h2>{sector.name}</h2>
+              <span class="tag">{sector.stats}</span>
+            </div>
+            <p>{sector.description}</p>
+            <div class="sector-roles">
+              <h4>Typical placements</h4>
+              <p style="font-size: 0.9375rem;">{sector.roles}</p>
+            </div>
+            <a href={`/contact?sector=${sector.slug}`} class="btn btn-outline" style="margin-top: var(--space-lg);">
+              Discuss a {sector.name} brief &rarr;
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .sectors-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .sector-detail {
+    padding: var(--space-2xl);
+  }
+
+  .sector-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .sector-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+
+  .sector-roles {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .sector-roles h4 {
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-fg-subtle);
+    margin-bottom: var(--space-xs);
+  }
+</style>

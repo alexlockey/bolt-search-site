@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const title = "Page Not Found";
+const description = "This page could not be found.";
+---
+
+<Layout title={title} description={description}>
+  <section class="section" style="min-height: 60vh; display: flex; align-items: center;">
+    <div class="container" style="text-align: center;">
+      <div style="max-width: 500px; margin: 0 auto;">
+        <div style="margin-bottom: var(--space-2xl);">
+          <h1 style="font-size: 5rem; color: var(--color-accent); margin-bottom: 0;">404</h1>
+        </div>
+
+        <h2 style="margin-bottom: var(--space-md);">Page Not Found</h2>
+
+        <p style="font-size: 1.0625rem; margin-bottom: var(--space-2xl); color: var(--color-fg-muted);">
+          The page you're looking for doesn't exist. It may have been moved or removed.
+        </p>
+
+        <a href="/" class="btn btn-primary" style="margin-right: var(--space-sm);">
+          Back to Home <span aria-hidden="true">&larr;</span>
+        </a>
+        <a href="/contact" class="btn btn-outline">
+          Get Help
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .container {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+  }
+</style>

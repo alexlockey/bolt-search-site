@@ -1,0 +1,432 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const title = "Trusted Executive Search & Board Advisory for Education & Training";
+const description = "Board and executive search for education, training, and edtech — trusted by investors and business leaders who value discretion, strategy, and lasting partnerships.";
+
+// These will be dynamic once content collection is populated
+const latestInsights = [
+  {
+    slug: "leadership-apprenticeship-defunding-sales-survival-guide",
+    title: "Leadership Apprenticeship Defunding: A Sales Survival Guide for Training Providers",
+    date: "2026-02-20",
+    excerpt: "With the government pulling funding from management and leadership apprenticeships, training providers need to pivot fast. Here's a practical playbook.",
+    tag: "Market Analysis",
+    sector: "Training Providers"
+  },
+  {
+    slug: "edtech-hiring-trends-2026",
+    title: "EdTech Hiring Trends: What the Funded Startups Are Actually Looking For",
+    date: "2026-02-15",
+    excerpt: "Analysis of 200+ EdTech hiring patterns reveals a shift from pure tech talent to commercial operators who understand education.",
+    tag: "Sector Intelligence",
+    sector: "EdTech"
+  },
+  {
+    slug: "fe-college-leadership-pipeline-crisis",
+    title: "The FE College Leadership Pipeline Problem Nobody's Talking About",
+    date: "2026-02-08",
+    excerpt: "With 40% of FE principals due to retire in the next five years, colleges face an existential hiring challenge.",
+    tag: "Deep Dive",
+    sector: "FE Colleges"
+  }
+];
+
+const sectors = [
+  {
+    name: "Training Providers",
+    href: "/sectors/training-providers",
+    description: "Apprenticeships, skills training, corporate L&D",
+    count: "1,200+ companies tracked"
+  },
+  {
+    name: "EdTech",
+    href: "/sectors/edtech",
+    description: "Learning platforms, LMS, assessment technology",
+    count: "400+ companies tracked"
+  },
+  {
+    name: "FE Colleges",
+    href: "/sectors/fe-colleges",
+    description: "Further education, vocational, adult learning",
+    count: "350+ institutions"
+  },
+  {
+    name: "Investors",
+    href: "/sectors/investors",
+    description: "PE firms, strategic buyers, education funds",
+    count: "150+ active investors"
+  }
+];
+---
+
+<Layout title={title} description={description}>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container-wide">
+      <div class="hero-content">
+        <p class="section-label">Executive Search · Board Advisory · Fractional Leadership</p>
+        <h1>Expertise You Can't Automate</h1>
+        <p class="hero-subtitle">
+          Board and executive search for <strong>education, training, and edtech</strong> — trusted by investors and business leaders who value discretion, strategy, and lasting partnerships.
+        </p>
+        <div class="hero-actions">
+          <a href="/contact" class="btn btn-primary">Book a Discovery Call <span aria-hidden="true">&rarr;</span></a>
+          <a href="/insights" class="btn btn-outline">Explore Insights</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Overview -->
+  <section class="section section-subtle">
+    <div class="container-wide">
+      <p class="section-label">What We Do</p>
+      <h2 style="margin-bottom: var(--space-2xl); max-width: 600px;">Three ways we help education businesses find the right people</h2>
+      <div class="grid-3">
+        <a href="/search" class="service-card card">
+          <div class="service-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+          </div>
+          <h3>Executive Search</h3>
+          <p>Senior, specialist hires at board and leadership level. Retained and semi-retained models for confidential, high-impact placements.</p>
+          <span class="card-link">Learn more &rarr;</span>
+        </a>
+        <a href="/advisory" class="service-card card">
+          <div class="service-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+            </svg>
+          </div>
+          <h3>Board Advisory</h3>
+          <p>Strategic consulting, M&A advisory, and board-level guidance for organisations navigating growth, acquisition, or restructuring.</p>
+          <span class="card-link">Learn more &rarr;</span>
+        </a>
+        <a href="/fractional" class="service-card card">
+          <div class="service-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <h3>Fractional Operators</h3>
+          <p>Experienced leaders on a fractional basis — bringing senior capability without the full-time commitment. Ideal for scaling businesses.</p>
+          <span class="card-link">Learn more &rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sector Intelligence -->
+  <section class="section">
+    <div class="container-wide">
+      <p class="section-label">Sector Focus</p>
+      <h2 style="margin-bottom: var(--space-xs); max-width: 600px;">Deep knowledge of the education ecosystem</h2>
+      <p style="margin-bottom: var(--space-2xl); max-width: 500px; font-size: 1.0625rem;">We track thousands of organisations across the UK education and skills landscape.</p>
+      <div class="sector-grid">
+        {sectors.map(sector => (
+          <a href={sector.href} class="sector-card">
+            <h4>{sector.name}</h4>
+            <p>{sector.description}</p>
+            <span class="sector-count">{sector.count}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Insights -->
+  <section class="section section-subtle">
+    <div class="container-wide">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: var(--space-2xl);">
+        <div>
+          <p class="section-label">Latest Insights</p>
+          <h2 style="margin-bottom: 0;">Market intelligence and analysis</h2>
+        </div>
+        <a href="/insights" class="btn btn-outline" style="flex-shrink: 0;">View all &rarr;</a>
+      </div>
+      <div class="grid-3">
+        {latestInsights.map(post => (
+          <a href={`/insights/${post.slug}`} class="insight-card card">
+            <div class="insight-meta">
+              <span class="tag">{post.tag}</span>
+              <time datetime={post.date}>
+                {new Date(post.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+              </time>
+            </div>
+            <h3>{post.title}</h3>
+            <p>{post.excerpt}</p>
+            <span class="card-link">Read more &rarr;</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust / Social Proof -->
+  <section class="section section-dark">
+    <div class="container-wide" style="text-align: center;">
+      <p class="section-label" style="color: rgba(255,255,255,0.5);">Why Bolt Search</p>
+      <h2 style="margin-bottom: var(--space-xl); max-width: 700px; margin-left: auto; margin-right: auto;">
+        The sector's most connected search partner
+      </h2>
+      <div class="stats-grid">
+        <div class="stat">
+          <span class="stat-number">3,400+</span>
+          <span class="stat-label">Companies in our network</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">1,500+</span>
+          <span class="stat-label">Senior contacts mapped</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">15+</span>
+          <span class="stat-label">Years in education recruitment</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">Retained & advisory focus</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="container-wide" style="text-align: center;">
+      <h2 style="margin-bottom: var(--space-md);">Ready to find the right leader?</h2>
+      <p style="max-width: 500px; margin: 0 auto var(--space-xl); font-size: 1.0625rem;">
+        Whether you're making a critical hire, exploring an acquisition, or need fractional leadership — let's talk.
+      </p>
+      <div style="display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap;">
+        <a href="/contact" class="btn btn-primary">Book a Discovery Call <span aria-hidden="true">&rarr;</span></a>
+        <a href="/subscribe" class="btn btn-outline">Subscribe to the Briefing</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hero */
+  .hero {
+    background: var(--color-navy);
+    color: var(--color-white);
+    padding: var(--space-5xl) 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 70% 30%, rgba(59, 130, 246, 0.12) 0%, transparent 60%),
+      radial-gradient(circle at 30% 70%, rgba(59, 130, 246, 0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    max-width: 720px;
+  }
+
+  .hero .section-label {
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero h1 {
+    color: var(--color-white);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    margin-bottom: var(--space-lg);
+    line-height: 1.1;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1.0625rem, 2vw, 1.25rem);
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.6;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .hero-subtitle strong {
+    color: white;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .hero .btn-primary {
+    background: var(--color-accent);
+    color: white;
+  }
+
+  .hero .btn-primary:hover {
+    background: var(--color-accent-dark);
+  }
+
+  .hero .btn-outline {
+    border-color: rgba(255, 255, 255, 0.3);
+    color: white;
+  }
+
+  .hero .btn-outline:hover {
+    border-color: white;
+    color: white;
+  }
+
+  /* Service cards */
+  .service-card {
+    text-decoration: none;
+    display: block;
+    color: inherit;
+  }
+
+  .service-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--color-accent-light);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--space-lg);
+    color: var(--color-accent);
+  }
+
+  .service-card h3 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .card-link {
+    display: inline-block;
+    margin-top: var(--space-md);
+    color: var(--color-accent);
+    font-weight: 500;
+    font-size: 0.9375rem;
+  }
+
+  .service-card:hover .card-link {
+    text-decoration: underline;
+  }
+
+  /* Sector grid */
+  .sector-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+  }
+
+  .sector-card {
+    padding: var(--space-xl);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.25s ease;
+    display: block;
+  }
+
+  .sector-card:hover {
+    border-color: var(--color-accent);
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.08);
+    transform: translateY(-2px);
+  }
+
+  .sector-card h4 {
+    margin-bottom: var(--space-xs);
+    font-size: 1rem;
+  }
+
+  .sector-card p {
+    font-size: 0.875rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .sector-count {
+    font-size: 0.8125rem;
+    color: var(--color-accent);
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .sector-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .sector-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Insight cards */
+  .insight-card {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .insight-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .insight-meta time {
+    font-size: 0.8125rem;
+    color: var(--color-fg-subtle);
+  }
+
+  .insight-card h3 {
+    font-size: 1.125rem;
+    margin-bottom: var(--space-sm);
+    line-height: 1.35;
+  }
+
+  .insight-card p {
+    font-size: 0.9375rem;
+    flex: 1;
+  }
+
+  .insight-card:hover h3 {
+    color: var(--color-accent);
+  }
+
+  /* Stats */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-xl);
+    margin-top: var(--space-2xl);
+  }
+
+  .stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+    margin-bottom: var(--space-xs);
+  }
+
+  .stat-label {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  @media (max-width: 768px) {
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-lg);
+    }
+  }
+</style>

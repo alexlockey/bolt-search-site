@@ -1,0 +1,201 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const title = "Subscribe to The Bolt Briefing";
+const description = "Weekly intelligence on the education, training, and skills sector. Market signals, leadership moves, M&A activity, and policy changes.";
+---
+
+<Layout title={title} description={description}>
+  <!-- Hero -->
+  <section class="section">
+    <div class="container" style="text-align: center;">
+      <h1>The Bolt Briefing</h1>
+      <p style="font-size: 1.125rem; margin-top: var(--space-lg); color: var(--color-fg-muted);">
+        Weekly intelligence on the education, training, and skills sector
+      </p>
+    </div>
+  </section>
+
+  <!-- Value Proposition -->
+  <section class="section section-subtle">
+    <div class="container">
+      <div style="max-width: 700px; margin: 0 auto;">
+        <h2 style="text-align: center; margin-bottom: var(--space-2xl);">What You'll Get</h2>
+
+        <div class="value-grid">
+          <div class="value-item">
+            <div class="value-icon">📊</div>
+            <h3 style="font-size: 1rem; margin-bottom: var(--space-sm);">Market Signals</h3>
+            <p style="font-size: 0.9375rem; margin-bottom: 0;">
+              Funding announcements, M&A activity, and market trends in education, training, and edtech.
+            </p>
+          </div>
+
+          <div class="value-item">
+            <div class="value-icon">👔</div>
+            <h3 style="font-size: 1rem; margin-bottom: var(--space-sm);">Leadership Moves</h3>
+            <p style="font-size: 0.9375rem; margin-bottom: 0;">
+              Key executive appointments, departures, and board changes across the sector.
+            </p>
+          </div>
+
+          <div class="value-item">
+            <div class="value-icon">🤝</div>
+            <h3 style="font-size: 1rem; margin-bottom: var(--space-sm);">M&A Intelligence</h3>
+            <p style="font-size: 0.9375rem; margin-bottom: 0;">
+              Acquisitions, strategic partnerships, and consolidation activity affecting the market.
+            </p>
+          </div>
+
+          <div class="value-item">
+            <div class="value-icon">📋</div>
+            <h3 style="font-size: 1rem; margin-bottom: var(--space-sm);">Policy Changes</h3>
+            <p style="font-size: 0.9375rem; margin-bottom: 0;">
+              Government announcements, funding changes, and regulatory updates that impact business.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Signup Form -->
+  <section class="section">
+    <div class="container" style="max-width: 500px;">
+      <div style="text-align: center; margin-bottom: var(--space-2xl);">
+        <h2>Subscribe Now</h2>
+        <p style="color: var(--color-fg-muted);">
+          Join 500+ education leaders, investors, and providers receiving weekly briefings.
+        </p>
+      </div>
+
+      <form class="signup-form" action="https://app.beehiiv.com/subscribe" method="POST" target="_blank">
+        <input type="hidden" name="publication_id" value="pub_ecd944a7-3f6e-4043-8597-6990a30c37cf">
+
+        <div class="form-group">
+          <label for="email" style="display: block; margin-bottom: var(--space-sm); font-weight: 500;">
+            Email Address
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="your@email.com"
+            required
+            style="
+              width: 100%;
+              padding: 0.875rem 1rem;
+              border: 1px solid var(--color-border);
+              border-radius: 8px;
+              font-size: 1rem;
+              font-family: inherit;
+              transition: border-color 0.2s;
+            "
+          >
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+          style="width: 100%; justify-content: center;"
+        >
+          Subscribe <span aria-hidden="true">&rarr;</span>
+        </button>
+
+        <p style="font-size: 0.8125rem; color: var(--color-fg-subtle); text-align: center; margin-top: var(--space-md); margin-bottom: 0;">
+          Privacy first. Unsubscribe anytime. No spam, ever.
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section-subtle">
+    <div class="container" style="max-width: 600px;">
+      <h2 style="text-align: center; margin-bottom: var(--space-2xl);">FAQ</h2>
+
+      <div class="faq-item">
+        <h3 style="margin-bottom: var(--space-sm);">How often do you send emails?</h3>
+        <p style="margin-bottom: 0;">
+          The Bolt Briefing is sent weekly, every Monday morning. We also occasionally send special reports and analysis pieces between regular editions.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3 style="margin-bottom: var(--space-sm);">What's the difference between this and blog posts?</h3>
+        <p style="margin-bottom: 0;">
+          The Briefing is curated intelligence and market signals delivered directly to your inbox. Our blog features longer-form analysis and commentary that you can explore anytime.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3 style="margin-bottom: var(--space-sm);">Is this free?</h3>
+        <p style="margin-bottom: 0;">
+          Yes. The Bolt Briefing is free for all subscribers. We use it to share insights and stay connected with leaders in the education and training sector.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3 style="margin-bottom: var(--space-sm);">Can I unsubscribe?</h3>
+        <p style="margin-bottom: 0;">
+          Absolutely. Every email includes an unsubscribe link. No questions asked, no hard feelings.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .container {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+  }
+
+  .value-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2xl);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .value-item {
+    text-align: center;
+  }
+
+  .value-icon {
+    font-size: 3rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    padding: var(--space-2xl);
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .faq-item {
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .faq-item:last-child {
+    border-bottom: none;
+  }
+
+  @media (max-width: 768px) {
+    .value-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+    }
+  }
+</style>

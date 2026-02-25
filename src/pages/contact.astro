@@ -1,0 +1,99 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const title = "Get in Touch";
+const description = "Contact Bolt Search to discuss your hiring, advisory, or leadership needs. Book a discovery call or email us directly.";
+---
+
+<Layout title={title} description={description}>
+  <!-- Hero -->
+  <section class="section">
+    <div class="container">
+      <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+        <h1>Let's Talk</h1>
+        <p style="font-size: 1.125rem; margin-top: var(--space-lg);">
+          Interested in executive search, board advisory, or fractional leadership? Let's discuss how we can help.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Info -->
+  <section class="section section-subtle">
+    <div class="container">
+      <div style="max-width: 600px; margin: 0 auto;">
+        <h2 style="margin-bottom: var(--space-2xl);">Get in Touch</h2>
+
+        <div style="margin-bottom: var(--space-3xl);">
+          <h3 style="margin-bottom: var(--space-sm);">Email</h3>
+          <p style="font-size: 1.0625rem;">
+            <a href="mailto:alex@bolt-search.com">alex@bolt-search.com</a>
+          </p>
+        </div>
+
+        <div style="margin-bottom: var(--space-3xl);">
+          <h3 style="margin-bottom: var(--space-sm);">Book a Discovery Call</h3>
+          <p style="margin-bottom: var(--space-md);">
+            The fastest way to discuss your needs is to book a 30-minute discovery call.
+          </p>
+          <a href="https://calendly.com/bolt-search/discovery" target="_blank" rel="noopener" class="btn btn-primary">
+            Open Calendar <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Best Fit Section -->
+  <section class="section">
+    <div class="container">
+      <h2 style="margin-bottom: var(--space-2xl);">Best Fit If You're...</h2>
+      <div class="grid-2" style="margin-bottom: var(--space-2xl);">
+        <div class="card">
+          <h3 style="margin-bottom: var(--space-sm);">Hiring at Board or Senior Level</h3>
+          <p>
+            Looking for executive-level talent in education, training, or edtech. We specialise in confidential, strategic placements for boards and C-suite roles.
+          </p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom: var(--space-sm);">Exploring an Acquisition</h3>
+          <p>
+            Considering a strategic acquisition in the education or training sector. We provide market intelligence, target identification, and integration advisory.
+          </p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom: var(--space-sm);">Need Fractional Leadership</h3>
+          <p>
+            Require experienced leadership support on a fractional or interim basis. Board roles, CEO cover, or specialist operational expertise.
+          </p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom: var(--space-sm);">Investor Seeking Portfolio Support</h3>
+          <p>
+            Portfolio business needs leadership talent, M&A support, or operational guidance. We advise investors and their portfolio companies.
+          </p>
+        </div>
+      </div>
+
+      <div style="max-width: 600px;">
+        <p style="color: var(--color-fg-subtle);">
+          Not sure if we're the right fit? Email us and we'll point you in the right direction.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .container {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+  }
+
+  @media (max-width: 768px) {
+    .grid-2 {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

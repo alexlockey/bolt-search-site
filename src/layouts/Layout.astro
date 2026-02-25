@@ -1,0 +1,444 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  article?: boolean;
+}
+
+const {
+  title,
+  description = "Trusted executive search, board advisory and fractional leadership for the education, training, and skills sector.",
+  image = "/og-image.png",
+  article = false
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const currentYear = new Date().getFullYear();
+const currentPath = Astro.url.pathname;
+
+import '../styles/global.css';
+
+const navLinks = [
+  { href: '/search', label: 'Executive Search' },
+  { href: '/advisory', label: 'Advisory' },
+  { href: '/fractional', label: 'Fractional' },
+  { href: '/insights', label: 'Insights' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title} | Bolt Search</title>
+  <meta name="description" content={description}>
+  <link rel="canonical" href={canonicalURL}>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content={article ? "article" : "website"}>
+  <meta property="og:url" content={canonicalURL}>
+  <meta property="og:title" content={`${title} | Bolt Search`}>
+  <meta property="og:description" content={description}>
+  <meta property="og:image" content={new URL(image, Astro.site)}>
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content={`${title} | Bolt Search`}>
+  <meta name="twitter:description" content={description}>
+  <meta name="twitter:image" content={new URL(image, Astro.site)}>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+
+  <!-- Schema.org -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": article ? "Article" : "Organization",
+    "name": "Bolt Search",
+    "url": "https://www.bolt-search.com",
+    "description": description,
+    "logo": "https://www.bolt-search.com/logo.svg",
+    "sameAs": [
+      "https://www.linkedin.com/company/bolt-search"
+    ]
+  })} />
+
+  <style>
+    /* Navigation */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-md) 0;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--color-fg);
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo:hover { color: var(--color-fg); }
+
+    .nav-logo svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: var(--space-xl);
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--color-fg-muted);
+      font-size: 0.9375rem;
+      font-weight: 450;
+      text-decoration: none;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .nav-links a:hover,
+    .nav-links a[aria-current="page"] {
+      color: var(--color-fg);
+    }
+
+    .nav-links a[aria-current="page"]::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--color-accent);
+      border-radius: 1px;
+    }
+
+    .nav-cta {
+      padding: 0.5rem 1.25rem !important;
+      background: var(--color-navy);
+      color: white !important;
+      border-radius: 6px;
+      font-weight: 500 !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--color-navy-mid);
+      color: white !important;
+    }
+
+    /* Mobile menu */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      color: var(--color-fg);
+    }
+
+    @media (max-width: 900px) {
+      .menu-toggle { display: block; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: var(--space-lg);
+        gap: var(--space-md);
+        border-bottom: 1px solid var(--color-border);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      }
+      .nav-links.open { display: flex; }
+    }
+
+    /* Footer */
+    .site-footer {
+      background: var(--color-navy);
+      color: rgba(255, 255, 255, 0.8);
+      padding: var(--space-4xl) 0 var(--space-2xl);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: var(--space-3xl);
+      margin-bottom: var(--space-3xl);
+    }
+
+    .footer-brand p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      max-width: 300px;
+    }
+
+    .footer-section h4 {
+      color: white;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: var(--space-lg);
+    }
+
+    .footer-section ul {
+      list-style: none;
+    }
+
+    .footer-section li {
+      margin-bottom: var(--space-sm);
+    }
+
+    .footer-section a {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9375rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-section a:hover {
+      color: white;
+    }
+
+    .footer-subscribe {
+      margin-bottom: var(--space-3xl);
+      padding: var(--space-xl);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+    }
+
+    .footer-subscribe h4 {
+      color: white;
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: var(--space-xs);
+    }
+
+    .footer-subscribe p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9375rem;
+      margin-bottom: var(--space-md);
+    }
+
+    .subscribe-form {
+      display: flex;
+      gap: var(--space-sm);
+      max-width: 480px;
+    }
+
+    .subscribe-form input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      color: white;
+      font-size: 0.9375rem;
+    }
+
+    .subscribe-form input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .subscribe-form button {
+      padding: 0.75rem 1.5rem;
+      background: var(--color-accent);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 0.9375rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .subscribe-form button:hover {
+      background: var(--color-accent-dark);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: var(--space-xl);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.8125rem;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .footer-bottom a {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .footer-bottom a:hover {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    @media (max-width: 768px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-xl);
+      }
+      .subscribe-form {
+        flex-direction: column;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        gap: var(--space-sm);
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="site-nav">
+    <div class="container-wide">
+      <div class="nav-inner">
+        <a href="/" class="nav-logo">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="15" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="16" cy="16" r="6" fill="#3B82F6"/>
+            <path d="M16 4v6M16 22v6M4 16h6M22 16h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          Bolt Search
+        </a>
+
+        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+
+        <ul class="nav-links" id="nav-links">
+          {navLinks.map(link => (
+            <li>
+              <a
+                href={link.href}
+                aria-current={currentPath === link.href || currentPath.startsWith(link.href + '/') ? 'page' : undefined}
+                class={link.href === '/contact' ? 'nav-cta' : ''}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main>
+    <slot />
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container-wide">
+      <!-- Newsletter signup -->
+      <div class="footer-subscribe">
+        <h4>The Bolt Briefing</h4>
+        <p>Weekly intelligence on the education, training, and skills sector. Market signals, leadership moves, and sector analysis.</p>
+        <form class="subscribe-form" action="https://app.beehiiv.com/subscribe" method="POST" target="_blank">
+          <input type="hidden" name="publication_id" value="pub_ecd944a7-3f6e-4043-8597-6990a30c37cf">
+          <input type="email" name="email" placeholder="your@email.com" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="nav-logo" style="color: white; margin-bottom: 1rem; display: inline-flex;">
+            Bolt Search
+          </a>
+          <p>Trusted executive search, board advisory and fractional leadership for the UK education, training, and skills sector.</p>
+        </div>
+
+        <div class="footer-section">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="/search">Executive Search</a></li>
+            <li><a href="/advisory">Board Advisory</a></li>
+            <li><a href="/fractional">Fractional Operators</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="/insights">Insights</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/knowledge-base">Knowledge Base</a></li>
+            <li><a href="/briefing">Bolt Briefing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="https://www.linkedin.com/company/bolt-search" target="_blank" rel="noopener">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; {currentYear} Bolt Search. All rights reserved.</span>
+        <span>Part of <a href="https://tiding.ai" target="_blank" rel="noopener">Tiding Holdings</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+    menuToggle?.addEventListener('click', () => {
+      navLinks?.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const title = "Blog";
+const description = "Quick takes, news commentary, and market observations on the education, training, and skills sector.";
+
+const posts = [
+  {
+    slug: "apprenticeship-funding-announcement-reactions",
+    title: "Apprenticeship Funding Announcement: What Training Providers Are Saying",
+    date: "2026-02-24",
+    excerpt: "Industry reaction to government funding changes shows wide concerns about provider viability and market consolidation.",
+    readTime: "4 min read"
+  },
+  {
+    slug: "edtech-funding-dry-spell-continues",
+    title: "EdTech Funding Dry Spell Continues into Q1 2026",
+    date: "2026-02-18",
+    excerpt: "VC funding for education technology remains subdued. What's happening with the deals that are getting done?",
+    readTime: "5 min read"
+  },
+  {
+    slug: "pe-interest-in-skills-sector",
+    title: "Private Equity is Quietly Buying Up Skills Providers",
+    date: "2026-02-10",
+    excerpt: "Whilst headlines focus on cuts, PE firms are actively building portfolio platforms across corporate training and assessment.",
+    readTime: "4 min read"
+  },
+  {
+    slug: "new-fe-college-ceo-appointments",
+    title: "New FE College CEO Appointments: Who's Moving?",
+    date: "2026-02-03",
+    excerpt: "February announcements show leadership changes at a dozen major colleges. We've tracked the moves and what they signal.",
+    readTime: "3 min read"
+  },
+  {
+    slug: "talent-crisis-in-technical-education",
+    title: "Why Recruiting for Technical Education Is Getting Harder",
+    date: "2026-01-28",
+    excerpt: "Competition for engineering and technical lecturers is intense. Industry roles still pay better than education. What can institutions do?",
+    readTime: "5 min read"
+  },
+  {
+    slug: "higher-ed-digital-transformation",
+    title: "Higher Education's Digital Transformation: Slow Progress",
+    date: "2026-01-21",
+    excerpt: "Universities investing heavily in tech but adoption remains patchy. Tech executives brought in from industry report surprising resistance to change.",
+    readTime: "4 min read"
+  },
+  {
+    slug: "levy-reform-debate-heats-up",
+    title: "Levy Reform Debate: Is the Apprenticeship Levy Doing Its Job?",
+    date: "2026-01-14",
+    excerpt: "Policy makers increasingly questioning whether the apprenticeship levy achieves its intended purpose. Reform proposals emerging.",
+    readTime: "5 min read"
+  },
+  {
+    slug: "global-edtech-consolidation-wave",
+    title: "Global EdTech Consolidation: Which UK Platforms Are Targets?",
+    date: "2026-01-07",
+    excerpt: "International EdTech giants are shopping for UK acquisitions. Several UK platforms rumoured to be in discussions.",
+    readTime: "4 min read"
+  }
+];
+---
+
+<Layout title={title} description={description}>
+  <!-- Hero -->
+  <section class="section">
+    <div class="container-wide">
+      <div style="max-width: 600px;">
+        <h1>{title}</h1>
+        <p style="font-size: 1.125rem; margin-top: var(--space-md); color: var(--color-fg-muted);">
+          Quick takes, news commentary, and market observations
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Posts -->
+  <section class="section section-subtle">
+    <div class="container-wide">
+      <div class="blog-list">
+        {posts.map((post) => (
+          <a href={`/blog/${post.slug}`} class="blog-item">
+            <div>
+              <h3 style="margin-bottom: var(--space-sm); color: var(--color-fg);">
+                {post.title}
+              </h3>
+              <p style="margin-bottom: 0; color: var(--color-fg-muted);">
+                {post.excerpt}
+              </p>
+            </div>
+            <div class="blog-meta">
+              <span style="font-size: 0.8125rem; color: var(--color-fg-subtle);">
+                {post.date}
+              </span>
+              <span style="font-size: 0.8125rem; color: var(--color-fg-subtle);">
+                {post.readTime}
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="container">
+      <div style="text-align: center;">
+        <h2 style="margin-bottom: var(--space-md);">Get Market Intelligence Weekly</h2>
+        <p style="margin-bottom: var(--space-lg); color: var(--color-fg-muted);">
+          Blog posts, weekly briefings, and exclusive commentary delivered to your inbox.
+        </p>
+        <a href="/subscribe" class="btn btn-primary">Subscribe Now <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .container {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+  }
+
+  .container-wide {
+    max-width: var(--wide-width);
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+  }
+
+  .blog-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .blog-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: var(--space-lg);
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    gap: var(--space-lg);
+  }
+
+  .blog-item:hover {
+    border-color: var(--color-border-strong);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    transform: translateY(-1px);
+  }
+
+  .blog-meta {
+    display: flex;
+    gap: var(--space-md);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 768px) {
+    .blog-item {
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .blog-meta {
+      flex-direction: column;
+      gap: var(--space-xs);
+      white-space: normal;
+    }
+  }
+</style>

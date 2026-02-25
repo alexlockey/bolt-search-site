@@ -1,0 +1,154 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const title = "Insights & Analysis";
+const description = "Long-form analysis of the education, training, and skills sector. Market trends, leadership insights, and strategic analysis for education executives and investors.";
+
+const articles = [
+  {
+    slug: "leadership-apprenticeship-defunding-sales-survival-guide",
+    title: "Leadership Apprenticeship Defunding: A Sales Survival Guide for Training Providers",
+    date: "2026-02-20",
+    excerpt: "With the government pulling funding from management and leadership apprenticeships, training providers need to pivot fast. Here's a practical playbook for navigating the transition.",
+    tag: "Market Analysis",
+    readTime: "8 min read"
+  },
+  {
+    slug: "edtech-hiring-trends-2026",
+    title: "EdTech Hiring Trends: What the Funded Startups Are Actually Looking For",
+    date: "2026-02-15",
+    excerpt: "Analysis of 200+ EdTech hiring patterns reveals a shift from pure tech talent to commercial operators who understand education markets.",
+    tag: "Sector Intelligence",
+    readTime: "6 min read"
+  },
+  {
+    slug: "fe-college-leadership-pipeline-crisis",
+    title: "The FE College Leadership Pipeline Problem Nobody's Talking About",
+    date: "2026-02-08",
+    excerpt: "With 40% of FE principals due to retire in the next five years, colleges face an existential hiring challenge. What can leaders do now?",
+    tag: "Deep Dive",
+    readTime: "10 min read"
+  },
+  {
+    slug: "corporate-learning-market-consolidation",
+    title: "Corporate Learning: Why Consolidation Is Coming",
+    date: "2026-01-30",
+    excerpt: "The corporate L&D market is fragmented. PE investors are circling. Which providers are acquisition targets, and which will acquire?",
+    tag: "Investment Thesis",
+    readTime: "7 min read"
+  },
+  {
+    slug: "vocational-education-workforce-planning",
+    title: "Vocational Education & Workforce Planning: A Government Paradox",
+    date: "2026-01-22",
+    excerpt: "Government policy increasingly emphasizes vocational training, but institutional support remains inconsistent. What does this mean for providers?",
+    tag: "Policy Analysis",
+    readTime: "9 min read"
+  },
+  {
+    slug: "international-student-recruitment-post-brexit",
+    title: "International Student Recruitment: The Post-Brexit Opportunity",
+    date: "2026-01-15",
+    excerpt: "With Home Office visa reforms and growing interest from Asian markets, UK education institutions face both challenges and unprecedented opportunities.",
+    tag: "Market Analysis",
+    readTime: "8 min read"
+  }
+];
+
+const tagColors = {
+  'Market Analysis': 'tag-blue',
+  'Sector Intelligence': 'tag-blue',
+  'Deep Dive': 'tag-indigo',
+  'Investment Thesis': 'tag-blue',
+  'Policy Analysis': 'tag-indigo'
+};
+---
+
+<Layout title={title} description={description}>
+  <!-- Hero -->
+  <section class="section">
+    <div class="container-wide">
+      <div style="max-width: 600px;">
+        <h1>{title}</h1>
+        <p style="font-size: 1.125rem; margin-top: var(--space-md); color: var(--color-fg-muted);">
+          Long-form analysis of the education, training, and skills sector
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Articles Grid -->
+  <section class="section section-subtle">
+    <div class="container-wide">
+      <div class="grid-3">
+        {articles.map((article) => (
+          <a href={`/insights/${article.slug}`} class="card article-card">
+            <div style="margin-bottom: var(--space-md);">
+              <span class="tag">{article.tag}</span>
+              <p style="font-size: 0.8125rem; color: var(--color-fg-subtle); margin-top: var(--space-sm); margin-bottom: 0;">
+                {article.date} · {article.readTime}
+              </p>
+            </div>
+            <h3 style="margin-bottom: var(--space-md); line-height: 1.4;">
+              {article.title}
+            </h3>
+            <p style="margin-bottom: 0; color: var(--color-fg-muted);">
+              {article.excerpt}
+            </p>
+            <span class="card-link" style="margin-top: var(--space-md); display: inline-block;">
+              Read more &rarr;
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section">
+    <div class="container">
+      <div style="text-align: center;">
+        <h2 style="margin-bottom: var(--space-md);">Stay Updated</h2>
+        <p style="margin-bottom: var(--space-lg); color: var(--color-fg-muted);">
+          New insights published weekly. Subscribe to The Bolt Briefing for sector intelligence, leadership moves, and market analysis.
+        </p>
+        <a href="/subscribe" class="btn btn-primary">Subscribe to Our Newsletter <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .container {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+  }
+
+  .container-wide {
+    max-width: var(--wide-width);
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+  }
+
+  .article-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-link {
+    color: var(--color-accent);
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .article-card:hover .card-link {
+    color: var(--color-accent-dark);
+  }
+
+  @media (max-width: 768px) {
+    .grid-3 {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
