@@ -58,13 +58,22 @@ const sectors = [
     count: "150+ active investors"
   }
 ];
+
+const clientLogos = [
+  "Turing College",
+  "QA",
+  "BPP",
+  "Global Education",
+  "B2W Group",
+  "AKG Education"
+];
 ---
 
 <Layout title={title} description={description}>
-  <!-- Hero -->
-  <section class="hero">
+  <!-- Hero with background image -->
+  <section class="hero hero-parallax image-section" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80');">
     <div class="container-wide">
-      <div class="hero-content">
+      <div class="hero-content animate-on-scroll">
         <p class="section-label">Executive Search · Board Advisory · Fractional Leadership</p>
         <h1>Expertise You Can't Automate</h1>
         <p class="hero-subtitle">
@@ -85,8 +94,9 @@ const sectors = [
       <h2 style="margin-bottom: var(--space-2xl); max-width: 600px;">Three ways we help education businesses find the right people</h2>
       <div class="grid-3">
         <a href="/search" class="service-card card">
+          <div class="service-card-number">01</div>
           <div class="service-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
             </svg>
           </div>
@@ -95,8 +105,9 @@ const sectors = [
           <span class="card-link">Learn more &rarr;</span>
         </a>
         <a href="/advisory" class="service-card card">
+          <div class="service-card-number">02</div>
           <div class="service-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
             </svg>
           </div>
@@ -105,8 +116,9 @@ const sectors = [
           <span class="card-link">Learn more &rarr;</span>
         </a>
         <a href="/fractional" class="service-card card">
+          <div class="service-card-number">03</div>
           <div class="service-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
             </svg>
           </div>
@@ -118,6 +130,24 @@ const sectors = [
     </div>
   </section>
 
+  <!-- Client Logos -->
+  <section class="section client-logos-section">
+    <div class="container-wide">
+      <p class="section-label">Trusted by Leaders</p>
+      <h2 style="margin-bottom: var(--space-2xl);">Trusted by leaders across education & training</h2>
+      <div class="client-logos-wrapper">
+        <div class="client-logos-marquee">
+          {clientLogos.map((logo) => (
+            <span class="client-logo-badge">{logo}</span>
+          ))}
+          {clientLogos.map((logo) => (
+            <span class="client-logo-badge">{logo}</span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Sector Intelligence -->
   <section class="section">
     <div class="container-wide">
@@ -125,13 +155,38 @@ const sectors = [
       <h2 style="margin-bottom: var(--space-xs); max-width: 600px;">Deep knowledge of the education ecosystem</h2>
       <p style="margin-bottom: var(--space-2xl); max-width: 500px; font-size: 1.0625rem;">We track thousands of organisations across the UK education and skills landscape.</p>
       <div class="sector-grid">
-        {sectors.map(sector => (
-          <a href={sector.href} class="sector-card">
-            <h4>{sector.name}</h4>
-            <p>{sector.description}</p>
-            <span class="sector-count">{sector.count}</span>
-          </a>
-        ))}
+        <a href={sectors[0].href} class="sector-card">
+          <div class="sector-image-container">
+            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&q=80" alt="Training" loading="lazy" />
+          </div>
+          <h4>{sectors[0].name}</h4>
+          <p>{sectors[0].description}</p>
+          <span class="sector-count">{sectors[0].count}</span>
+        </a>
+        <a href={sectors[1].href} class="sector-card">
+          <div class="sector-image-container">
+            <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&q=80" alt="EdTech" loading="lazy" />
+          </div>
+          <h4>{sectors[1].name}</h4>
+          <p>{sectors[1].description}</p>
+          <span class="sector-count">{sectors[1].count}</span>
+        </a>
+        <a href={sectors[2].href} class="sector-card">
+          <div class="sector-image-container">
+            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&q=80" alt="FE Colleges" loading="lazy" />
+          </div>
+          <h4>{sectors[2].name}</h4>
+          <p>{sectors[2].description}</p>
+          <span class="sector-count">{sectors[2].count}</span>
+        </a>
+        <a href={sectors[3].href} class="sector-card">
+          <div class="sector-image-container">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&q=80" alt="Investors" loading="lazy" />
+          </div>
+          <h4>{sectors[3].name}</h4>
+          <p>{sectors[3].description}</p>
+          <span class="sector-count">{sectors[3].count}</span>
+        </a>
       </div>
     </div>
   </section>
@@ -147,13 +202,15 @@ const sectors = [
         <a href="/insights" class="btn btn-outline" style="flex-shrink: 0;">View all &rarr;</a>
       </div>
       <div class="grid-3">
-        {latestInsights.map(post => (
+        {latestInsights.map((post, idx) => (
           <a href={`/insights/${post.slug}`} class="insight-card card">
-            <div class="insight-meta">
-              <span class="tag">{post.tag}</span>
-              <time datetime={post.date}>
-                {new Date(post.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
-              </time>
+            <div class="insight-header">
+              <div class="insight-meta">
+                <span class="tag" style={`--tag-color: ${idx === 0 ? '#10B981' : idx === 1 ? '#F59E0B' : '#8B5CF6'}`}>{post.tag}</span>
+                <time datetime={post.date} style="font-size: 0.8125rem; color: var(--color-fg-subtle);">
+                  {new Date(post.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                </time>
+              </div>
             </div>
             <h3>{post.title}</h3>
             <p>{post.excerpt}</p>
@@ -165,43 +222,45 @@ const sectors = [
   </section>
 
   <!-- Trust / Social Proof -->
-  <section class="section section-dark">
+  <section class="section section-dark lines-pattern">
     <div class="container-wide" style="text-align: center;">
       <p class="section-label" style="color: rgba(255,255,255,0.5);">Why Bolt Search</p>
       <h2 style="margin-bottom: var(--space-xl); max-width: 700px; margin-left: auto; margin-right: auto;">
         The sector's most connected search partner
       </h2>
       <div class="stats-grid">
-        <div class="stat">
-          <span class="stat-number">3,400+</span>
+        <div class="stat animate-on-scroll stagger-1">
+          <span class="stat-number glow-text" data-count="3400" data-suffix="+">3,400+</span>
           <span class="stat-label">Companies in our network</span>
         </div>
-        <div class="stat">
-          <span class="stat-number">1,500+</span>
+        <div class="stat animate-on-scroll stagger-2">
+          <span class="stat-number glow-text" data-count="1500" data-suffix="+">1,500+</span>
           <span class="stat-label">Senior contacts mapped</span>
         </div>
-        <div class="stat">
-          <span class="stat-number">20</span>
+        <div class="stat animate-on-scroll stagger-3">
+          <span class="stat-number glow-text" data-count="20">20</span>
           <span class="stat-label">Years in recruitment &amp; education</span>
         </div>
-        <div class="stat">
-          <span class="stat-number">100%</span>
+        <div class="stat animate-on-scroll stagger-4">
+          <span class="stat-number glow-text" data-count="100" data-suffix="%">100%</span>
           <span class="stat-label">Retained & advisory focus</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="section">
+  <!-- CTA with background image -->
+  <section class="section cta-section image-section" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80');">
     <div class="container-wide" style="text-align: center;">
-      <h2 style="margin-bottom: var(--space-md);">Ready to find the right leader?</h2>
-      <p style="max-width: 500px; margin: 0 auto var(--space-xl); font-size: 1.0625rem;">
-        Whether you're making a critical hire, exploring an acquisition, or need fractional leadership - let's talk.
-      </p>
-      <div style="display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap;">
-        <a href="/contact" class="btn btn-primary">Book a Discovery Call <span aria-hidden="true">&rarr;</span></a>
-        <a href="/subscribe" class="btn btn-outline">Subscribe to the Briefing</a>
+      <div class="animate-on-scroll">
+        <h2 style="margin-bottom: var(--space-md); color: white;">Ready to find the right leader?</h2>
+        <p style="max-width: 500px; margin: 0 auto var(--space-xl); font-size: 1.0625rem; color: rgba(255, 255, 255, 0.9);">
+          Whether you're making a critical hire, exploring an acquisition, or need fractional leadership - let's talk.
+        </p>
+        <div style="display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap;">
+          <a href="/contact" class="btn btn-primary">Book a Discovery Call <span aria-hidden="true">&rarr;</span></a>
+          <a href="/subscribe" class="btn btn-white">Subscribe to the Briefing</a>
+        </div>
       </div>
     </div>
   </section>
@@ -215,6 +274,9 @@ const sectors = [
     padding: var(--space-5xl) 0;
     position: relative;
     overflow: hidden;
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
   }
 
   .hero::before {
@@ -225,11 +287,13 @@ const sectors = [
       radial-gradient(circle at 70% 30%, rgba(59, 130, 246, 0.12) 0%, transparent 60%),
       radial-gradient(circle at 30% 70%, rgba(59, 130, 246, 0.06) 0%, transparent 60%);
     pointer-events: none;
+    z-index: 0;
   }
 
   .hero-content {
     position: relative;
     max-width: 720px;
+    z-index: 2;
   }
 
   .hero .section-label {
@@ -427,6 +491,127 @@ const sectors = [
     .stats-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: var(--space-lg);
+    }
+  }
+
+  /* Service cards enhancements */
+  .service-card {
+    position: relative;
+    border-top: 3px solid transparent;
+    border-image: linear-gradient(135deg, #3B82F6, #8B5CF6, #10B981) 1;
+  }
+
+  .service-card-number {
+    position: absolute;
+    top: var(--space-xl);
+    right: var(--space-xl);
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    opacity: 0.08;
+  }
+
+  .service-icon {
+    width: 64px !important;
+    height: 64px !important;
+    background: linear-gradient(135deg, var(--color-accent-light), rgba(139, 92, 246, 0.1)) !important;
+  }
+
+  /* Client logos section */
+  .client-logos-section {
+    background: var(--color-bg-subtle);
+    padding: var(--space-3xl) 0;
+  }
+
+  .client-logos-wrapper {
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%);
+  }
+
+  .client-logos-marquee {
+    display: flex;
+    gap: var(--space-2xl);
+    animation: marquee 30s linear infinite;
+    padding: var(--space-lg) 0;
+  }
+
+  .client-logo-badge {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    color: var(--color-fg-muted);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+  }
+
+  .client-logos-marquee:hover .client-logo-badge {
+    opacity: 0.5;
+  }
+
+  .client-logos-marquee:hover .client-logo-badge:hover {
+    opacity: 1;
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  /* Sector cards with images */
+  .sector-card {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border-top: 4px solid var(--color-accent);
+  }
+
+  .sector-image-container {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    margin: -var(--space-xl) -var(--space-xl) var(--space-lg) -var(--space-xl);
+    border-radius: 0;
+  }
+
+  .sector-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .sector-card:hover .sector-image-container img {
+    transform: scale(1.05);
+  }
+
+  /* Insight cards enhancements */
+  .insight-header {
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-md);
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  .insight-card .tag {
+    background: var(--tag-color, var(--color-accent-light));
+    color: white;
+    padding: 0.375rem 0.875rem;
+  }
+
+  /* CTA section */
+  .cta-section {
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .client-logos-marquee {
+      gap: var(--space-lg);
+    }
+
+    .sector-image-container {
+      height: 140px;
     }
   }
 </style>

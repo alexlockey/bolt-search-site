@@ -468,6 +468,42 @@ const navLinks = [
     document.querySelectorAll('.animate-on-scroll').forEach((el, index) => {
       el.style.animationDelay = (index * 0.1) + 's';
     });
+
+    // Animated counters
+    const counters = document.querySelectorAll('[data-count]');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.getAttribute('data-count'));
+          const suffix = el.getAttribute('data-suffix') || '';
+          const duration = 2000;
+          const start = performance.now();
+
+          function update(now) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+            const current = Math.floor(eased * target);
+            el.textContent = current.toLocaleString() + suffix;
+            if (progress < 1) requestAnimationFrame(update);
+          }
+          requestAnimationFrame(update);
+          counterObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    counters.forEach(el => counterObserver.observe(el));
+
+    // Simple parallax for hero
+    const parallaxBg = document.querySelector('.hero-parallax');
+    if (parallaxBg) {
+      window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        parallaxBg.style.transform = `translateY(${scrolled * 0.3}px)`;
+      }, { passive: true });
+    }
   </script>
 </body>
 </html>

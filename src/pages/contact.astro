@@ -6,12 +6,12 @@ const description = "Contact Bolt Search to discuss your hiring, advisory, or le
 ---
 
 <Layout title={title} description={description}>
-  <!-- Hero -->
-  <section class="contact-hero">
+  <!-- Hero with background image -->
+  <section class="contact-hero image-section" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&q=80');">
     <div class="container-wide">
-      <div style="max-width: 800px;">
-        <h1>Let's Talk</h1>
-        <p style="font-size: 1.125rem; margin-top: var(--space-lg); color: var(--color-fg-muted);">
+      <div style="max-width: 800px;" class="animate-on-scroll">
+        <h1 style="color: white;">Let's Talk</h1>
+        <p style="font-size: 1.125rem; margin-top: var(--space-lg); color: rgba(255, 255, 255, 0.85);">
           Interested in executive search, board advisory, or fractional leadership? Share your brief and we'll discuss how we can help.
         </p>
       </div>
@@ -135,6 +135,11 @@ const description = "Contact Bolt Search to discuss your hiring, advisory, or le
 <style>
   .contact-hero {
     padding: var(--space-3xl) 0 var(--space-2xl);
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
   }
 
   .contact-hero h1 {
