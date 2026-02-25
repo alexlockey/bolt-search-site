@@ -10,7 +10,7 @@ readTime: "8 min read"
 status: "published"
 ---
 
-The government's decision to defund management and leadership apprenticeships has sent shockwaves through the training provider sector. For many providers, these programmes represented 30-50% of revenue. The question isn't whether this will hurt — it's how quickly you can adapt.
+The government's decision to defund management and leadership apprenticeships has sent shockwaves through the training provider sector. For many providers, these programmes represented 30-50% of revenue. The question isn't whether this will hurt  -  it's how quickly you can adapt.
 
 ## What's Actually Happening
 
@@ -24,7 +24,7 @@ For training providers who built their business around leadership apprenticeship
 
 ### 1. Pivot to Employer-Funded Delivery
 
-The demand for leadership development hasn't disappeared — only the government subsidy. Organisations still need to develop their managers. The providers who survive will be those who can repackage their leadership programmes as commercial offerings that employers pay for directly.
+The demand for leadership development hasn't disappeared  -  only the government subsidy. Organisations still need to develop their managers. The providers who survive will be those who can repackage their leadership programmes as commercial offerings that employers pay for directly.
 
 ### 2. Diversify Into Adjacent Standards
 
@@ -32,7 +32,7 @@ Look at the apprenticeship standards that remain funded and align with your deli
 
 ### 3. Build the Commercial Function You've Been Avoiding
 
-Most training providers grew their leadership programmes through levy relationships and procurement. Selling commercial training programmes requires a fundamentally different sales capability — one that many providers don't have. Now is the time to hire or develop that commercial function.
+Most training providers grew their leadership programmes through levy relationships and procurement. Selling commercial training programmes requires a fundamentally different sales capability  -  one that many providers don't have. Now is the time to hire or develop that commercial function.
 
 ## What This Means for Hiring
 

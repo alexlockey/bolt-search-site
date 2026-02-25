@@ -2,7 +2,7 @@ import rss from '@astrojs/rss';
 
 export const GET = (context) => {
   return rss({
-    title: 'Bolt Search — Insights',
+    title: 'Bolt Search  -  Insights',
     description: 'Executive search and advisory insights for the education and training sector',
     site: context.site,
     items: [

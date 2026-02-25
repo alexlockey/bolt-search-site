@@ -12,7 +12,7 @@
   --color-grey-200: #D1D1D8;
   --color-grey-400: #7D7D7D;
   --color-grey-600: #333333;
-  --color-accent: #3B82F6;       /* Bright blue — CTAs, links */
+  --color-accent: #3B82F6;       /* Bright blue  -  CTAs, links */
   --color-accent-dark: #2563EB;
   --color-accent-light: #DFE4F8; /* Soft lavender from current site */
   --color-success: #10B981;
@@ -171,25 +171,46 @@ html {
   z-index: 1;
 }
 
-/* Image overlay styles */
-.image-section {
+/* Gradient mesh background */
+.gradient-mesh {
   position: relative;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  overflow: hidden;
 }
 
-.image-section::before {
-  content: '';
+.gradient-orb {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(30, 29, 48, 0.92) 0%, rgba(30, 29, 48, 0.75) 100%);
-  z-index: 1;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+  pointer-events: none;
 }
 
-.image-section > * {
-  position: relative;
-  z-index: 2;
+.gradient-orb-1 {
+  width: 600px;
+  height: 600px;
+  background: #3B82F6;
+  top: -200px;
+  right: -100px;
+  animation: orbFloat1 20s ease-in-out infinite;
+}
+
+.gradient-orb-2 {
+  width: 500px;
+  height: 500px;
+  background: #8B5CF6;
+  bottom: -150px;
+  left: -100px;
+  animation: orbFloat2 25s ease-in-out infinite;
+}
+
+.gradient-orb-3 {
+  width: 400px;
+  height: 400px;
+  background: #10B981;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: orbFloat1 30s ease-in-out infinite reverse;
 }
 
 /* Dot pattern background */

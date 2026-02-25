@@ -71,7 +71,10 @@ const clientLogos = [
 
 <Layout title={title} description={description}>
   <!-- Hero with background image -->
-  <section class="hero hero-parallax image-section" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80');">
+  <section class="hero hero-parallax gradient-mesh">
+    <div class="gradient-orb gradient-orb-1"></div>
+    <div class="gradient-orb gradient-orb-2"></div>
+    <div class="gradient-orb gradient-orb-3"></div>
     <div class="container-wide">
       <div class="hero-content animate-on-scroll">
         <p class="section-label">Executive Search · Board Advisory · Fractional Leadership</p>
@@ -155,34 +158,22 @@ const clientLogos = [
       <h2 style="margin-bottom: var(--space-xs); max-width: 600px;">Deep knowledge of the education ecosystem</h2>
       <p style="margin-bottom: var(--space-2xl); max-width: 500px; font-size: 1.0625rem;">We track thousands of organisations across the UK education and skills landscape.</p>
       <div class="sector-grid">
-        <a href={sectors[0].href} class="sector-card">
-          <div class="sector-image-container">
-            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&q=80" alt="Training" loading="lazy" />
-          </div>
+        <a href={sectors[0].href} class="sector-card sector-training">
           <h4>{sectors[0].name}</h4>
           <p>{sectors[0].description}</p>
           <span class="sector-count">{sectors[0].count}</span>
         </a>
-        <a href={sectors[1].href} class="sector-card">
-          <div class="sector-image-container">
-            <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&q=80" alt="EdTech" loading="lazy" />
-          </div>
+        <a href={sectors[1].href} class="sector-card sector-edtech">
           <h4>{sectors[1].name}</h4>
           <p>{sectors[1].description}</p>
           <span class="sector-count">{sectors[1].count}</span>
         </a>
-        <a href={sectors[2].href} class="sector-card">
-          <div class="sector-image-container">
-            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&q=80" alt="FE Colleges" loading="lazy" />
-          </div>
+        <a href={sectors[2].href} class="sector-card sector-fe">
           <h4>{sectors[2].name}</h4>
           <p>{sectors[2].description}</p>
           <span class="sector-count">{sectors[2].count}</span>
         </a>
-        <a href={sectors[3].href} class="sector-card">
-          <div class="sector-image-container">
-            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&q=80" alt="Investors" loading="lazy" />
-          </div>
+        <a href={sectors[3].href} class="sector-card sector-investors">
           <h4>{sectors[3].name}</h4>
           <p>{sectors[3].description}</p>
           <span class="sector-count">{sectors[3].count}</span>
@@ -250,8 +241,10 @@ const clientLogos = [
   </section>
 
   <!-- CTA with background image -->
-  <section class="section cta-section image-section" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80');">
-    <div class="container-wide" style="text-align: center;">
+  <section class="section cta-section gradient-mesh" style="background: linear-gradient(135deg, var(--color-navy) 0%, #1a1a3e 50%, #0f2027 100%);">
+    <div class="gradient-orb gradient-orb-1" style="opacity: 0.08;"></div>
+    <div class="gradient-orb gradient-orb-2" style="opacity: 0.08;"></div>
+    <div class="container-wide" style="text-align: center; position: relative; z-index: 2;">
       <div class="animate-on-scroll">
         <h2 style="margin-bottom: var(--space-md); color: white;">Ready to find the right leader?</h2>
         <p style="max-width: 500px; margin: 0 auto var(--space-xl); font-size: 1.0625rem; color: rgba(255, 255, 255, 0.9);">
@@ -277,17 +270,6 @@ const clientLogos = [
     min-height: 85vh;
     display: flex;
     align-items: center;
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle at 70% 30%, rgba(59, 130, 246, 0.12) 0%, transparent 60%),
-      radial-gradient(circle at 30% 70%, rgba(59, 130, 246, 0.06) 0%, transparent 60%);
-    pointer-events: none;
-    z-index: 0;
   }
 
   .hero-content {
@@ -558,7 +540,7 @@ const clientLogos = [
     border-color: var(--color-accent);
   }
 
-  /* Sector cards with images */
+  /* Sector cards with gradient accents */
   .sector-card {
     overflow: hidden;
     display: flex;
@@ -566,23 +548,20 @@ const clientLogos = [
     border-top: 4px solid var(--color-accent);
   }
 
-  .sector-image-container {
-    width: 100%;
-    height: 180px;
-    overflow: hidden;
-    margin: -var(--space-xl) -var(--space-xl) var(--space-lg) -var(--space-xl);
-    border-radius: 0;
+  .sector-training {
+    border-top-color: #3B82F6;
   }
 
-  .sector-image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
+  .sector-edtech {
+    border-top-color: #8B5CF6;
   }
 
-  .sector-card:hover .sector-image-container img {
-    transform: scale(1.05);
+  .sector-fe {
+    border-top-color: #10B981;
+  }
+
+  .sector-investors {
+    border-top-color: #F59E0B;
   }
 
   /* Insight cards enhancements */

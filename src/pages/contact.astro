@@ -7,7 +7,9 @@ const description = "Contact Bolt Search to discuss your hiring, advisory, or le
 
 <Layout title={title} description={description}>
   <!-- Hero with background image -->
-  <section class="contact-hero image-section" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&q=80');">
+  <section class="contact-hero gradient-mesh" style="background: linear-gradient(135deg, var(--color-navy) 0%, #1a1a3e 50%, #0f2027 100%);">
+    <div class="gradient-orb gradient-orb-1" style="opacity: 0.08;"></div>
+    <div class="gradient-orb gradient-orb-2" style="opacity: 0.08;"></div>
     <div class="container-wide">
       <div style="max-width: 800px;" class="animate-on-scroll">
         <h1 style="color: white;">Let's Talk</h1>
@@ -140,10 +142,22 @@ const description = "Contact Bolt Search to discuss your hiring, advisory, or le
     align-items: center;
     background-size: cover;
     background-position: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-hero > * {
+    position: relative;
+    z-index: 2;
   }
 
   .contact-hero h1 {
     font-size: clamp(2rem, 5vw, 3rem);
+    color: white;
+  }
+
+  .contact-hero p {
+    color: rgba(255, 255, 255, 0.85);
   }
 
   .contact-grid {
