@@ -10,94 +10,108 @@ const posts = [
     title: "Apprenticeship Funding Announcement: What Training Providers Are Saying",
     date: "2026-02-24",
     excerpt: "Industry reaction to government funding changes shows wide concerns about provider viability and market consolidation.",
-    readTime: "4 min read"
+    readTime: "4 min read",
+    category: "Policy"
   },
   {
     slug: "edtech-funding-dry-spell-continues",
     title: "EdTech Funding Dry Spell Continues into Q1 2026",
     date: "2026-02-18",
     excerpt: "VC funding for education technology remains subdued. What's happening with the deals that are getting done?",
-    readTime: "5 min read"
+    readTime: "5 min read",
+    category: "EdTech"
   },
   {
     slug: "pe-interest-in-skills-sector",
     title: "Private Equity is Quietly Buying Up Skills Providers",
     date: "2026-02-10",
     excerpt: "Whilst headlines focus on cuts, PE firms are actively building portfolio platforms across corporate training and assessment.",
-    readTime: "4 min read"
+    readTime: "4 min read",
+    category: "Investment"
   },
   {
     slug: "new-fe-college-ceo-appointments",
     title: "New FE College CEO Appointments: Who's Moving?",
     date: "2026-02-03",
     excerpt: "February announcements show leadership changes at a dozen major colleges. We've tracked the moves and what they signal.",
-    readTime: "3 min read"
+    readTime: "3 min read",
+    category: "People Moves"
   },
   {
     slug: "talent-crisis-in-technical-education",
     title: "Why Recruiting for Technical Education Is Getting Harder",
     date: "2026-01-28",
     excerpt: "Competition for engineering and technical lecturers is intense. Industry roles still pay better than education. What can institutions do?",
-    readTime: "5 min read"
+    readTime: "5 min read",
+    category: "Talent"
   },
   {
     slug: "higher-ed-digital-transformation",
     title: "Higher Education's Digital Transformation: Slow Progress",
     date: "2026-01-21",
     excerpt: "Universities investing heavily in tech but adoption remains patchy. Tech executives brought in from industry report surprising resistance to change.",
-    readTime: "4 min read"
+    readTime: "4 min read",
+    category: "EdTech"
   },
   {
     slug: "levy-reform-debate-heats-up",
     title: "Levy Reform Debate: Is the Apprenticeship Levy Doing Its Job?",
     date: "2026-01-14",
     excerpt: "Policy makers increasingly questioning whether the apprenticeship levy achieves its intended purpose. Reform proposals emerging.",
-    readTime: "5 min read"
+    readTime: "5 min read",
+    category: "Policy"
   },
   {
     slug: "global-edtech-consolidation-wave",
     title: "Global EdTech Consolidation: Which UK Platforms Are Targets?",
     date: "2026-01-07",
     excerpt: "International EdTech giants are shopping for UK acquisitions. Several UK platforms rumoured to be in discussions.",
-    readTime: "4 min read"
+    readTime: "4 min read",
+    category: "Investment"
   }
 ];
+
+const categoryColors: Record<string, string> = {
+  'Policy': '#EFF6FF',
+  'EdTech': '#ECFDF5',
+  'Investment': '#FFFBEB',
+  'People Moves': '#F5F3FF',
+  'Talent': '#FDF2F8'
+};
 ---
 
 <Layout title={title} description={description}>
   <!-- Hero -->
-  <section class="section">
+  <section class="blog-hero">
     <div class="container-wide">
       <div style="max-width: 600px;">
-        <h1>{title}</h1>
-        <p style="font-size: 1.125rem; margin-top: var(--space-md); color: var(--color-fg-muted);">
-          Quick takes, news commentary, and market observations
+        <p class="section-label">Blog</p>
+        <h1>Quick takes and market commentary</h1>
+        <p style="font-size: 1.0625rem; margin-top: var(--space-md); color: var(--color-fg-muted);">
+          News, observations, and sector commentary on education, training, and skills.
         </p>
       </div>
     </div>
   </section>
 
   <!-- Blog Posts -->
-  <section class="section section-subtle">
+  <section class="section">
     <div class="container-wide">
       <div class="blog-list">
         {posts.map((post) => (
           <a href={`/blog/${post.slug}`} class="blog-item">
-            <div>
-              <h3 style="margin-bottom: var(--space-sm); color: var(--color-fg);">
-                {post.title}
-              </h3>
-              <p style="margin-bottom: 0; color: var(--color-fg-muted);">
-                {post.excerpt}
-              </p>
+            <div class="blog-category-dot" style={`background: ${categoryColors[post.category] || '#F5F5F7'};`}>
+              <span class="category-label">{post.category}</span>
+            </div>
+            <div class="blog-content">
+              <h3>{post.title}</h3>
+              <p>{post.excerpt}</p>
             </div>
             <div class="blog-meta">
-              <span style="font-size: 0.8125rem; color: var(--color-fg-subtle);">
-                {post.date}
-              </span>
-              <span style="font-size: 0.8125rem; color: var(--color-fg-subtle);">
-                {post.readTime}
-              </span>
+              <time datetime={post.date}>
+                {new Date(post.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
+              </time>
+              <span class="blog-read-time">{post.readTime}</span>
             </div>
           </a>
         ))}
@@ -106,74 +120,124 @@ const posts = [
   </section>
 
   <!-- CTA -->
-  <section class="section">
-    <div class="container">
-      <div style="text-align: center;">
-        <h2 style="margin-bottom: var(--space-md);">Get Market Intelligence Weekly</h2>
-        <p style="margin-bottom: var(--space-lg); color: var(--color-fg-muted);">
-          Blog posts, weekly briefings, and exclusive commentary delivered to your inbox.
-        </p>
-        <a href="/subscribe" class="btn btn-primary">Subscribe Now <span aria-hidden="true">&rarr;</span></a>
-      </div>
+  <section class="section section-subtle">
+    <div class="container" style="text-align: center;">
+      <h2 style="margin-bottom: var(--space-md);">Get sector intelligence weekly</h2>
+      <p style="margin-bottom: var(--space-lg); color: var(--color-fg-muted); max-width: 480px; margin-left: auto; margin-right: auto;">
+        Blog posts, analysis, and exclusive commentary delivered to your inbox every week.
+      </p>
+      <a href="/subscribe" class="btn btn-primary">Subscribe to the Briefing <span aria-hidden="true">&rarr;</span></a>
     </div>
   </section>
 </Layout>
 
 <style>
-  .container {
-    max-width: var(--content-width);
-    margin: 0 auto;
-    padding: 0 var(--space-lg);
+  .blog-hero {
+    padding: var(--space-3xl) 0 var(--space-xl);
   }
 
-  .container-wide {
-    max-width: var(--wide-width);
-    margin: 0 auto;
-    padding: 0 var(--space-lg);
+  .blog-hero h1 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
   }
 
   .blog-list {
     display: flex;
     flex-direction: column;
-    gap: var(--space-lg);
+    gap: 1px;
+    background: var(--color-border);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    overflow: hidden;
   }
 
   .blog-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: var(--space-lg);
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    gap: var(--space-xl);
+    align-items: center;
+    padding: var(--space-lg) var(--space-xl);
     background: var(--color-bg-elevated);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    transition: all 0.25s ease;
     text-decoration: none;
-    gap: var(--space-lg);
+    color: inherit;
+    transition: background 0.2s ease;
   }
 
   .blog-item:hover {
-    border-color: var(--color-border-strong);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-    transform: translateY(-1px);
+    background: var(--color-bg-subtle);
+  }
+
+  .blog-category-dot {
+    padding: 0.375rem 0.75rem;
+    border-radius: 6px;
+    text-align: center;
+  }
+
+  .category-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-fg-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .blog-content h3 {
+    font-size: 1.0625rem;
+    margin-bottom: 0.25rem;
+    line-height: 1.35;
+    color: var(--color-fg);
+  }
+
+  .blog-content p {
+    font-size: 0.9375rem;
+    color: var(--color-fg-muted);
+    margin-bottom: 0;
+    line-height: 1.5;
   }
 
   .blog-meta {
     display: flex;
-    gap: var(--space-md);
-    white-space: nowrap;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
     flex-shrink: 0;
+  }
+
+  .blog-meta time {
+    font-size: 0.8125rem;
+    color: var(--color-fg-subtle);
+    font-weight: 500;
+  }
+
+  .blog-read-time {
+    font-size: 0.75rem;
+    color: var(--color-fg-subtle);
+  }
+
+  .blog-item:hover h3 {
+    color: var(--color-accent);
   }
 
   @media (max-width: 768px) {
     .blog-item {
-      flex-direction: column;
-      gap: var(--space-md);
+      grid-template-columns: 1fr;
+      gap: var(--space-sm);
+      padding: var(--space-lg);
+    }
+
+    .blog-category-dot {
+      justify-self: start;
     }
 
     .blog-meta {
-      flex-direction: column;
-      gap: var(--space-xs);
-      white-space: normal;
+      flex-direction: row;
+      align-items: center;
+      gap: var(--space-md);
     }
+  }
+
+  .container {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
   }
 </style>

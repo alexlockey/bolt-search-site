@@ -11,7 +11,8 @@ const articles = [
     date: "2026-02-20",
     excerpt: "With the government pulling funding from management and leadership apprenticeships, training providers need to pivot fast. Here's a practical playbook for navigating the transition.",
     tag: "Market Analysis",
-    readTime: "8 min read"
+    readTime: "8 min read",
+    accent: "#3B82F6"
   },
   {
     slug: "edtech-hiring-trends-2026",
@@ -19,7 +20,8 @@ const articles = [
     date: "2026-02-15",
     excerpt: "Analysis of 200+ EdTech hiring patterns reveals a shift from pure tech talent to commercial operators who understand education markets.",
     tag: "Sector Intelligence",
-    readTime: "6 min read"
+    readTime: "6 min read",
+    accent: "#10B981"
   },
   {
     slug: "fe-college-leadership-pipeline-crisis",
@@ -27,7 +29,8 @@ const articles = [
     date: "2026-02-08",
     excerpt: "With 40% of FE principals due to retire in the next five years, colleges face an existential hiring challenge. What can leaders do now?",
     tag: "Deep Dive",
-    readTime: "10 min read"
+    readTime: "10 min read",
+    accent: "#8B5CF6"
   },
   {
     slug: "corporate-learning-market-consolidation",
@@ -35,7 +38,8 @@ const articles = [
     date: "2026-01-30",
     excerpt: "The corporate L&D market is fragmented. PE investors are circling. Which providers are acquisition targets, and which will acquire?",
     tag: "Investment Thesis",
-    readTime: "7 min read"
+    readTime: "7 min read",
+    accent: "#F59E0B"
   },
   {
     slug: "vocational-education-workforce-planning",
@@ -43,7 +47,8 @@ const articles = [
     date: "2026-01-22",
     excerpt: "Government policy increasingly emphasizes vocational training, but institutional support remains inconsistent. What does this mean for providers?",
     tag: "Policy Analysis",
-    readTime: "9 min read"
+    readTime: "9 min read",
+    accent: "#EC4899"
   },
   {
     slug: "international-student-recruitment-post-brexit",
@@ -51,53 +56,73 @@ const articles = [
     date: "2026-01-15",
     excerpt: "With Home Office visa reforms and growing interest from Asian markets, UK education institutions face both challenges and unprecedented opportunities.",
     tag: "Market Analysis",
-    readTime: "8 min read"
+    readTime: "8 min read",
+    accent: "#3B82F6"
   }
 ];
 
-const tagColors = {
-  'Market Analysis': 'tag-blue',
-  'Sector Intelligence': 'tag-blue',
-  'Deep Dive': 'tag-indigo',
-  'Investment Thesis': 'tag-blue',
-  'Policy Analysis': 'tag-indigo'
+const tagStyles: Record<string, string> = {
+  'Market Analysis': '--tag-bg: #EFF6FF; --tag-color: #1D4ED8;',
+  'Sector Intelligence': '--tag-bg: #ECFDF5; --tag-color: #047857;',
+  'Deep Dive': '--tag-bg: #F5F3FF; --tag-color: #6D28D9;',
+  'Investment Thesis': '--tag-bg: #FFFBEB; --tag-color: #B45309;',
+  'Policy Analysis': '--tag-bg: #FDF2F8; --tag-color: #BE185D;'
 };
 ---
 
 <Layout title={title} description={description}>
   <!-- Hero -->
-  <section class="section">
+  <section class="insights-hero">
     <div class="container-wide">
-      <div style="max-width: 600px;">
-        <h1>{title}</h1>
-        <p style="font-size: 1.125rem; margin-top: var(--space-md); color: var(--color-fg-muted);">
-          Long-form analysis of the education, training, and skills sector
+      <div style="max-width: 640px;">
+        <p class="section-label">Insights & Analysis</p>
+        <h1>Sector intelligence for education leaders and investors</h1>
+        <p style="font-size: 1.0625rem; margin-top: var(--space-md); color: var(--color-fg-muted);">
+          Long-form analysis, market trends, and strategic thinking on the UK education, training, and skills sector.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Articles Grid -->
-  <section class="section section-subtle">
+  <!-- Featured article -->
+  <section class="section" style="padding-top: var(--space-2xl);">
     <div class="container-wide">
-      <div class="grid-3">
-        {articles.map((article) => (
-          <a href={`/insights/${article.slug}`} class="card article-card">
-            <div style="margin-bottom: var(--space-md);">
-              <span class="tag">{article.tag}</span>
-              <p style="font-size: 0.8125rem; color: var(--color-fg-subtle); margin-top: var(--space-sm); margin-bottom: 0;">
-                {article.date} · {article.readTime}
-              </p>
+      <a href={`/insights/${articles[0].slug}`} class="featured-article">
+        <div class="featured-accent" style={`background: ${articles[0].accent};`}></div>
+        <div class="featured-content">
+          <div class="featured-meta">
+            <span class="tag-styled" style={tagStyles[articles[0].tag]}>{articles[0].tag}</span>
+            <span class="meta-text">{articles[0].readTime}</span>
+          </div>
+          <h2>{articles[0].title}</h2>
+          <p>{articles[0].excerpt}</p>
+          <span class="read-link">Read the full analysis &rarr;</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Articles Grid -->
+  <section class="section">
+    <div class="container-wide">
+      <div class="articles-grid">
+        {articles.slice(1).map((article) => (
+          <a href={`/insights/${article.slug}`} class="article-card">
+            <div class="card-accent" style={`background: ${article.accent};`}></div>
+            <div class="card-body">
+              <div class="card-meta">
+                <span class="tag-styled" style={tagStyles[article.tag] || ''}>{article.tag}</span>
+                <span class="meta-text">{article.readTime}</span>
+              </div>
+              <h3>{article.title}</h3>
+              <p>{article.excerpt}</p>
+              <div class="card-footer">
+                <time datetime={article.date}>
+                  {new Date(article.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                </time>
+                <span class="read-link">Read &rarr;</span>
+              </div>
             </div>
-            <h3 style="margin-bottom: var(--space-md); line-height: 1.4;">
-              {article.title}
-            </h3>
-            <p style="margin-bottom: 0; color: var(--color-fg-muted);">
-              {article.excerpt}
-            </p>
-            <span class="card-link" style="margin-top: var(--space-md); display: inline-block;">
-              Read more &rarr;
-            </span>
           </a>
         ))}
       </div>
@@ -105,50 +130,180 @@ const tagColors = {
   </section>
 
   <!-- CTA Section -->
-  <section class="section">
-    <div class="container">
-      <div style="text-align: center;">
-        <h2 style="margin-bottom: var(--space-md);">Stay Updated</h2>
-        <p style="margin-bottom: var(--space-lg); color: var(--color-fg-muted);">
-          New insights published weekly. Subscribe to The Bolt Briefing for sector intelligence, leadership moves, and market analysis.
-        </p>
-        <a href="/subscribe" class="btn btn-primary">Subscribe to Our Newsletter <span aria-hidden="true">&rarr;</span></a>
-      </div>
+  <section class="section section-subtle">
+    <div class="container" style="text-align: center;">
+      <h2 style="margin-bottom: var(--space-md);">Get insights like this weekly</h2>
+      <p style="margin-bottom: var(--space-lg); color: var(--color-fg-muted); max-width: 480px; margin-left: auto; margin-right: auto;">
+        Subscribe to The Bolt Briefing — sector intelligence, leadership moves, and market analysis for education professionals.
+      </p>
+      <a href="/subscribe" class="btn btn-primary">Subscribe to the Briefing <span aria-hidden="true">&rarr;</span></a>
     </div>
   </section>
 </Layout>
 
 <style>
+  .insights-hero {
+    padding: var(--space-3xl) 0 var(--space-xl);
+  }
+
+  .insights-hero h1 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+  }
+
+  /* Featured article */
+  .featured-article {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .featured-article:hover {
+    border-color: var(--color-border-strong);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+    transform: translateY(-3px);
+  }
+
+  .featured-accent {
+    height: 4px;
+    width: 100%;
+  }
+
+  .featured-content {
+    padding: var(--space-2xl) var(--space-2xl) var(--space-xl);
+  }
+
+  .featured-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+
+  .featured-content h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: var(--space-md);
+    max-width: 720px;
+    line-height: 1.25;
+  }
+
+  .featured-content > p {
+    font-size: 1.0625rem;
+    color: var(--color-fg-muted);
+    max-width: 640px;
+    line-height: 1.7;
+    margin-bottom: var(--space-lg);
+  }
+
+  /* Tag styling */
+  .tag-styled {
+    display: inline-block;
+    padding: 0.3rem 0.875rem;
+    border-radius: 100px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    background: var(--tag-bg, var(--color-accent-light));
+    color: var(--tag-color, var(--color-accent-dark));
+  }
+
+  .meta-text {
+    font-size: 0.8125rem;
+    color: var(--color-fg-subtle);
+  }
+
+  .read-link {
+    color: var(--color-accent);
+    font-weight: 500;
+    font-size: 0.9375rem;
+  }
+
+  /* Articles grid */
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+
+  .article-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.25s ease;
+  }
+
+  .article-card:hover {
+    border-color: var(--color-border-strong);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+  }
+
+  .card-accent {
+    height: 3px;
+    width: 100%;
+  }
+
+  .card-body {
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 3px);
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .article-card h3 {
+    font-size: 1.125rem;
+    margin-bottom: var(--space-sm);
+    line-height: 1.35;
+  }
+
+  .article-card p {
+    font-size: 0.9375rem;
+    color: var(--color-fg-muted);
+    flex: 1;
+    margin-bottom: var(--space-lg);
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .card-footer time {
+    font-size: 0.8125rem;
+    color: var(--color-fg-subtle);
+  }
+
+  .article-card:hover .read-link {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .articles-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
   .container {
     max-width: var(--content-width);
     margin: 0 auto;
     padding: 0 var(--space-lg);
-  }
-
-  .container-wide {
-    max-width: var(--wide-width);
-    margin: 0 auto;
-    padding: 0 var(--space-lg);
-  }
-
-  .article-card {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .card-link {
-    color: var(--color-accent);
-    font-weight: 500;
-    transition: all 0.2s ease;
-  }
-
-  .article-card:hover .card-link {
-    color: var(--color-accent-dark);
-  }
-
-  @media (max-width: 768px) {
-    .grid-3 {
-      grid-template-columns: 1fr;
-    }
   }
 </style>
