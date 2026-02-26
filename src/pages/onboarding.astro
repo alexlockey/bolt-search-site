@@ -22,16 +22,10 @@ const description = "Complete this onboarding form to get set up as a contractor
     <div class="container-wide" style="max-width: 780px;">
       <form
         class="onboarding-form"
-        action="https://formsubmit.co/alex@bolt-search.com"
+        action="/api/onboarding"
         method="POST"
         enctype="multipart/form-data"
       >
-        <!-- Formsubmit config -->
-        <input type="hidden" name="_subject" value="New Contractor Onboarding Submission" />
-        <input type="hidden" name="_captcha" value="false" />
-        <input type="hidden" name="_template" value="table" />
-        <input type="hidden" name="_next" value="https://bolt-search-site.vercel.app/onboarding/thanks" />
-        <input type="text" name="_honey" style="display:none" />
 
         <!-- Section 1: Personal Details -->
         <fieldset>

@@ -1,0 +1,84 @@
+{
+  "redirects": [
+    {
+      "source": "/insights/the-workforce-iceberg-why-training-providers-are-measuring-the-wrong-thing",
+      "destination": "/insights/the-workforce-iceberg",
+      "permanent": true
+    },
+    {
+      "source": "/insights/the-mat-executive-leadership-crisis-facing-the-largest-school-organisations",
+      "destination": "/insights/mat-executive-leadership-crisis",
+      "permanent": true
+    },
+    {
+      "source": "/insights/the-post-16-skills-reform-what-it-really-means-for-training-providers",
+      "destination": "/insights/post-16-skills-reform",
+      "permanent": true
+    },
+    {
+      "source": "/insights/what-recruitments-transformation-means-for-education-and-training-providers",
+      "destination": "/insights/recruitment-transformation-education",
+      "permanent": true
+    },
+    {
+      "source": "/insights/the-first-12-months-where-education-businesses-win-or-lose-value-post-acquisition",
+      "destination": "/insights/first-12-months-post-acquisition",
+      "permanent": true
+    },
+    {
+      "source": "/insights/tech-education-pioneer-turing-college-acquires-boom-training-to-transform-apprenticeships",
+      "destination": "/insights/turing-college-acquires-boom-training",
+      "permanent": true
+    },
+    {
+      "source": "/insights/education-m-a-heats-up-m-a-trends-and-implications-for-leaders-in-2025",
+      "destination": "/insights/education-ma-trends-2025",
+      "permanent": true
+    },
+    {
+      "source": "/insights/bolt-managing-partner-alex-lockey-appointed-to-sias-board-as-advisor",
+      "destination": "/insights/alex-lockey-sias-board-advisor",
+      "permanent": true
+    },
+    {
+      "source": "/insights/investor-vs-operator-expectations---where-education-ceos-are-falling-short",
+      "destination": "/insights/investor-vs-operator-expectations",
+      "permanent": true
+    },
+    {
+      "source": "/insights/the-founder-ceo-dilemma",
+      "destination": "/insights/founder-ceo-dilemma",
+      "permanent": true
+    },
+    {
+      "source": "/insights/commercial-challenges-preventing-growth-in-education-businesses",
+      "destination": "/insights/commercial-challenges-education-growth",
+      "permanent": true
+    },
+    {
+      "source": "/insights/leadership-apprenticeship-defunding-sales-survival-guide",
+      "destination": "/insights/leadership-apprenticeship-defunding-guide",
+      "permanent": true
+    },
+    {
+      "source": "/exec-search",
+      "destination": "/search",
+      "permanent": true
+    },
+    {
+      "source": "/board-advisory",
+      "destination": "/advisory",
+      "permanent": true
+    },
+    {
+      "source": "/team",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/insights-category/:path*",
+      "destination": "/insights",
+      "permanent": true
+    }
+  ]
+}
