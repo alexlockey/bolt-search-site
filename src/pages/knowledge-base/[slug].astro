@@ -17,7 +17,7 @@ const { Content } = await entry.render();
 <Layout title={entry.data.title} description={entry.data.description} article={true}>
   <article class="article-page">
     <div class="container">
-      <header class="article-header animate-on-scroll">
+      <header class="article-header">
         <div class="article-meta">
           <span class="tag">{entry.data.practiceArea}</span>
           <time datetime={entry.data.publishedAt.toISOString()}>
@@ -28,11 +28,11 @@ const { Content } = await entry.render();
         <p class="article-description">{entry.data.description}</p>
       </header>
 
-      <div class="prose animate-on-scroll">
+      <div class="prose">
         <Content />
       </div>
 
-      <footer class="article-footer animate-on-scroll">
+      <footer class="article-footer">
         <div class="article-cta">
           <h3>Ready to implement this?</h3>
           <p>Our team has worked with education leaders on these exact challenges. Let's discuss your situation.</p>
