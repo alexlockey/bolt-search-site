@@ -258,7 +258,20 @@ const description = "Complete this onboarding form to get set up as a contractor
     });
   });
 
-  // Submit form via fetch to avoid Vercel cross-site POST restriction
+  // Helper: convert File to base64
+  function fileToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const result = reader.result as string;
+        resolve(result.split(',')[1]); // strip data:...;base64, prefix
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // Submit form as JSON to bypass Vercel's cross-site form POST restriction
   const form = document.querySelector('.onboarding-form') as HTMLFormElement;
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -269,9 +282,22 @@ const description = "Complete this onboarding form to get set up as a contractor
 
     try {
       const formData = new FormData(form);
+      const fields: Record<string, string> = {};
+      const attachments: { filename: string; data: string }[] = [];
+
+      for (const [key, value] of formData.entries()) {
+        if (value instanceof File && value.size > 0) {
+          const data = await fileToBase64(value);
+          attachments.push({ filename: value.name, data });
+        } else if (typeof value === 'string' && value.trim() !== '') {
+          fields[key] = value;
+        }
+      }
+
       const res = await fetch('/api/onboarding', {
         method: 'POST',
-        body: formData,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fields, attachments }),
       });
 
       const data = await res.json();

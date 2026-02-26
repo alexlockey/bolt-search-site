@@ -7,23 +7,18 @@ const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const formData = await request.formData();
+    // Parse JSON body (avoids Vercel's cross-site form POST restriction)
+    const body = await request.json();
+    const { fields, attachments: rawAttachments } = body as {
+      fields: Record<string, string>;
+      attachments: { filename: string; data: string }[];
+    };
 
-    // Extract all text fields
-    const fields: Record<string, string> = {};
-    const attachments: { filename: string; content: Buffer }[] = [];
-
-    for (const [key, value] of formData.entries()) {
-      if (value instanceof File && value.size > 0) {
-        const buffer = Buffer.from(await value.arrayBuffer());
-        attachments.push({
-          filename: value.name,
-          content: buffer,
-        });
-      } else if (typeof value === 'string' && value.trim() !== '') {
-        fields[key] = value;
-      }
-    }
+    // Decode base64 attachments
+    const attachments = (rawAttachments || []).map(a => ({
+      filename: a.filename,
+      content: Buffer.from(a.data, 'base64'),
+    }));
 
     // Build email HTML
     const fullName = fields['Full Name'] || 'Unknown';
