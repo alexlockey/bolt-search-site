@@ -271,10 +271,84 @@ const description = "Complete this onboarding form to get set up as a contractor
     });
   }
 
+  // Validation helpers
+  function clearErrors() {
+    document.querySelectorAll('.field-error').forEach(el => el.remove());
+    document.querySelectorAll('.fieldset-error').forEach(el => el.classList.remove('fieldset-error'));
+  }
+
+  function showError(fieldset: Element, message: string) {
+    fieldset.classList.add('fieldset-error');
+    // Add error message after the legend
+    const legend = fieldset.querySelector('legend');
+    if (legend && !fieldset.querySelector('.field-error')) {
+      const err = document.createElement('p');
+      err.className = 'field-error';
+      err.textContent = message;
+      legend.insertAdjacentElement('afterend', err);
+    }
+  }
+
+  function validateForm(): boolean {
+    clearErrors();
+    const errors: Element[] = [];
+    const fieldsets = form.querySelectorAll('fieldset');
+
+    // Section 1: Personal Details
+    const personal = fieldsets[0];
+    const personalRequired = personal.querySelectorAll('[required]') as NodeListOf<HTMLInputElement | HTMLTextAreaElement>;
+    let personalMissing = false;
+    personalRequired.forEach(field => {
+      if (!field.value.trim()) personalMissing = true;
+    });
+    if (personalMissing) {
+      showError(personal, 'Please fill in all required personal details.');
+      errors.push(personal);
+    }
+
+    // Section 2: Trading Entity
+    const trading = fieldsets[1];
+    const tradingTypeSelected = form.querySelector('input[name="Trading Type"]:checked') as HTMLInputElement;
+    if (!tradingTypeSelected) {
+      showError(trading, 'Please select how you will be trading.');
+      errors.push(trading);
+    }
+
+    // Section 3: Right to Work
+    const rtw = fieldsets[2];
+    const rtwSelected = form.querySelector('input[name="Right to Work"]:checked') as HTMLInputElement;
+    if (!rtwSelected) {
+      showError(rtw, 'Please confirm your right to work in the UK.');
+      errors.push(rtw);
+    }
+
+    // Section 6: Emergency Contact
+    const emergency = fieldsets[5];
+    const emergencyRequired = emergency.querySelectorAll('[required]') as NodeListOf<HTMLInputElement>;
+    let emergencyMissing = false;
+    emergencyRequired.forEach(field => {
+      if (!field.value.trim()) emergencyMissing = true;
+    });
+    if (emergencyMissing) {
+      showError(emergency, 'Please fill in all emergency contact details.');
+      errors.push(emergency);
+    }
+
+    // Scroll to first error
+    if (errors.length > 0) {
+      errors[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return false;
+    }
+    return true;
+  }
+
   // Submit form as JSON to bypass Vercel's cross-site form POST restriction
   const form = document.querySelector('.onboarding-form') as HTMLFormElement;
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) return;
+
     const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
     const originalText = btn.innerHTML;
     btn.innerHTML = 'Submitting...';
@@ -465,6 +539,22 @@ const description = "Complete this onboarding form to get set up as a contractor
     margin-top: var(--space-md);
     font-size: 0.8125rem;
     color: var(--color-fg-subtle);
+  }
+
+  .field-error {
+    color: #DC2626;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin: var(--space-sm) 0 0 0;
+    padding: 0.5rem 0.75rem;
+    background: #FEF2F2;
+    border-left: 3px solid #DC2626;
+    border-radius: 4px;
+  }
+
+  fieldset.fieldset-error {
+    border-color: #DC2626;
+    box-shadow: 0 0 0 1px #DC2626;
   }
 
   @media (max-width: 768px) {
