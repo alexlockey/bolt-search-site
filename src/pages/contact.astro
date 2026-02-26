@@ -27,7 +27,7 @@ const description = "Contact Bolt Search to discuss your hiring, advisory, or le
         <!-- Contact Form -->
         <div class="form-section">
           <h2 style="margin-bottom: var(--space-lg);">Send us a message</h2>
-          <form class="contact-form" action="https://formspree.io/f/placeholder" method="POST">
+          <form class="contact-form">
             <div class="form-group">
               <label for="name">Name</label>
               <input type="text" id="name" name="name" required placeholder="Your name" />
@@ -63,6 +63,12 @@ const description = "Contact Bolt Search to discuss your hiring, advisory, or le
               Send Message <span aria-hidden="true">&rarr;</span>
             </button>
           </form>
+          <div class="form-success" style="display:none;">
+            <div style="text-align:center;padding:var(--space-2xl) 0;">
+              <h3 style="margin-bottom:var(--space-md);color:var(--color-navy);">Message Sent</h3>
+              <p style="color:var(--color-fg-muted);">Thanks for getting in touch. We'll get back to you shortly.</p>
+            </div>
+          </div>
         </div>
 
         <!-- Contact Info -->
@@ -272,4 +278,95 @@ const description = "Contact Bolt Search to discuss your hiring, advisory, or le
       grid-template-columns: 1fr;
     }
   }
+  .form-error {
+    color: #DC2626;
+    font-size: 0.8125rem;
+    margin-top: 0.25rem;
+  }
+
+  .form-group input.input-error,
+  .form-group textarea.input-error,
+  .form-group select.input-error {
+    border-color: #DC2626;
+    box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.1);
+  }
 </style>
+
+<script>
+  const form = document.querySelector('.contact-form') as HTMLFormElement;
+  const successDiv = document.querySelector('.form-success') as HTMLElement;
+
+  function clearErrors() {
+    form.querySelectorAll('.form-error').forEach(el => el.remove());
+    form.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+  }
+
+  function showFieldError(field: HTMLElement, message: string) {
+    field.classList.add('input-error');
+    const err = document.createElement('p');
+    err.className = 'form-error';
+    err.textContent = message;
+    field.parentElement?.appendChild(err);
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearErrors();
+
+    const name = (form.querySelector('#name') as HTMLInputElement).value.trim();
+    const email = (form.querySelector('#email') as HTMLInputElement).value.trim();
+    const company = (form.querySelector('#company') as HTMLInputElement).value.trim();
+    const subject = (form.querySelector('#subject') as HTMLSelectElement).value;
+    const message = (form.querySelector('#message') as HTMLTextAreaElement).value.trim();
+
+    let hasError = false;
+
+    if (!name) {
+      showFieldError(form.querySelector('#name')!, 'Please enter your name.');
+      hasError = true;
+    }
+    if (!email) {
+      showFieldError(form.querySelector('#email')!, 'Please enter your email.');
+      hasError = true;
+    }
+    if (!subject) {
+      showFieldError(form.querySelector('#subject')!, 'Please select a subject.');
+      hasError = true;
+    }
+    if (!message) {
+      showFieldError(form.querySelector('#message')!, 'Please enter a message.');
+      hasError = true;
+    }
+
+    if (hasError) {
+      const firstError = form.querySelector('.input-error') as HTMLElement;
+      firstError?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = 'Sending...';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, company, subject, message }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        form.style.display = 'none';
+        successDiv.style.display = 'block';
+      } else {
+        throw new Error(data.error || 'Failed');
+      }
+    } catch (err) {
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+      alert('There was an error sending your message. Please try again or email alex@bolt-search.com directly.');
+    }
+  });
+</script>
