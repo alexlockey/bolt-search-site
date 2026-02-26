@@ -1,0 +1,435 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const title = "Contractor Onboarding";
+const description = "Complete this onboarding form to get set up as a contractor with Bolt Search. All information is handled securely.";
+---
+
+<Layout title={title} description={description}>
+  <section class="onboarding-hero">
+    <div class="container-wide">
+      <div style="max-width: 640px;">
+        <p class="section-label">Contractor Setup</p>
+        <h1>Onboarding Form</h1>
+        <p style="font-size: 1.0625rem; margin-top: var(--space-md); color: var(--color-fg-muted);">
+          Please complete all sections below. Document uploads (right to work, insurance certificates) will be sent securely as email attachments.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-wide" style="max-width: 780px;">
+      <form
+        class="onboarding-form"
+        action="https://formsubmit.co/alex@bolt-search.com"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <!-- Formsubmit config -->
+        <input type="hidden" name="_subject" value="New Contractor Onboarding Submission" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_next" value="https://bolt-search-site.vercel.app/onboarding/thanks" />
+        <input type="text" name="_honey" style="display:none" />
+
+        <!-- Section 1: Personal Details -->
+        <fieldset>
+          <legend>Personal Details</legend>
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label for="fullName">Full Name <span class="required">*</span></label>
+              <input type="text" id="fullName" name="Full Name" required />
+            </div>
+            <div class="form-group">
+              <label for="dob">Date of Birth <span class="required">*</span></label>
+              <input type="date" id="dob" name="Date of Birth" required />
+            </div>
+            <div class="form-group">
+              <label for="nationality">Nationality <span class="required">*</span></label>
+              <input type="text" id="nationality" name="Nationality" required />
+            </div>
+            <div class="form-group">
+              <label for="contactEmail">Contact Email <span class="required">*</span></label>
+              <input type="email" id="contactEmail" name="Contact Email" required />
+            </div>
+            <div class="form-group">
+              <label for="contactPhone">Contact Phone Number <span class="required">*</span></label>
+              <input type="tel" id="contactPhone" name="Contact Phone" required />
+            </div>
+            <div class="form-group full-width">
+              <label for="homeAddress">Home Address <span class="required">*</span></label>
+              <textarea id="homeAddress" name="Home Address" rows="3" required></textarea>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Section 2: Trading Entity -->
+        <fieldset>
+          <legend>Trading Entity Details</legend>
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label>How will you be trading? <span class="required">*</span></label>
+              <div class="radio-group">
+                <label class="radio-label">
+                  <input type="radio" name="Trading Type" value="Limited Company" required />
+                  <span>Limited Company</span>
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="Trading Type" value="Umbrella Company" />
+                  <span>Umbrella Company</span>
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="Trading Type" value="Sole Trader" />
+                  <span>Sole Trader</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Limited Company fields -->
+          <div id="limitedFields" class="conditional-section" style="display: none;">
+            <h4>Limited Company Details</h4>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="companyName">Company Name</label>
+                <input type="text" id="companyName" name="Company Name" />
+              </div>
+              <div class="form-group">
+                <label for="companyNumber">Company Number</label>
+                <input type="text" id="companyNumber" name="Company Number" />
+              </div>
+              <div class="form-group">
+                <label for="vatNumber">VAT Registration Number</label>
+                <input type="text" id="vatNumber" name="VAT Number" placeholder="If applicable" />
+              </div>
+              <div class="form-group">
+                <label for="registeredAddress">Registered Address</label>
+                <input type="text" id="registeredAddress" name="Registered Address" />
+              </div>
+              <div class="form-group">
+                <label for="bankSortCode">Bank Sort Code</label>
+                <input type="text" id="bankSortCode" name="Bank Sort Code" placeholder="00-00-00" />
+              </div>
+              <div class="form-group">
+                <label for="bankAccount">Bank Account Number</label>
+                <input type="text" id="bankAccount" name="Bank Account Number" />
+              </div>
+              <div class="form-group full-width">
+                <label for="accountHolder">Account Holder Name</label>
+                <input type="text" id="accountHolder" name="Account Holder Name" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Umbrella Company fields -->
+          <div id="umbrellaFields" class="conditional-section" style="display: none;">
+            <h4>Umbrella Company Details</h4>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="umbrellaName">Umbrella Company Name</label>
+                <input type="text" id="umbrellaName" name="Umbrella Company Name" />
+              </div>
+              <div class="form-group">
+                <label for="umbrellaEmail">Umbrella Contact Email</label>
+                <input type="email" id="umbrellaEmail" name="Umbrella Contact Email" />
+              </div>
+              <div class="form-group full-width">
+                <label for="umbrellaAddress">Umbrella Registered Address</label>
+                <input type="text" id="umbrellaAddress" name="Umbrella Registered Address" />
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Section 3: Right to Work -->
+        <fieldset>
+          <legend>Right to Work in the UK</legend>
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label>Do you have the right to work in the UK? <span class="required">*</span></label>
+              <div class="radio-group">
+                <label class="radio-label">
+                  <input type="radio" name="Right to Work" value="Yes" required />
+                  <span>Yes</span>
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="Right to Work" value="No" />
+                  <span>No</span>
+                </label>
+              </div>
+            </div>
+            <div class="form-group full-width">
+              <label for="rtwType">Type of Right to Work Documentation</label>
+              <input type="text" id="rtwType" name="Right to Work Documentation Type" placeholder="e.g. British Passport, Settled Status, Visa Type" />
+            </div>
+            <div class="form-group full-width">
+              <label for="rtwUpload">Upload Right to Work Documentation</label>
+              <input type="file" id="rtwUpload" name="attachment" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" />
+              <span class="form-hint">Accepted: PDF, JPG, PNG, DOC. Max 5MB.</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Section 4: Qualifications -->
+        <fieldset>
+          <legend>Professional Qualifications</legend>
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label for="qualifications">Relevant qualifications, certifications, or professional memberships</label>
+              <textarea id="qualifications" name="Professional Qualifications" rows="4" placeholder="List any relevant qualifications..."></textarea>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Section 5: Insurance -->
+        <fieldset id="insuranceSection">
+          <legend>Insurance <span class="legend-note">(if operating as Limited Company)</span></legend>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Professional Indemnity Insurance</label>
+              <div class="radio-group">
+                <label class="radio-label">
+                  <input type="radio" name="Professional Indemnity Insurance" value="Yes" />
+                  <span>Yes</span>
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="Professional Indemnity Insurance" value="No" />
+                  <span>No</span>
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Public Liability Insurance</label>
+              <div class="radio-group">
+                <label class="radio-label">
+                  <input type="radio" name="Public Liability Insurance" value="Yes" />
+                  <span>Yes</span>
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="Public Liability Insurance" value="No" />
+                  <span>No</span>
+                </label>
+              </div>
+            </div>
+            <div class="form-group full-width">
+              <label for="insuranceUpload">Upload Insurance Certificate(s)</label>
+              <input type="file" id="insuranceUpload" name="attachment" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" multiple />
+              <span class="form-hint">Upload policy details or certificates if applicable. Max 5MB each.</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Section 6: Emergency Contact -->
+        <fieldset>
+          <legend>Emergency Contact</legend>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="emergencyName">Name <span class="required">*</span></label>
+              <input type="text" id="emergencyName" name="Emergency Contact Name" required />
+            </div>
+            <div class="form-group">
+              <label for="emergencyRelationship">Relationship <span class="required">*</span></label>
+              <input type="text" id="emergencyRelationship" name="Emergency Contact Relationship" required />
+            </div>
+            <div class="form-group">
+              <label for="emergencyPhone">Phone Number <span class="required">*</span></label>
+              <input type="tel" id="emergencyPhone" name="Emergency Contact Phone" required />
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="form-submit">
+          <button type="submit" class="btn btn-primary" style="width: 100%;">
+            Submit Onboarding Form <span aria-hidden="true">&rarr;</span>
+          </button>
+          <p class="form-disclaimer">
+            Your information will be sent securely to the Bolt Search team. Document uploads are included as email attachments.
+          </p>
+        </div>
+      </form>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // Show/hide conditional sections based on trading type
+  document.querySelectorAll('input[name="Trading Type"]').forEach(radio => {
+    radio.addEventListener('change', (e) => {
+      const target = (e.target as HTMLInputElement).value;
+      const limited = document.getElementById('limitedFields');
+      const umbrella = document.getElementById('umbrellaFields');
+      if (limited) limited.style.display = target === 'Limited Company' ? 'block' : 'none';
+      if (umbrella) umbrella.style.display = target === 'Umbrella Company' ? 'block' : 'none';
+    });
+  });
+</script>
+
+<style>
+  .onboarding-hero {
+    padding: var(--space-3xl) 0 var(--space-xl);
+  }
+
+  .onboarding-hero h1 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+  }
+
+  .onboarding-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+
+  fieldset {
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: var(--space-xl);
+    background: var(--color-bg-elevated);
+  }
+
+  legend {
+    font-size: 1.125rem;
+    font-weight: 600;
+    padding: 0 var(--space-sm);
+    color: var(--color-fg);
+  }
+
+  .legend-note {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--color-fg-subtle);
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+  }
+
+  .full-width {
+    grid-column: 1 / -1;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .form-group label {
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: var(--color-fg);
+  }
+
+  .required {
+    color: #DC2626;
+  }
+
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group input[type="tel"],
+  .form-group input[type="date"],
+  .form-group textarea,
+  .form-group select {
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--color-fg);
+    background: var(--color-bg);
+    transition: all 0.2s ease;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    font-family: inherit;
+  }
+
+  .form-group input[type="file"] {
+    padding: 0.75rem;
+    border: 2px dashed var(--color-border-strong);
+    border-radius: 8px;
+    background: var(--color-bg-subtle);
+    cursor: pointer;
+    font-size: 0.9375rem;
+    transition: border-color 0.2s ease;
+  }
+
+  .form-group input[type="file"]:hover {
+    border-color: var(--color-accent);
+  }
+
+  .form-hint {
+    font-size: 0.8125rem;
+    color: var(--color-fg-subtle);
+  }
+
+  .radio-group {
+    display: flex;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+  }
+
+  .radio-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 0.9375rem;
+  }
+
+  .radio-label input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-accent);
+    cursor: pointer;
+  }
+
+  .conditional-section {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .conditional-section h4 {
+    margin-bottom: var(--space-lg);
+    font-size: 1rem;
+    color: var(--color-fg-muted);
+  }
+
+  .form-submit {
+    text-align: center;
+  }
+
+  .form-disclaimer {
+    margin-top: var(--space-md);
+    font-size: 0.8125rem;
+    color: var(--color-fg-subtle);
+  }
+
+  @media (max-width: 768px) {
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .radio-group {
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    fieldset {
+      padding: var(--space-lg);
+    }
+  }
+</style>

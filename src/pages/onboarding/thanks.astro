@@ -1,0 +1,19 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const title = "Onboarding Submitted";
+const description = "Your contractor onboarding form has been submitted successfully.";
+---
+
+<Layout title={title} description={description}>
+  <section style="padding: var(--space-4xl) 0; text-align: center; min-height: 60vh; display: flex; align-items: center;">
+    <div class="container" style="max-width: 560px;">
+      <div style="font-size: 3rem; margin-bottom: var(--space-lg);">&#10003;</div>
+      <h1 style="margin-bottom: var(--space-md);">Onboarding Form Submitted</h1>
+      <p style="font-size: 1.0625rem; color: var(--color-fg-muted); margin-bottom: var(--space-2xl);">
+        Thanks - we've received your details and documents. The team will review everything and be in touch if we need anything else.
+      </p>
+      <a href="/" class="btn btn-primary">Back to Home <span aria-hidden="true">&rarr;</span></a>
+    </div>
+  </section>
+</Layout>
