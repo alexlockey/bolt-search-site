@@ -1,0 +1,758 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const title = "Client Onboarding";
+const description = "Complete this form to onboard your organisation with Bolt Search and set up contractor placements.";
+---
+
+<Layout title={title} description={description} noindex={true}>
+  <section class="onboarding-hero">
+    <div class="container-wide">
+      <div style="max-width: 640px;">
+        <p class="section-label">Client Setup</p>
+        <h1>Client Onboarding Form</h1>
+        <p style="font-size: 1.0625rem; margin-top: var(--space-md); color: var(--color-fg-muted);">
+          Please complete all sections below. You'll provide your company details first, then add at least one contractor placement.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-wide" style="max-width: 780px;">
+      <form class="onboarding-form">
+
+        <!-- Section 1: Company Details -->
+        <fieldset>
+          <legend>Company Details</legend>
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label for="companyName">Full Legal Entity Name (for invoicing) <span class="required">*</span></label>
+              <input type="text" id="companyName" name="Full Legal Entity Name" required />
+            </div>
+            <div class="form-group">
+              <label for="companyRegNo">Company Registration Number <span class="required">*</span></label>
+              <input type="text" id="companyRegNo" name="Company Registration Number" required />
+            </div>
+            <div class="form-group">
+              <label for="vatNo">VAT Registration Number</label>
+              <input type="text" id="vatNo" name="VAT Registration Number" />
+            </div>
+            <div class="form-group full-width">
+              <label for="registeredAddress">Registered Address <span class="required">*</span></label>
+              <textarea id="registeredAddress" name="Registered Address" rows="2" required></textarea>
+            </div>
+            <div class="form-group full-width">
+              <label for="tradingAddress">Trading Address (if different)</label>
+              <textarea id="tradingAddress" name="Trading Address" rows="2"></textarea>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Section 2: Invoice & Payment Details -->
+        <fieldset>
+          <legend>Invoice &amp; Payment Details</legend>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="invoiceContactName">Invoice Contact Name <span class="required">*</span></label>
+              <input type="text" id="invoiceContactName" name="Invoice Contact Name" required />
+            </div>
+            <div class="form-group">
+              <label for="invoiceContactEmail">Invoice Contact Email <span class="required">*</span></label>
+              <input type="email" id="invoiceContactEmail" name="Invoice Contact Email" required />
+            </div>
+            <div class="form-group">
+              <label for="poNumber">Purchase Order Number (if required)</label>
+              <input type="text" id="poNumber" name="Purchase Order Number" />
+            </div>
+            <div class="form-group">
+              <label for="paymentTerms">Payment Terms (e.g., 30 days) <span class="required">*</span></label>
+              <input type="text" id="paymentTerms" name="Payment Terms" required />
+            </div>
+            <div class="form-group full-width">
+              <label>Preferred Invoice Frequency <span class="required">*</span></label>
+              <div class="radio-group">
+                <label class="radio-label">
+                  <input type="radio" name="Invoice Frequency" value="Weekly" required />
+                  <span>Weekly</span>
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="Invoice Frequency" value="Bi-weekly" />
+                  <span>Bi-weekly</span>
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="Invoice Frequency" value="Monthly" />
+                  <span>Monthly</span>
+                </label>
+              </div>
+              <span class="form-hint">Invoice frequency determines when the contractor is paid. Please ensure this aligns with your internal payment processes.</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Section 3: Timesheet Authorisation -->
+        <fieldset>
+          <legend>Timesheet Authorisation</legend>
+          <p class="fieldset-note">Timesheets must be approved within 2 working days via the Sonovate portal to ensure the contractor is paid on time.</p>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="primaryTsName">Primary Authoriser Name <span class="required">*</span></label>
+              <input type="text" id="primaryTsName" name="Primary Timesheet Authoriser Name" required />
+            </div>
+            <div class="form-group">
+              <label for="primaryTsEmail">Primary Authoriser Email <span class="required">*</span></label>
+              <input type="email" id="primaryTsEmail" name="Primary Timesheet Authoriser Email" required />
+            </div>
+            <div class="form-group">
+              <label for="backupTsName">Backup Authoriser Name</label>
+              <input type="text" id="backupTsName" name="Backup Timesheet Authoriser Name" />
+            </div>
+            <div class="form-group">
+              <label for="backupTsEmail">Backup Authoriser Email</label>
+              <input type="email" id="backupTsEmail" name="Backup Timesheet Authoriser Email" />
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Placements Container -->
+        <div id="placementsContainer">
+          <div class="placement-divider">
+            <h2>Contractor Placement</h2>
+            <p>Please complete the following for each contractor you are placing through Bolt Search.</p>
+          </div>
+
+          <!-- Placement 1 (always present) -->
+          <div class="placement-block" data-placement="1">
+            <fieldset>
+              <legend>Placement 1 — Assignment Details</legend>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Contractor Name <span class="required">*</span></label>
+                  <input type="text" name="P1 Contractor Name" required />
+                </div>
+                <div class="form-group">
+                  <label>Role Title / Job Description <span class="required">*</span></label>
+                  <input type="text" name="P1 Role Title" required />
+                </div>
+                <div class="form-group">
+                  <label>Location of Work <span class="required">*</span></label>
+                  <input type="text" name="P1 Location of Work" required />
+                </div>
+                <div class="form-group">
+                  <label>Start Date <span class="required">*</span></label>
+                  <input type="date" name="P1 Start Date" required />
+                </div>
+                <div class="form-group">
+                  <label>Expected End Date (or 'Ongoing')</label>
+                  <input type="text" name="P1 End Date" placeholder="e.g. 31/12/2026 or Ongoing" />
+                </div>
+                <div class="form-group">
+                  <label>Agreed Charge Rate (per day, ex VAT) <span class="required">*</span></label>
+                  <input type="text" name="P1 Charge Rate" required placeholder="e.g. £450" />
+                </div>
+                <div class="form-group">
+                  <label>Working Pattern <span class="required">*</span></label>
+                  <input type="text" name="P1 Working Pattern" required placeholder="e.g. 5 days/week, Mon-Fri" />
+                </div>
+                <div class="form-group">
+                  <label>Notice Period Required</label>
+                  <input type="text" name="P1 Notice Period" placeholder="e.g. 2 weeks" />
+                </div>
+                <div class="form-group full-width">
+                  <label>Expenses to be Reimbursed (if any)</label>
+                  <input type="text" name="P1 Expenses" placeholder="e.g. Travel, accommodation, or N/A" />
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- Compliance Questionnaire -->
+            <fieldset>
+              <legend>Placement 1 — Compliance Questionnaire</legend>
+              <p class="fieldset-note">This helps us determine whether additional safeguarding or compliance checks are required.</p>
+              <div class="form-grid">
+                <div class="form-group full-width">
+                  <label>Q1: Does this role involve direct contact with learners? <span class="required">*</span></label>
+                  <div class="radio-group">
+                    <label class="radio-label"><input type="radio" name="P1 Direct Contact" value="Yes" required /><span>Yes</span></label>
+                    <label class="radio-label"><input type="radio" name="P1 Direct Contact" value="No" /><span>No</span></label>
+                  </div>
+                </div>
+                <div class="form-group full-width">
+                  <label>Q2: Will the contractor have unsupervised access to learners? <span class="required">*</span></label>
+                  <div class="radio-group">
+                    <label class="radio-label"><input type="radio" name="P1 Unsupervised Access" value="Yes" required /><span>Yes</span></label>
+                    <label class="radio-label"><input type="radio" name="P1 Unsupervised Access" value="No" /><span>No</span></label>
+                  </div>
+                </div>
+                <div class="form-group full-width">
+                  <label>Q3: Will the contractor be working in a regulated activity (Safeguarding Vulnerable Groups Act 2006)? <span class="required">*</span></label>
+                  <div class="radio-group">
+                    <label class="radio-label"><input type="radio" name="P1 Regulated Activity" value="Yes" required /><span>Yes</span></label>
+                    <label class="radio-label"><input type="radio" name="P1 Regulated Activity" value="No" /><span>No</span></label>
+                  </div>
+                </div>
+                <div class="form-group full-width">
+                  <label>Q4: Does your safeguarding policy require an enhanced DBS check for this role? <span class="required">*</span></label>
+                  <div class="radio-group">
+                    <label class="radio-label"><input type="radio" name="P1 Enhanced DBS" value="Yes" required /><span>Yes</span></label>
+                    <label class="radio-label"><input type="radio" name="P1 Enhanced DBS" value="No" /><span>No</span></label>
+                  </div>
+                </div>
+                <div class="form-group full-width">
+                  <label>Q5: Any other compliance requirements specific to your organisation?</label>
+                  <textarea name="P1 Other Compliance" rows="2" placeholder="Please specify, or leave blank if none"></textarea>
+                </div>
+              </div>
+              <div class="compliance-note">
+                <p><strong>If all answers are No:</strong> Standard onboarding applies — Right to Work check only.</p>
+                <p><strong>If any answer is Yes:</strong> Enhanced compliance is required. Bolt Search will coordinate the necessary checks (including DBS/safeguarding where applicable). This may add 5–10 working days to onboarding.</p>
+              </div>
+            </fieldset>
+
+            <!-- IR35 Status Determination -->
+            <fieldset>
+              <legend>Placement 1 — IR35 Status Determination</legend>
+              <p class="fieldset-note">As the client, you must determine the IR35 status for this role and issue a Status Determination Statement (SDS). You can use <a href="https://www.gov.uk/guidance/employment-status-indicator" target="_blank" rel="noopener">HMRC's CEST tool</a> to help assess the status.</p>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Role Being Assessed</label>
+                  <input type="text" name="P1 IR35 Role" placeholder="Auto-filled from role title above" readonly class="readonly-field" />
+                </div>
+                <div class="form-group">
+                  <label>Contractor Name Being Assessed</label>
+                  <input type="text" name="P1 IR35 Contractor" placeholder="Auto-filled from contractor name above" readonly class="readonly-field" />
+                </div>
+                <div class="form-group full-width">
+                  <label>IR35 Determination <span class="required">*</span></label>
+                  <div class="radio-group">
+                    <label class="radio-label"><input type="radio" name="P1 IR35 Status" value="Inside IR35" required /><span>Inside IR35</span></label>
+                    <label class="radio-label"><input type="radio" name="P1 IR35 Status" value="Outside IR35" /><span>Outside IR35</span></label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Tool/Method Used for Assessment <span class="required">*</span></label>
+                  <input type="text" name="P1 IR35 Method" required placeholder="e.g. CEST, professional advice" />
+                </div>
+                <div class="form-group">
+                  <label>Date of Assessment <span class="required">*</span></label>
+                  <input type="date" name="P1 IR35 Assessment Date" required />
+                </div>
+                <div class="form-group full-width">
+                  <label>Client-Led Status Disagreement Process (CLSDP) in Place? <span class="required">*</span></label>
+                  <div class="radio-group">
+                    <label class="radio-label"><input type="radio" name="P1 CLSDP" value="Yes" required /><span>Yes</span></label>
+                    <label class="radio-label"><input type="radio" name="P1 CLSDP" value="No" /><span>No</span></label>
+                  </div>
+                </div>
+              </div>
+              <div class="compliance-note" style="margin-top: var(--space-lg);">
+                <p><strong>Important:</strong> The SDS must be provided before the assignment starts. Without this, we cannot proceed with the placement.</p>
+              </div>
+            </fieldset>
+
+            <!-- Client Authorisation for this placement -->
+            <fieldset>
+              <legend>Placement 1 — Client Authorisation</legend>
+              <p class="fieldset-note">I confirm that the compliance and IR35 information provided above is accurate and reflects our organisation's requirements for this role.</p>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Authorised Signatory Name <span class="required">*</span></label>
+                  <input type="text" name="P1 Signatory Name" required />
+                </div>
+                <div class="form-group">
+                  <label>Position <span class="required">*</span></label>
+                  <input type="text" name="P1 Signatory Position" required />
+                </div>
+                <div class="form-group">
+                  <label>Date <span class="required">*</span></label>
+                  <input type="date" name="P1 Signatory Date" required />
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+
+        <!-- Add Placement Button -->
+        <div class="add-placement-wrapper">
+          <button type="button" id="addPlacementBtn" class="btn btn-outline">
+            + Add Another Placement
+          </button>
+          <p class="form-hint">Need to onboard multiple contractors? Add a separate placement for each.</p>
+        </div>
+
+        <div class="form-submit">
+          <button type="submit" class="btn btn-primary" style="width: 100%;">
+            Submit Client Onboarding <span aria-hidden="true">&rarr;</span>
+          </button>
+          <p class="form-disclaimer">
+            Your information will be sent securely to the Bolt Search team.
+          </p>
+        </div>
+      </form>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  let placementCount = 1;
+
+  // Auto-fill IR35 fields from assignment details
+  function syncPlacementFields(n: number) {
+    const form = document.querySelector('.onboarding-form') as HTMLFormElement;
+    const contractorInput = form.querySelector(`[name="P${n} Contractor Name"]`) as HTMLInputElement;
+    const roleInput = form.querySelector(`[name="P${n} Role Title"]`) as HTMLInputElement;
+    const ir35Contractor = form.querySelector(`[name="P${n} IR35 Contractor"]`) as HTMLInputElement;
+    const ir35Role = form.querySelector(`[name="P${n} IR35 Role"]`) as HTMLInputElement;
+
+    if (contractorInput && ir35Contractor) {
+      contractorInput.addEventListener('input', () => { ir35Contractor.value = contractorInput.value; });
+    }
+    if (roleInput && ir35Role) {
+      roleInput.addEventListener('input', () => { ir35Role.value = roleInput.value; });
+    }
+  }
+
+  syncPlacementFields(1);
+
+  // Add Placement
+  const addBtn = document.getElementById('addPlacementBtn') as HTMLButtonElement;
+  const container = document.getElementById('placementsContainer') as HTMLElement;
+
+  addBtn.addEventListener('click', () => {
+    placementCount++;
+    const n = placementCount;
+    const block = document.createElement('div');
+    block.className = 'placement-block';
+    block.dataset.placement = String(n);
+
+    block.innerHTML = `
+      <div class="placement-header">
+        <h3>Placement ${n}</h3>
+        <button type="button" class="remove-placement-btn" data-remove="${n}">&times; Remove</button>
+      </div>
+
+      <fieldset>
+        <legend>Placement ${n} — Assignment Details</legend>
+        <div class="form-grid">
+          <div class="form-group"><label>Contractor Name <span class="required">*</span></label><input type="text" name="P${n} Contractor Name" required /></div>
+          <div class="form-group"><label>Role Title / Job Description <span class="required">*</span></label><input type="text" name="P${n} Role Title" required /></div>
+          <div class="form-group"><label>Location of Work <span class="required">*</span></label><input type="text" name="P${n} Location of Work" required /></div>
+          <div class="form-group"><label>Start Date <span class="required">*</span></label><input type="date" name="P${n} Start Date" required /></div>
+          <div class="form-group"><label>Expected End Date (or 'Ongoing')</label><input type="text" name="P${n} End Date" placeholder="e.g. 31/12/2026 or Ongoing" /></div>
+          <div class="form-group"><label>Agreed Charge Rate (per day, ex VAT) <span class="required">*</span></label><input type="text" name="P${n} Charge Rate" required placeholder="e.g. £450" /></div>
+          <div class="form-group"><label>Working Pattern <span class="required">*</span></label><input type="text" name="P${n} Working Pattern" required placeholder="e.g. 5 days/week, Mon-Fri" /></div>
+          <div class="form-group"><label>Notice Period Required</label><input type="text" name="P${n} Notice Period" placeholder="e.g. 2 weeks" /></div>
+          <div class="form-group full-width"><label>Expenses to be Reimbursed (if any)</label><input type="text" name="P${n} Expenses" placeholder="e.g. Travel, accommodation, or N/A" /></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Placement ${n} — Compliance Questionnaire</legend>
+        <p class="fieldset-note">This helps us determine whether additional safeguarding or compliance checks are required.</p>
+        <div class="form-grid">
+          <div class="form-group full-width"><label>Q1: Does this role involve direct contact with learners? <span class="required">*</span></label><div class="radio-group"><label class="radio-label"><input type="radio" name="P${n} Direct Contact" value="Yes" required /><span>Yes</span></label><label class="radio-label"><input type="radio" name="P${n} Direct Contact" value="No" /><span>No</span></label></div></div>
+          <div class="form-group full-width"><label>Q2: Will the contractor have unsupervised access to learners? <span class="required">*</span></label><div class="radio-group"><label class="radio-label"><input type="radio" name="P${n} Unsupervised Access" value="Yes" required /><span>Yes</span></label><label class="radio-label"><input type="radio" name="P${n} Unsupervised Access" value="No" /><span>No</span></label></div></div>
+          <div class="form-group full-width"><label>Q3: Will the contractor be working in a regulated activity (Safeguarding Vulnerable Groups Act 2006)? <span class="required">*</span></label><div class="radio-group"><label class="radio-label"><input type="radio" name="P${n} Regulated Activity" value="Yes" required /><span>Yes</span></label><label class="radio-label"><input type="radio" name="P${n} Regulated Activity" value="No" /><span>No</span></label></div></div>
+          <div class="form-group full-width"><label>Q4: Does your safeguarding policy require an enhanced DBS check for this role? <span class="required">*</span></label><div class="radio-group"><label class="radio-label"><input type="radio" name="P${n} Enhanced DBS" value="Yes" required /><span>Yes</span></label><label class="radio-label"><input type="radio" name="P${n} Enhanced DBS" value="No" /><span>No</span></label></div></div>
+          <div class="form-group full-width"><label>Q5: Any other compliance requirements specific to your organisation?</label><textarea name="P${n} Other Compliance" rows="2" placeholder="Please specify, or leave blank if none"></textarea></div>
+        </div>
+        <div class="compliance-note">
+          <p><strong>If all answers are No:</strong> Standard onboarding applies — Right to Work check only.</p>
+          <p><strong>If any answer is Yes:</strong> Enhanced compliance is required. Bolt Search will coordinate the necessary checks. This may add 5–10 working days.</p>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Placement ${n} — IR35 Status Determination</legend>
+        <p class="fieldset-note">As the client, you must determine the IR35 status for this role. You can use <a href="https://www.gov.uk/guidance/employment-status-indicator" target="_blank" rel="noopener">HMRC's CEST tool</a> to help assess the status.</p>
+        <div class="form-grid">
+          <div class="form-group"><label>Role Being Assessed</label><input type="text" name="P${n} IR35 Role" readonly class="readonly-field" /></div>
+          <div class="form-group"><label>Contractor Name Being Assessed</label><input type="text" name="P${n} IR35 Contractor" readonly class="readonly-field" /></div>
+          <div class="form-group full-width"><label>IR35 Determination <span class="required">*</span></label><div class="radio-group"><label class="radio-label"><input type="radio" name="P${n} IR35 Status" value="Inside IR35" required /><span>Inside IR35</span></label><label class="radio-label"><input type="radio" name="P${n} IR35 Status" value="Outside IR35" /><span>Outside IR35</span></label></div></div>
+          <div class="form-group"><label>Tool/Method Used for Assessment <span class="required">*</span></label><input type="text" name="P${n} IR35 Method" required placeholder="e.g. CEST, professional advice" /></div>
+          <div class="form-group"><label>Date of Assessment <span class="required">*</span></label><input type="date" name="P${n} IR35 Assessment Date" required /></div>
+          <div class="form-group full-width"><label>Client-Led Status Disagreement Process (CLSDP) in Place? <span class="required">*</span></label><div class="radio-group"><label class="radio-label"><input type="radio" name="P${n} CLSDP" value="Yes" required /><span>Yes</span></label><label class="radio-label"><input type="radio" name="P${n} CLSDP" value="No" /><span>No</span></label></div></div>
+        </div>
+        <div class="compliance-note" style="margin-top: var(--space-lg);"><p><strong>Important:</strong> The SDS must be provided before the assignment starts. Without this, we cannot proceed with the placement.</p></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Placement ${n} — Client Authorisation</legend>
+        <p class="fieldset-note">I confirm that the compliance and IR35 information provided above is accurate and reflects our organisation's requirements for this role.</p>
+        <div class="form-grid">
+          <div class="form-group"><label>Authorised Signatory Name <span class="required">*</span></label><input type="text" name="P${n} Signatory Name" required /></div>
+          <div class="form-group"><label>Position <span class="required">*</span></label><input type="text" name="P${n} Signatory Position" required /></div>
+          <div class="form-group"><label>Date <span class="required">*</span></label><input type="date" name="P${n} Signatory Date" required /></div>
+        </div>
+      </fieldset>
+    `;
+
+    container.appendChild(block);
+    syncPlacementFields(n);
+    block.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  // Remove placement (delegated)
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target.classList.contains('remove-placement-btn')) {
+      const removeId = target.dataset.remove;
+      const block = document.querySelector(`.placement-block[data-placement="${removeId}"]`);
+      if (block) block.remove();
+    }
+  });
+
+  // Helper: convert File to base64
+  function fileToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const result = reader.result as string;
+        resolve(result.split(',')[1]);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // Validation
+  function clearErrors() {
+    document.querySelectorAll('.field-error').forEach(el => el.remove());
+    document.querySelectorAll('.fieldset-error').forEach(el => el.classList.remove('fieldset-error'));
+  }
+
+  function showError(fieldset: Element, message: string) {
+    fieldset.classList.add('fieldset-error');
+    const legend = fieldset.querySelector('legend');
+    if (legend && !fieldset.querySelector('.field-error')) {
+      const err = document.createElement('p');
+      err.className = 'field-error';
+      err.textContent = message;
+      legend.insertAdjacentElement('afterend', err);
+    }
+  }
+
+  function validateForm(): boolean {
+    clearErrors();
+    const errors: Element[] = [];
+    const form = document.querySelector('.onboarding-form') as HTMLFormElement;
+
+    // Check all fieldsets with required fields
+    form.querySelectorAll('fieldset').forEach(fs => {
+      const requiredInputs = fs.querySelectorAll('[required]') as NodeListOf<HTMLInputElement | HTMLTextAreaElement>;
+      let missing = false;
+      requiredInputs.forEach(field => {
+        if (field.type === 'radio') {
+          const name = field.name;
+          const checked = form.querySelector(`input[name="${name}"]:checked`);
+          if (!checked) missing = true;
+        } else if (!field.value.trim()) {
+          missing = true;
+        }
+      });
+      if (missing) {
+        const legend = fs.querySelector('legend');
+        const label = legend ? legend.textContent?.trim() : 'This section';
+        showError(fs, `Please complete all required fields in "${label}".`);
+        errors.push(fs);
+      }
+    });
+
+    if (errors.length > 0) {
+      errors[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return false;
+    }
+    return true;
+  }
+
+  // Submit
+  const form = document.querySelector('.onboarding-form') as HTMLFormElement;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = 'Submitting...';
+    btn.disabled = true;
+
+    try {
+      const formData = new FormData(form);
+      const fields: Record<string, string> = {};
+      const attachments: { filename: string; data: string }[] = [];
+
+      for (const [key, value] of formData.entries()) {
+        if (value instanceof File && value.size > 0) {
+          const data = await fileToBase64(value);
+          attachments.push({ filename: value.name, data });
+        } else if (typeof value === 'string' && value.trim() !== '') {
+          fields[key] = value;
+        }
+      }
+
+      const res = await fetch('/api/client-onboarding', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fields, attachments }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        window.location.href = '/client-onboarding/thanks';
+      } else {
+        throw new Error(data.error || 'Submission failed');
+      }
+    } catch (err) {
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+      alert('There was an error submitting the form. Please try again or email hello@boltjobs.com directly.');
+    }
+  });
+</script>
+
+<style>
+  .onboarding-hero {
+    padding: var(--space-3xl) 0 var(--space-xl);
+  }
+
+  .onboarding-hero h1 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+  }
+
+  .onboarding-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+
+  fieldset {
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: var(--space-xl);
+    background: var(--color-bg-elevated);
+  }
+
+  legend {
+    font-size: 1.125rem;
+    font-weight: 600;
+    padding: 0 var(--space-sm);
+    color: var(--color-fg);
+  }
+
+  .fieldset-note {
+    font-size: 0.9375rem;
+    color: var(--color-fg-muted);
+    margin-bottom: var(--space-lg);
+    line-height: 1.6;
+  }
+
+  .fieldset-note a {
+    color: var(--color-accent);
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+  }
+
+  .full-width {
+    grid-column: 1 / -1;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .form-group label {
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: var(--color-fg);
+  }
+
+  .required {
+    color: #DC2626;
+  }
+
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group input[type="tel"],
+  .form-group input[type="date"],
+  .form-group textarea,
+  .form-group select {
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--color-fg);
+    background: var(--color-bg);
+    transition: all 0.2s ease;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    font-family: inherit;
+  }
+
+  .readonly-field {
+    background: var(--color-bg-subtle) !important;
+    color: var(--color-fg-muted) !important;
+    cursor: not-allowed;
+  }
+
+  .form-hint {
+    font-size: 0.8125rem;
+    color: var(--color-fg-subtle);
+  }
+
+  .radio-group {
+    display: flex;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+  }
+
+  .radio-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 0.9375rem;
+  }
+
+  .radio-label input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-accent);
+    cursor: pointer;
+  }
+
+  .compliance-note {
+    margin-top: var(--space-lg);
+    padding: var(--space-md) var(--space-lg);
+    background: var(--color-bg-subtle);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .compliance-note p {
+    margin: 0 0 var(--space-xs) 0;
+  }
+
+  .compliance-note p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Placement sections */
+  .placement-divider {
+    padding-top: var(--space-xl);
+    border-top: 2px solid var(--color-accent);
+  }
+
+  .placement-divider h2 {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .placement-divider p {
+    color: var(--color-fg-muted);
+    font-size: 0.9375rem;
+  }
+
+  .placement-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    padding-top: var(--space-lg);
+  }
+
+  .placement-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md) 0;
+    border-top: 1px dashed var(--color-border-strong);
+    margin-top: var(--space-lg);
+  }
+
+  .placement-header h3 {
+    font-size: 1.25rem;
+    color: var(--color-navy);
+    margin: 0;
+  }
+
+  .remove-placement-btn {
+    background: none;
+    border: 1px solid #DC2626;
+    color: #DC2626;
+    padding: 0.375rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.8125rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .remove-placement-btn:hover {
+    background: #DC2626;
+    color: white;
+  }
+
+  .add-placement-wrapper {
+    text-align: center;
+    padding: var(--space-xl) 0;
+    border-top: 1px dashed var(--color-border);
+  }
+
+  .form-submit {
+    text-align: center;
+  }
+
+  .form-disclaimer {
+    margin-top: var(--space-md);
+    font-size: 0.8125rem;
+    color: var(--color-fg-subtle);
+  }
+
+  .field-error {
+    color: #DC2626;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin: var(--space-sm) 0 0 0;
+    padding: 0.5rem 0.75rem;
+    background: #FEF2F2;
+    border-left: 3px solid #DC2626;
+    border-radius: 4px;
+  }
+
+  fieldset.fieldset-error {
+    border-color: #DC2626;
+    box-shadow: 0 0 0 1px #DC2626;
+  }
+
+  @media (max-width: 768px) {
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .radio-group {
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    fieldset {
+      padding: var(--space-lg);
+    }
+  }
+</style>

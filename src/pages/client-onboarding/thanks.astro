@@ -1,0 +1,191 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const title = "Client Onboarding Submitted";
+const description = "Your client onboarding form has been submitted successfully.";
+---
+
+<Layout title={title} description={description} noindex={true}>
+  <!-- Confirmation Banner -->
+  <section class="confirm-banner">
+    <div class="container" style="max-width: 640px;">
+      <div style="font-size: 3rem; margin-bottom: var(--space-md);">&#10003;</div>
+      <h1 style="margin-bottom: var(--space-sm);">Client Onboarding Submitted</h1>
+      <p style="font-size: 1.0625rem; color: rgba(255,255,255,0.8);">
+        Thanks — we've received your company details and placement information. Here's what happens next.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="max-width: 800px;">
+
+      <!-- Timeline -->
+      <h2 class="guide-heading">What Happens Next — Timeline</h2>
+      <p>To ensure your contractor can start on time, please follow this checklist and timeline:</p>
+
+      <table class="checklist-table">
+        <thead>
+          <tr>
+            <th style="width: 50px;">Step</th>
+            <th>Action</th>
+            <th style="width: 200px;">Deadline</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Complete and return Client Onboarding Form</td>
+            <td>Within 7 days</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Complete IR35 Status Determination</td>
+            <td>Within 7 days</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Complete Compliance Questionnaire</td>
+            <td>Within 7 days</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Credit check processed</td>
+            <td>1–2 working days</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Terms of Business issued for signature</td>
+            <td>Once above completed</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Sonovate portal access set up</td>
+            <td>Once terms signed</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>Contractor starts</td>
+            <td>As agreed</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Reminders -->
+      <h2 class="guide-heading">Final Reminders</h2>
+      <ul class="reminders-list">
+        <li>Complete all documentation at least <strong>2 weeks</strong> before the intended start date to allow for processing and checks.</li>
+        <li><strong>IR35 Status Determination</strong> must be completed before the contractor starts work.</li>
+        <li>Timesheets must be approved within <strong>2 working days</strong> via Sonovate to ensure timely payment.</li>
+        <li>For any questions, contact us at <a href="mailto:hello@boltjobs.com">hello@boltjobs.com</a> or 020 4634 0027.</li>
+      </ul>
+
+      <!-- Contact -->
+      <div class="contact-box">
+        <h3>Contact Bolt Search</h3>
+        <p>Email: <a href="mailto:hello@boltjobs.com">hello@boltjobs.com</a></p>
+        <p>Phone: 020 4634 0027</p>
+        <p style="margin-top: var(--space-md); color: var(--color-fg-muted); font-size: 0.875rem;">Bolt Search (Grant James Consultancy Ltd t/a Bolt)</p>
+      </div>
+
+      <div style="text-align: center; margin-top: var(--space-2xl);">
+        <a href="/" class="btn btn-primary">Back to Home <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .confirm-banner {
+    background: linear-gradient(135deg, var(--color-navy) 0%, #1a1a3e 60%, #0f2027 100%);
+    color: white;
+    padding: var(--space-3xl) 0 var(--space-2xl);
+    text-align: center;
+  }
+
+  .confirm-banner h1 {
+    color: white;
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+  }
+
+  .guide-heading {
+    font-size: 1.5rem;
+    color: var(--color-navy);
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--color-accent);
+  }
+
+  p {
+    margin-bottom: var(--space-md);
+    line-height: 1.7;
+  }
+
+  .checklist-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-lg) 0;
+    font-size: 0.9375rem;
+  }
+
+  .checklist-table th {
+    background: var(--color-navy);
+    color: white;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 500;
+  }
+
+  .checklist-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .checklist-table tr:nth-child(even) td {
+    background: var(--color-bg-elevated);
+  }
+
+  .reminders-list {
+    margin: 0;
+    padding-left: 1.5rem;
+  }
+
+  .reminders-list li {
+    margin-bottom: var(--space-md);
+    line-height: 1.7;
+    font-size: 0.9375rem;
+  }
+
+  .reminders-list a {
+    color: var(--color-accent);
+  }
+
+  .contact-box {
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: var(--space-xl);
+    margin-top: var(--space-2xl);
+    text-align: center;
+  }
+
+  .contact-box h3 {
+    margin-bottom: var(--space-md);
+  }
+
+  .contact-box p {
+    margin-bottom: var(--space-xs);
+  }
+
+  .contact-box a {
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 768px) {
+    .checklist-table th:last-child,
+    .checklist-table td:last-child {
+      display: none;
+    }
+  }
+</style>
