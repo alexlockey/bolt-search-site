@@ -47,16 +47,16 @@ CEO transitions are complex, with many moving parts. Often, problems occur not b
 
 Common pitfalls include:
 - 
-The Personality Clash:** Bringing in a new leader with a very different style can alienate the team.
+**The Personality Clash:** Bringing in a new leader with a very different style can alienate the team.
 
 - 
-Cultural Misalignment:** If the new CEO doesn't respect the company's roots, it can cause friction.
+**Cultural Misalignment:** If the new CEO doesn't respect the company's roots, it can cause friction.
 
 - 
-Bad Communication:** Failing to manage internal messaging leads to uncertainty and a drop in morale.
+**Bad Communication:** Failing to manage internal messaging leads to uncertainty and a drop in morale.
 
 - 
-Founder Interference:** If the founder can't step aside, it may spark power struggles within the new leadership team.
+**Founder Interference:** If the founder can't step aside, it may spark power struggles within the new leadership team.
 
 To avoid these issues, it helps to:
 - 
@@ -70,7 +70,7 @@ Include key internal figures in the process
 , not just the Board and investors.
 
 - 
-Clearly define the founder's new role** (for example, on the Board or as an advisor).
+**Clearly define the founder's new role** (for example, on the Board or as an advisor).
 
 A CEO transition shouldn't feel like a sudden cultural reset; it should be a natural step towards sustainable growth.*
 ## The Value an Institutional CEO Brings to the Table
@@ -103,12 +103,12 @@ Choosing the right leader for the next phase is more than simply relying on indu
 Worthy strategies include:
 
 - 
-Understand your company's stage:** Do you need someone who can optimise, integrate, or aggressively expand?
+**Understand your company's stage:** Do you need someone who can optimise, integrate, or aggressively expand?
 - 
-Look beyond the typical education background:** Many top operators come from technology, SaaS, or multi-site business sectors.
+**Look beyond the typical education background:** Many top operators come from technology, SaaS, or multi-site business sectors.
 
 - 
-Plan for a gradual transition:** This ensures both the new CEO and founder can align the company's future together before the founder steps aside.
+**Plan for a gradual transition:** This ensures both the new CEO and founder can align the company's future together before the founder steps aside.
 
 The best successor CEOs combine strong operational skills with the ability to respect the founder's legacy while driving commercial growth.*
 ## Succession Planning - What Happens Next?

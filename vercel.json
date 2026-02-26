@@ -56,11 +56,6 @@
       "permanent": true
     },
     {
-      "source": "/insights/leadership-apprenticeship-defunding-sales-survival-guide",
-      "destination": "/insights/leadership-apprenticeship-defunding-guide",
-      "permanent": true
-    },
-    {
       "source": "/exec-search",
       "destination": "/search",
       "permanent": true

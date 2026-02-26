@@ -55,7 +55,7 @@ Use government funding as a boost
 , not a foundation. It should be a fuel source, not the whole engine.
 
 - 
-Develop other streams of revenue.** This might include employer-led training, B2B partnerships, and direct consumer learning products.
+**Develop other streams of revenue.** This might include employer-led training, B2B partnerships, and direct consumer learning products.
 
 - 
 Embrace scalable business models 
@@ -83,7 +83,7 @@ Poor control over margins and pricing
 To overcome these challenges, companies should look to:
 
 - 
-Shift sales efforts towards** lasting, high-value relationships rather than chasing quick wins.
+**Shift sales efforts towards** lasting, high-value relationships rather than chasing quick wins.
 
 - 
 Consider outcome-based pricing models 
@@ -91,7 +91,7 @@ Consider outcome-based pricing models
 where the fee is linked to results for learners or businesses.
 
 - 
-Establish and implement a solid pricing strategy** which puts customer lifetime value and customer centricity at the heart of everything, encouraging renewals and referrals.
+**Establish and implement a solid pricing strategy** which puts customer lifetime value and customer centricity at the heart of everything, encouraging renewals and referrals.
 ## The Leadership Bottleneck: Evolving Beyond the Founder
 
 Many education businesses are born from the passion and vision of a driven founder. In the early days, that passion and vision can drive excellent outcomes for learners. But as the company grows, the skills needed often change dramatically.
@@ -129,7 +129,7 @@ Develop an enterprise sales playbook
 . This should include long-term pipeline planning, dedicated leadership for big accounts, and systems that align with slow government procurement cycles.
 
 - 
-Understand your market segments clearly:** For instance, what different types of employers or government agencies look for when they buy education services. Put yourself in their shoes.
+**Understand your market segments clearly:** For instance, what different types of employers or government agencies look for when they buy education services. Put yourself in their shoes.
 
 - 
 Use data and real results to tell a story
@@ -161,7 +161,7 @@ Invest in modern SaaS platforms and automation
 . This reduces admin work and improves both learner engagement and the overall efficiency of your operations.
 
 - 
-Build a flexible, hybrid model** that is not limited by location or instructor availability.
+**Build a flexible, hybrid model** that is not limited by location or instructor availability.
 
 - 
 Tackle operational scalability early on

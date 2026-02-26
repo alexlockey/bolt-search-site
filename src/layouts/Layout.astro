@@ -4,13 +4,15 @@ export interface Props {
   description?: string;
   image?: string;
   article?: boolean;
+  noindex?: boolean;
 }
 
 const {
   title,
   description = "Trusted executive search, board advisory and fractional leadership for the education, training, and skills sector.",
   image = "/og-image.png",
-  article = false
+  article = false,
+  noindex = false
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -36,6 +38,7 @@ const navLinks = [
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title} | Bolt Search</title>
   <meta name="description" content={description}>
+  {noindex && <meta name="robots" content="noindex, nofollow">}
   <link rel="canonical" href={canonicalURL}>
 
   <!-- Open Graph -->

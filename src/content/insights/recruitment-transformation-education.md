@@ -66,7 +66,7 @@ Clients follow people, not agencies. A recruiter billing £800k on their own is 
 
 For training providers, this has two implications:
 
-First, employability training needs to shift.** It's not enough to teach technical skills and hope learners slot into corporate structures. You need to teach:
+**First, employability training needs to shift.** It's not enough to teach technical skills and hope learners slot into corporate structures. You need to teach:
 
 - How to build and maintain a professional network
 - How to create a digital footprint that signals expertise
@@ -74,7 +74,7 @@ First, employability training needs to shift.** It's not enough to teach technic
 - How to operate with some degree of autonomy and self-direction
 In the webinar, I argued that we're moving toward a classic apprenticeship model. One where knowledge is transferred from experienced practitioners to newcomers. This overriding mass graduate intakes. That puts more weight on individual credibility and relationship capital.
 
-Second, your own staff face this.** Your best coaches and subject matter experts could potentially operate independently. The ones with deep industry networks and strong personal brands have options. You need to make staying with you more attractive than going solo.
+**Second, your own staff face this.** Your best coaches and subject matter experts could potentially operate independently. The ones with deep industry networks and strong personal brands have options. You need to make staying with you more attractive than going solo.
 
 That's not just about money. It's about:
 
@@ -86,24 +86,24 @@ That's not just about money. It's about:
 
 Training providers face a similar unbundling.
 
-Content delivery?** Increasingly commoditised. Online courses, AI tutors, bite-sized learning platforms. The barrier to accessing information has collapsed.
+**Content delivery?** Increasingly commoditised. Online courses, AI tutors, bite-sized learning platforms. The barrier to accessing information has collapsed.
 
-Assessment?** Being challenged. AI can evaluate a lot of what we currently pay humans to mark.
+**Assessment?** Being challenged. AI can evaluate a lot of what we currently pay humans to mark.
 
-Credentialing?** Under pressure. Employers increasingly care about demonstrable skill over certificates, especially when they can test for competency directly.
+**Credentialing?** Under pressure. Employers increasingly care about demonstrable skill over certificates, especially when they can test for competency directly.
 
 What remains valuable:
 
 - 
-Mentorship and guidance** from practitioners who've done (or do) the job
+**Mentorship and guidance** from practitioners who've done (or do) the job
 - 
-Structured practise** in realistic environments where failure is low-stakes
+**Structured practise** in realistic environments where failure is low-stakes
 - 
-Access to networks** and employers who trust you to send them quality candidates
+**Access to networks** and employers who trust you to send them quality candidates
 - 
-Wrap-around support** for learners navigating complex personal circumstances alongside learning
+**Wrap-around support** for learners navigating complex personal circumstances alongside learning
 - 
-Accountability and motivation** when learning is hard
+**Accountability and motivation** when learning is hard
 
 If your model relies heavily on information transfer and light on the above, you're vulnerable.
 

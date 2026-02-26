@@ -97,12 +97,12 @@ The government makes its position explicit:
 
 "We want a new relationship - a partnership - with employers that widens opportunities in the labour market and drives growth. Businesses must play their part and offer to co-invest in their workforce, both now and in the future."### At the CoreThe government is pulling control closer** (centralised coordination via Skills England, TECs, Strategic Authorities) while 
 
-pushing costs and responsibility outward** (employer co-investment, performance-based funding, quality-based access).
+**pushing costs and responsibility outward** (employer co-investment, performance-based funding, quality-based access).
 
 This creates both 
-opportunity** (new funding streams, partnership models) and 
+**opportunity** (new funding streams, partnership models) and 
 
-risk** (increased competition, exposure for weak provision, dependency on partnerships).
+**risk** (increased competition, exposure for weak provision, dependency on partnerships).
 
 Your strategic position depends on how quickly you adapt to this dual movement.
 
@@ -110,7 +110,7 @@ Your strategic position depends on how quickly you adapt to this dual movement.
 
 ### On Market Position
 - 
-Which of the 29 TEC sectors align with your current strengths?** (Construction, digital, clean energy, advanced manufacturing, defense, healthcare, creative industries...)
+**Which of the 29 TEC sectors align with your current strengths?** (Construction, digital, clean energy, advanced manufacturing, defense, healthcare, creative industries...)
 - 
 Can you credibly claim to be a regional anchor institution, or should you position as a specialist delivery partner?
 - 
@@ -140,7 +140,7 @@ Are you included in regional skills plans and Industrial Strategy Zone discussio
 How aligned is your provision with local labour market priorities?
 ### On Financial Resilience
 - 
-What's your income diversification split?** (ASF grant / Levy-funded / Direct employer contracts / Loans / Commercial)
+**What's your income diversification split?** (ASF grant / Levy-funded / Direct employer contracts / Loans / Commercial)
 - 
 If devolved funding priorities shifted away from your core offer, could you survive 18 months?
 - 
@@ -323,7 +323,7 @@ If the answer is vague, or if it's "quality training in multiple areas," you're 
 
 The new system rewards 
 
-clear, defensible positioning** backed by evidence, relationships, and results.
+**clear, defensible positioning** backed by evidence, relationships, and results.
 
 ## What Gets DangerousThese aren't hypothetical risks. They're visible patterns already emerging:
 
@@ -389,7 +389,7 @@ Three actions for this week
 
 The post-16 reforms aren't about more paperwork. They're about a 
 
-different system logic.** One that rewards data, partnerships, specialisation, and agility.
+**different system logic.** One that rewards data, partnerships, specialisation, and agility.
 
 At Bolt, we work with providers navigating this transition, whether you're repositioning your offer, recruiting leadership talent for the new landscape, or exploring M&A opportunities.
 

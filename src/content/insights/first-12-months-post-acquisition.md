@@ -22,21 +22,21 @@ The difference isn't luck or market conditions. It's execution across five criti
 
 The collision of these mindsets either creates synergy or chaos.
 
-Protects value:** Clarity on roles, decision-making, and accountability within 30 days
+**Protects value:** Clarity on roles, decision-making, and accountability within 30 days
 
-Destroys value:** Months of passive-aggressive debates about "how we've always done it"
+**Destroys value:** Months of passive-aggressive debates about "how we've always done it"
 
-The practical step:** Map every major decision type and assign clear ownership. Who approves new programme launches? Who manages ESFA relationships? Who has final say on Ofsted preparation?
+**The practical step:** Map every major decision type and assign clear ownership. Who approves new programme launches? Who manages ESFA relationships? Who has final say on Ofsted preparation?
 
 In one recent integration I advised, leadership spent three months debating programme approval processes while competitors launched new apprenticeship standards in their market.*
 
 ## 2. Strategic Focus & Bandwidth Protection: The Multiplier EffectIntegration devours leadership bandwidth faster than any other business challenge. I've watched brilliant education leaders, people who built successful businesses from scratch, become overwhelmed trying to manage integration alongside maintaining Ofsted grades and ESFA compliance.
 
-Protects value:** Dedicated integration resources and external expertise
+**Protects value:** Dedicated integration resources and external expertise
 
-Destroys value:** Leaders spread thin across integration, operations, and regulatory demands
+**Destroys value:** Leaders spread thin across integration, operations, and regulatory demands
 
-The reality check:** Treat bandwidth as your most precious resource. The businesses that thrive post-acquisition recognise integration as a specialised discipline requiring dedicated focus, not a side project for already-busy executives managing teaching quality and regulatory relationships.
+**The reality check:** Treat bandwidth as your most precious resource. The businesses that thrive post-acquisition recognise integration as a specialised discipline requiring dedicated focus, not a side project for already-busy executives managing teaching quality and regulatory relationships.
 
 Case in point: A training provider CEO I worked with tried to personally manage integration while preparing for an Ofsted inspection. Both suffered, resulting in a delayed QAR improvement and six-month integration timeline overrun.*
 
@@ -46,11 +46,11 @@ This fear sits in every team member's mind when acquisition news breaks. In educ
 
 The tension is real: mission-driven staff versus commercial growth expectations. Purpose-led cultures versus investor-backed performance metrics.
 
-Protects value:** Honest cultural audit identifying what to preserve, evolve, and communicate
+**Protects value:** Honest cultural audit identifying what to preserve, evolve, and communicate
 
-Destroys value:** Ignoring cultural differences or trying to preserve everything from both sides
+**Destroys value:** Ignoring cultural differences or trying to preserve everything from both sides
 
-The insight:** Culture integration requires the same rigour as systems integration. It's not a soft skill, it's a measurable business process that directly impacts student outcomes and staff retention.
+**The insight:** Culture integration requires the same rigour as systems integration. It's not a soft skill, it's a measurable business process that directly impacts student outcomes and staff retention.
 
 I've seen a provider merger lose 40% of their experienced delivery staff within six months because leadership failed to address fears about "corporatisation" early in the process.*
 
@@ -58,21 +58,21 @@ I've seen a provider merger lose 40% of their experienced delivery staff within 
 
 Unlike other sectors, regulatory misalignment in education can shut down revenue streams overnight.
 
-Protects value:** Early mapping of regulatory obligations and integrated compliance frameworks
+**Protects value:** Early mapping of regulatory obligations and integrated compliance frameworks
 
-Destroys value:** Assuming compliance systems will naturally align
+**Destroys value:** Assuming compliance systems will naturally align
 
-The critical path:** Treat regulatory alignment as your highest priority operational task. Map ESFA contracts, Ofsted requirements, awarding body relationships, and safeguarding procedures in week one.
+**The critical path:** Treat regulatory alignment as your highest priority operational task. Map ESFA contracts, Ofsted requirements, awarding body relationships, and safeguarding procedures in week one.
 
 Failure to map to government funding requirements delayed new programme delivery by six months, placing a substantial hole in projected revenue.*
 
 ## 5. Governance & Investor Relations: Building Trust Through TransparencyBoard reporting often changes dramatically overnight. Where you once reported to familiar faces with deep education sector knowledge, you may now present to investors who understand finance and growth but not the nuances of apprenticeship levy rules or FE funding methodologies.
 
-Protects value:** Proactive governance design and education-literate investor communication
+**Protects value:** Proactive governance design and education-literate investor communication
 
-Destroys value:** Treating governance as administrative burden with minimal sector context
+**Destroys value:** Treating governance as administrative burden with minimal sector context
 
-The opportunity:** View board management as competitive advantage. Investors who understand your regulatory environment become your strongest advocates for the resources you need to grow.
+**The opportunity:** View board management as competitive advantage. Investors who understand your regulatory environment become your strongest advocates for the resources you need to grow.
 
 A provider I advised transformed investor relations by creating monthly "Education Market Updates" that contextualised their performance within sector challenges. Result: increased investment approval rates and faster decision-making.*
 
@@ -80,10 +80,10 @@ A provider I advised transformed investor relations by creating monthly "Educati
 
 Staff turnover accelerates. Learner satisfaction drops. Ofsted grades decline. ESFA relationships deteriorate. The strategic rationale for the original deal evaporates.
 
-In summary:** Most of this damage is preventable with focused attention in those critical first months.
+**In summary:** Most of this damage is preventable with focused attention in those critical first months.
 
 ## Your Next 30 DaysThe first 12 months after a deal decide whether you build momentum or lose ground. The most impactful decisions happen in the first 30-60 days.
 
 The businesses that emerge stronger aren't necessarily those with the best deals, they're those that execute integration with the same discipline they applied to building their original success.
 
-Ready to protect and build value in your first year post-acquisition?** [Book a confidential call](mailto:alex@bolt-search.com) to discuss how these principles apply to your specific situation.
+**Ready to protect and build value in your first year post-acquisition?** [Book a confidential call](mailto:alex@bolt-search.com) to discuss how these principles apply to your specific situation.

@@ -5,14 +5,14 @@ const title = "Contractor Onboarding";
 const description = "Complete this onboarding form to get set up as a contractor with Bolt Search. All information is handled securely.";
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} noindex={true}>
   <section class="onboarding-hero">
     <div class="container-wide">
       <div style="max-width: 640px;">
         <p class="section-label">Contractor Setup</p>
         <h1>Onboarding Form</h1>
         <p style="font-size: 1.0625rem; margin-top: var(--space-md); color: var(--color-fg-muted);">
-          Please complete all sections below. Document uploads (right to work, insurance certificates) will be sent securely as email attachments.
+          Please complete all sections below. All information is handled securely.
         </p>
       </div>
     </div>
@@ -238,7 +238,7 @@ const description = "Complete this onboarding form to get set up as a contractor
             Submit Onboarding Form <span aria-hidden="true">&rarr;</span>
           </button>
           <p class="form-disclaimer">
-            Your information will be sent securely to the Bolt Search team. Document uploads are included as email attachments.
+            Your information will be sent securely to the Bolt Search team.
           </p>
         </div>
       </form>

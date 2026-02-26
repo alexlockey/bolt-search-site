@@ -95,4 +95,4 @@ Boards that adapt their recruitment mindset now by widening the talent pool, inv
 
 The choice is simple: keep fishing in depleted ponds, or cast into the wider ocean of capability.
 ## About Bolt Search
-Bolt Search** specialises in cross-sector executive recruitment for education organisations and investors. We help MAT boards access commercial leadership talent from diverse industries solving the operational, financial, and governance challenges that education-only appointments can't.
+**Bolt Search** specialises in cross-sector executive recruitment for education organisations and investors. We help MAT boards access commercial leadership talent from diverse industries solving the operational, financial, and governance challenges that education-only appointments can't.
