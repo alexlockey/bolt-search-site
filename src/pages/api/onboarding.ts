@@ -45,8 +45,8 @@ export const POST: APIRoute = async ({ request }) => {
     `;
 
     const { error } = await resend.emails.send({
-      from: 'Bolt Search Onboarding <onboarding@resend.dev>',
-      to: ['lockey.alex@gmail.com'],  // TODO: change to alex@bolt-search.com after verifying domain in Resend
+      from: 'Bolt Search Onboarding <onboarding@bolt-search.com>',
+      to: ['alex@bolt-search.com'],
       subject: `Contractor Onboarding: ${fullName}`,
       html,
       attachments: attachments.map(a => ({
