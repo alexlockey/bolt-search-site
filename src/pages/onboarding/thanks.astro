@@ -6,14 +6,402 @@ const description = "Your contractor onboarding form has been submitted successf
 ---
 
 <Layout title={title} description={description} noindex={true}>
-  <section style="padding: var(--space-4xl) 0; text-align: center; min-height: 60vh; display: flex; align-items: center;">
-    <div class="container" style="max-width: 560px;">
-      <div style="font-size: 3rem; margin-bottom: var(--space-lg);">&#10003;</div>
-      <h1 style="margin-bottom: var(--space-md);">Onboarding Form Submitted</h1>
-      <p style="font-size: 1.0625rem; color: var(--color-fg-muted); margin-bottom: var(--space-2xl);">
-        Thanks - we've received your details and documents. The team will review everything and be in touch if we need anything else.
+  <!-- Confirmation Banner -->
+  <section class="confirm-banner">
+    <div class="container" style="max-width: 640px;">
+      <div style="font-size: 3rem; margin-bottom: var(--space-md);">&#10003;</div>
+      <h1 style="margin-bottom: var(--space-sm);">Onboarding Form Submitted</h1>
+      <p style="font-size: 1.0625rem; color: rgba(255,255,255,0.8);">
+        Thanks — we've received your details and documents. The team will review everything and be in touch if we need anything else.
       </p>
-      <a href="/" class="btn btn-primary">Back to Home <span aria-hidden="true">&rarr;</span></a>
+    </div>
+  </section>
+
+  <!-- Orientation Guide -->
+  <section class="section">
+    <div class="container" style="max-width: 800px;">
+      <p class="guide-intro">Please read through the information below so you understand how contracting with Bolt Search works.</p>
+
+      <!-- How It Works -->
+      <h2 class="guide-heading">How It Works — A Guide for Contractors</h2>
+
+      <h3>Your Contracting Structure</h3>
+      <p>You are engaged as a contractor (not an employee) through Bolt Search. Bolt Search operates as an employment business under the Conduct of Employment Agencies and Employment Businesses Regulations 2003.</p>
+      <p>You will be supplying your services through your own limited company, or through an umbrella company. If you are currently a sole trader, you will need to register with an umbrella company before your assignment can begin.</p>
+
+      <h3>How You Get Paid</h3>
+      <p>The payment process is simple and transparent:</p>
+      <ul>
+        <li>You submit your timesheet via the Sonovate online portal (you will receive login details once onboarded)</li>
+        <li>The client approves your timesheet within 2 working days</li>
+        <li>Once approved, Sonovate processes your payment</li>
+        <li>Payment frequency is agreed with the client (weekly, bi-weekly, or monthly)</li>
+      </ul>
+      <p>Depending on your trading structure:</p>
+      <ul>
+        <li><strong>Limited Company:</strong> Sonovate pays your company directly. You are responsible for your own tax affairs.</li>
+        <li><strong>Umbrella Company:</strong> Sonovate pays your umbrella company, who then pay you as their employee (with tax and National Insurance deducted from your salary).</li>
+      </ul>
+
+      <h3>Timesheets</h3>
+      <ul>
+        <li>Submit your timesheet at the end of each week or month (as agreed).</li>
+        <li>Include accurate hours or days worked.</li>
+        <li>The client has 2 working days to approve your timesheet.</li>
+      </ul>
+      <div class="callout">
+        <strong>Important:</strong> Late submission of timesheets may result in delayed payment. Please ensure you submit on time.
+      </div>
+
+      <h3>IR35 — What You Need to Know</h3>
+      <p>The client has determined the IR35 status of your engagement. This affects how you are taxed.</p>
+      <ul>
+        <li><strong>If Inside IR35:</strong> Tax and National Insurance will be deducted before payment (similar to being an employee). You will receive a payslip equivalent showing deductions.</li>
+        <li><strong>If Outside IR35:</strong> Your limited company receives the full fee, and you are responsible for your own tax affairs through self-assessment.</li>
+      </ul>
+      <p>If you disagree with the IR35 determination, you have the right to challenge it through the Client-Led Status Disagreement Process. Please contact us if you wish to discuss this further.</p>
+
+      <!-- Trading Options -->
+      <h2 class="guide-heading">Understanding Your Options</h2>
+
+      <div class="options-grid">
+        <div class="option-card">
+          <h4>Limited Company</h4>
+          <ul>
+            <li>You invoice Bolt Search through your own registered limited company.</li>
+            <li>You are responsible for managing your own tax affairs, including corporation tax, VAT (if applicable), and self-assessment.</li>
+            <li>You keep more gross income, but you have greater admin responsibilities.</li>
+            <li>You need to maintain proper books and records.</li>
+          </ul>
+          <p class="option-suited"><strong>Best suited if</strong> you plan to contract regularly and want maximum control over your finances.</p>
+        </div>
+
+        <div class="option-card">
+          <h4>Umbrella Company</h4>
+          <ul>
+            <li>You become an employee of the umbrella company.</li>
+            <li>The umbrella company handles all tax, National Insurance, pension contributions, and statutory requirements.</li>
+            <li>You receive a net salary after deductions (similar to a permanent job).</li>
+            <li>Less admin for you, but you take home less due to employer tax contributions.</li>
+            <li>The umbrella company will provide you with a detailed fee structure and explain all charges.</li>
+          </ul>
+          <p class="option-suited"><strong>Best suited if</strong> you do not have your own company or prefer simplicity and minimal paperwork.</p>
+        </div>
+
+        <div class="option-card">
+          <h4>Sole Trader</h4>
+          <p>We cannot typically engage sole traders directly due to tax liability risks and compliance concerns. If you are currently a sole trader, you will need to register with an umbrella company to work with Bolt Search.</p>
+          <p>Bolt Search can refer you to trusted umbrella company partners — please ask us for recommendations.</p>
+        </div>
+      </div>
+
+      <!-- Key Dates -->
+      <h2 class="guide-heading">Key Dates and Next Steps</h2>
+      <p>To ensure a smooth onboarding and timely start, please follow this checklist:</p>
+
+      <table class="checklist-table">
+        <thead>
+          <tr>
+            <th style="width:40px;"></th>
+            <th>Action</th>
+            <th style="width:220px;">Timeline</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1.</td>
+            <td>Complete and return Contractor Onboarding Form</td>
+            <td>As soon as possible</td>
+          </tr>
+          <tr>
+            <td>2.</td>
+            <td>Provide Right to Work documentation</td>
+            <td>Before start date</td>
+          </tr>
+          <tr>
+            <td>3.</td>
+            <td>If umbrella needed: Register with umbrella company</td>
+            <td>At least 1 week before start</td>
+          </tr>
+          <tr>
+            <td>4.</td>
+            <td>If required: Complete DBS/safeguarding checks</td>
+            <td>We will coordinate timing</td>
+          </tr>
+          <tr>
+            <td>5.</td>
+            <td>Sign terms of business</td>
+            <td>Once issued via Sonovate</td>
+          </tr>
+          <tr>
+            <td>6.</td>
+            <td>Receive Sonovate portal login details</td>
+            <td>Once fully onboarded</td>
+          </tr>
+          <tr>
+            <td>7.</td>
+            <td>Start date</td>
+            <td>As agreed</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- FAQs -->
+      <h2 class="guide-heading">Frequently Asked Questions</h2>
+
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>When do I get paid?</summary>
+          <p>Payment frequency depends on the agreement between you and the client. This could be weekly, bi-weekly, or monthly. Once your timesheet is approved by the client (within 2 working days of submission), Sonovate processes payment at the agreed frequency. Most contractors receive payment within 5–10 working days of approval.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What if my timesheet is not approved on time?</summary>
+          <p>The client has 2 working days to review and approve your timesheet. If approval is delayed, this will delay your payment. To avoid this, submit your timesheet promptly and ensure it is accurate. If you experience delays, please contact the client directly or let us know so we can follow up.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What if I am sick and cannot work?</summary>
+          <p>As a contractor, you are not entitled to statutory sick pay unless you are working through an umbrella company. If you are working through an umbrella company, they will handle sickness benefits according to their policies. If you are working through a limited company, you should have your own income protection or insurance in place. In either case, notify the client immediately if you cannot work, and let us know so we can support you.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How do I claim expenses?</summary>
+          <p>This depends on your engagement terms. Some contracts allow you to claim certain expenses (e.g., travel); others do not. Please check your contract or ask the client. If you are working through an umbrella company, they will advise on their expense policy. If you are working through a limited company, you can claim allowable business expenses through your own tax return with HMRC.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What are the notice periods?</summary>
+          <p>Notice periods are typically outlined in your contract terms. Most fixed-term contracts specify the end date. For ongoing assignments, notice periods are usually 1–2 weeks. Please check your contract or contact us if you are unsure.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Who do I contact if I have a problem?</summary>
+          <p>For day-to-day issues, speak directly with the client contact. For payment, timesheet, or Sonovate-related questions, contact Sonovate directly or reach out to us at <a href="mailto:hello@boltjobs.com">hello@boltjobs.com</a> or 020 4634 0027. We are here to help and will escalate issues as needed.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What happens at the end of my assignment?</summary>
+          <p>At the end of your assignment, ensure all timesheets are submitted and approved. You will receive your final payment through Sonovate. Once complete, we may have other opportunities for you, or you can move on to another role. If you worked through an umbrella company, they will provide you with a P45 (if they hold RTI records). We will also gather feedback about your experience to help us improve our service.</p>
+        </details>
+      </div>
+
+      <!-- Contact -->
+      <div class="contact-box">
+        <h3>Contact Us</h3>
+        <p>Email: <a href="mailto:hello@boltjobs.com">hello@boltjobs.com</a></p>
+        <p>Phone: 020 4634 0027</p>
+        <p style="margin-top: var(--space-md); color: var(--color-fg-muted); font-size: 0.875rem;">Bolt Search (Grant James Consultancy Ltd t/a Bolt)</p>
+        <p style="margin-top: var(--space-lg); font-size: 0.9375rem;">This guide is designed to provide clear guidance on working with Bolt Search. If you have any questions, please do not hesitate to get in touch. We are excited to support you in your contracting journey!</p>
+      </div>
+
+      <div style="text-align: center; margin-top: var(--space-2xl);">
+        <a href="/" class="btn btn-primary">Back to Home <span aria-hidden="true">&rarr;</span></a>
+      </div>
     </div>
   </section>
 </Layout>
+
+<style>
+  .confirm-banner {
+    background: linear-gradient(135deg, var(--color-navy) 0%, #1a1a3e 60%, #0f2027 100%);
+    color: white;
+    padding: var(--space-3xl) 0 var(--space-2xl);
+    text-align: center;
+  }
+
+  .confirm-banner h1 {
+    color: white;
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+  }
+
+  .guide-intro {
+    font-size: 1.0625rem;
+    color: var(--color-fg-muted);
+    margin-bottom: var(--space-2xl);
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .guide-heading {
+    font-size: 1.5rem;
+    color: var(--color-navy);
+    margin-top: var(--space-3xl);
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--color-accent);
+  }
+
+  h3 {
+    font-size: 1.125rem;
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  p {
+    margin-bottom: var(--space-md);
+    line-height: 1.7;
+  }
+
+  ul {
+    margin: 0 0 var(--space-lg) 0;
+    padding-left: 1.5rem;
+  }
+
+  li {
+    margin-bottom: var(--space-sm);
+    line-height: 1.6;
+  }
+
+  .callout {
+    background: #FEF3C7;
+    border-left: 4px solid #F59E0B;
+    padding: var(--space-md) var(--space-lg);
+    border-radius: 0 8px 8px 0;
+    margin: var(--space-lg) 0;
+    font-size: 0.9375rem;
+  }
+
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    margin-top: var(--space-lg);
+  }
+
+  .options-grid .option-card:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .option-card {
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: var(--space-xl);
+  }
+
+  .option-card h4 {
+    font-size: 1.0625rem;
+    margin-bottom: var(--space-md);
+    color: var(--color-navy);
+  }
+
+  .option-card ul {
+    margin-bottom: var(--space-md);
+  }
+
+  .option-suited {
+    font-size: 0.875rem;
+    color: var(--color-fg-muted);
+    margin-bottom: 0;
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .checklist-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-lg) 0;
+    font-size: 0.9375rem;
+  }
+
+  .checklist-table th {
+    background: var(--color-navy);
+    color: white;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 500;
+  }
+
+  .checklist-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .checklist-table tr:nth-child(even) td {
+    background: var(--color-bg-elevated);
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .faq-item {
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .faq-item summary {
+    padding: var(--space-md) var(--space-lg);
+    font-weight: 600;
+    cursor: pointer;
+    background: var(--color-bg-elevated);
+    font-size: 0.9375rem;
+    list-style: none;
+  }
+
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item summary::before {
+    content: '+';
+    display: inline-block;
+    width: 1.25rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-right: 0.5rem;
+  }
+
+  .faq-item[open] summary::before {
+    content: '−';
+  }
+
+  .faq-item[open] summary {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .faq-item p {
+    padding: var(--space-md) var(--space-lg);
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--color-fg-muted);
+  }
+
+  .contact-box {
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: var(--space-xl);
+    margin-top: var(--space-2xl);
+    text-align: center;
+  }
+
+  .contact-box h3 {
+    margin-top: 0;
+    margin-bottom: var(--space-md);
+  }
+
+  .contact-box p {
+    margin-bottom: var(--space-xs);
+  }
+
+  .contact-box a {
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 768px) {
+    .options-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .checklist-table th:last-child,
+    .checklist-table td:last-child {
+      display: none;
+    }
+  }
+</style>
