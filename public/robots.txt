@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+Disallow: /onboarding
+Disallow: /onboarding/thanks
+Disallow: /client-onboarding
+Disallow: /client-onboarding/thanks
+Disallow: /api/
+
+Sitemap: https://www.bolt-search.com/sitemap-index.xml

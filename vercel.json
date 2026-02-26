@@ -74,6 +74,16 @@
       "source": "/insights-category/:path*",
       "destination": "/insights",
       "permanent": true
+    },
+    {
+      "source": "/blog/:path*",
+      "destination": "/insights",
+      "permanent": true
+    },
+    {
+      "source": "/blog",
+      "destination": "/insights",
+      "permanent": true
     }
   ]
 }
