@@ -257,6 +257,35 @@ const description = "Complete this onboarding form to get set up as a contractor
       if (umbrella) umbrella.style.display = target === 'Umbrella Company' ? 'block' : 'none';
     });
   });
+
+  // Submit form via fetch to avoid Vercel cross-site POST restriction
+  const form = document.querySelector('.onboarding-form') as HTMLFormElement;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = 'Submitting...';
+    btn.disabled = true;
+
+    try {
+      const formData = new FormData(form);
+      const res = await fetch('/api/onboarding', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        window.location.href = '/onboarding/thanks';
+      } else {
+        throw new Error(data.error || 'Submission failed');
+      }
+    } catch (err) {
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+      alert('There was an error submitting the form. Please try again or email alex@bolt-search.com directly.');
+    }
+  });
 </script>
 
 <style>

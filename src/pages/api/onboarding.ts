@@ -62,21 +62,21 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (error) {
       console.error('Resend error:', error);
-      return new Response(null, {
-        status: 302,
-        headers: { Location: '/onboarding?error=send' },
+      return new Response(JSON.stringify({ success: false, error: 'send' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
       });
     }
 
-    return new Response(null, {
-      status: 302,
-      headers: { Location: '/onboarding/thanks' },
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
     });
   } catch (err) {
     console.error('Onboarding form error:', err);
-    return new Response(null, {
-      status: 302,
-      headers: { Location: '/onboarding?error=server' },
+    return new Response(JSON.stringify({ success: false, error: 'server' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
     });
   }
 };
