@@ -5,6 +5,7 @@ import vercel from '@astrojs/vercel';
 
 export default defineConfig({
   site: 'https://www.bolt-search.com',
+    trailingSlash: 'always',
   output: 'static',
   adapter: vercel(),
   integrations: [
