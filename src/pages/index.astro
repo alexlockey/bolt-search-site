@@ -4,48 +4,43 @@ import Layout from '../layouts/Layout.astro';
 const title = "Trusted Executive Search & Board Advisory for Education & Training";
 const description = "Board and executive search for education, training, and edtech - trusted by investors and business leaders who value discretion, strategy, and lasting partnerships.";
 
-// These will be dynamic once content collection is populated
-const latestInsights = [
-  {
-    slug: "edtech-hiring-trends-2026",
-    title: "EdTech Hiring Trends: What the Funded Startups Are Actually Looking For",
-    date: "2026-02-15",
-    excerpt: "Analysis of 200+ EdTech hiring patterns reveals a shift from pure tech talent to commercial operators who understand education.",
-    tag: "Sector Intelligence",
-    sector: "EdTech"
-  },
-  {
-    slug: "fe-college-leadership-pipeline-crisis",
-    title: "The FE College Leadership Pipeline Problem Nobody's Talking About",
-    date: "2026-02-08",
-    excerpt: "With 40% of FE principals due to retire in the next five years, colleges face an existential hiring challenge.",
-    tag: "Deep Dive",
-    sector: "FE Colleges"
-  }
-];
+// Pull the two most recent published insights from the content collection
+import { getCollection } from 'astro:content';
+const allInsights = await getCollection('insights');
+const latestInsights = allInsights
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
+  .slice(0, 2)
+  .map((entry) => ({
+    slug: entry.id.replace(/\.md$/, ''),
+    title: entry.data.title,
+    date: entry.data.publishedAt.toISOString().split('T')[0],
+    excerpt: entry.data.description,
+    tag: entry.data.contentType,
+    sector: entry.data.sector
+  }));
 
 const sectors = [
   {
     name: "Training Providers",
-    href: "/sectors/training-providers",
+    href: "/sectors/",
     description: "Apprenticeships, skills training, corporate L&D",
     count: "1,200+ companies tracked"
   },
   {
     name: "EdTech",
-    href: "/sectors/edtech",
+    href: "/sectors/",
     description: "Learning platforms, LMS, assessment technology",
     count: "400+ companies tracked"
   },
   {
     name: "FE Colleges",
-    href: "/sectors/fe-colleges",
+    href: "/sectors/",
     description: "Further education, vocational, adult learning",
     count: "350+ institutions"
   },
   {
     name: "Investors",
-    href: "/sectors/investors",
+    href: "/sectors/",
     description: "PE firms, strategic buyers, education funds",
     count: "150+ active investors"
   }
@@ -69,7 +64,7 @@ const clientLogos = [
     <div class="gradient-orb gradient-orb-3"></div>
     <div class="container-wide">
       <div class="hero-content animate-on-scroll">
-        <p class="section-label">Executive Search · Board Advisory · Fractional Leadership</p>
+        <p class="section-label">Executive Search Â· Board Advisory Â· Fractional Leadership</p>
         <h1>Expertise You Can't Automate</h1>
         <p class="hero-subtitle">
           Board and executive search for <strong>education, training, and edtech</strong> - trusted by investors and business leaders who value discretion, strategy, and lasting partnerships.
