@@ -2,12 +2,16 @@ export const prerender = false;
 
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
+import { guardRequest } from '../../lib/form-guard';
 
 const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
 export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
+    const guard = guardRequest(request, body);
+    if (!guard.ok) return guard.response;
+
     const { name, email, company, subject, message } = body as {
       name: string;
       email: string;
