@@ -62,6 +62,7 @@ const description = "Contact Bolt Search to discuss your hiring, advisory, or le
             <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: var(--space-md);">
               Send Message <span aria-hidden="true">&rarr;</span>
             </button>
+                  <input type="text" name="website" class="hp-trap" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;border:0;padding:0" />
           </form>
           <div class="form-success" style="display:none;">
             <div style="text-align:center;padding:var(--space-2xl) 0;">
@@ -353,7 +354,14 @@ const description = "Contact Bolt Search to discuss your hiring, advisory, or le
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, company, subject, message }),
+        body: JSON.stringify({
+          name,
+          email,
+          company,
+          subject,
+          message,
+          website: (form.querySelector('input[name="website"]') as HTMLInputElement | null)?.value || '',
+        }),
       });
 
       const data = await res.json();
