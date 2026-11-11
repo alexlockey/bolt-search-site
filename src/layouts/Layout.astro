@@ -5,6 +5,7 @@ export interface Props {
   image?: string;
   article?: boolean;
   noindex?: boolean;
+  concept?: 'a' | 'b' | 'c';
 }
 
 const {
@@ -12,13 +13,22 @@ const {
   description = "Bolt Search recruits mid-level commercial and technical people for growth companies: sales, solutions and estimating hires, and first UK and EMEA hires for US startups.",
   image = "/og-image.png",
   article = false,
-  noindex = false
+  noindex = false,
+  concept = 'a'
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const currentYear = new Date().getFullYear();
 const currentPath = Astro.url.pathname;
 
+import '@fontsource/newsreader/latin-400.css';
+import '@fontsource/newsreader/latin-500.css';
+import '@fontsource/newsreader/latin-400-italic.css';
+import '@fontsource/ibm-plex-sans/latin-400.css';
+import '@fontsource/ibm-plex-sans/latin-500.css';
+import '@fontsource/ibm-plex-sans/latin-600.css';
+import '@fontsource/ibm-plex-mono/latin-400.css';
+import '@fontsource/ibm-plex-mono/latin-500.css';
 import '../styles/global.css';
 
 const navLinks = [
@@ -29,7 +39,7 @@ const navLinks = [
 ---
 
 <!DOCTYPE html>
-<html lang="en-GB">
+<html lang="en-GB" data-concept={concept}>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,9 +61,6 @@ const navLinks = [
 
   <link rel="icon" type="image/png" href="/bolt-favicon.png">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DH9Y7K83RM"></script>
@@ -84,7 +91,7 @@ const navLinks = [
       position: sticky;
       top: 0;
       z-index: 100;
-      background: var(--color-white);
+      background: var(--color-bg);
     }
 
     .nav-inner {
@@ -98,6 +105,10 @@ const navLinks = [
     .nav-logo-img {
       height: 34px;
       width: auto;
+    }
+
+    [data-concept="b"] .nav-logo-img {
+      filter: brightness(0) invert(1);
     }
 
     .nav-links {
@@ -120,14 +131,14 @@ const navLinks = [
 
     .nav-links a.nav-cta {
       padding: 0.5rem 1.125rem;
-      background: var(--color-navy);
-      color: var(--color-white);
+      background: var(--color-btn-bg);
+      color: var(--color-btn-fg);
       border-radius: 6px;
     }
 
     .nav-links a.nav-cta:hover {
-      background: var(--color-accent-dark);
-      color: var(--color-white);
+      background: var(--color-btn-hover);
+      color: var(--color-btn-fg);
     }
 
     .menu-toggle {
@@ -147,7 +158,7 @@ const navLinks = [
         top: 100%;
         left: calc(-1 * var(--space-lg));
         right: calc(-1 * var(--space-lg));
-        background: var(--color-white);
+        background: var(--color-bg);
         flex-direction: column;
         align-items: flex-start;
         padding: var(--space-md) var(--space-lg) var(--space-xl);
@@ -157,7 +168,7 @@ const navLinks = [
     }
 
     .site-footer {
-      background: var(--color-navy);
+      background: var(--color-footer);
       color: rgba(255, 255, 255, 0.78);
       padding: var(--space-3xl) 0 var(--space-xl);
     }

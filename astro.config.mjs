@@ -11,7 +11,7 @@ export default defineConfig({
   integrations: [
     // Hidden pages (insights archive, onboarding forms, thank-you pages) are noindex, so keep them out of the sitemap.
     sitemap({
-      filter: (page) => !/\/(insights|onboarding|client-onboarding)(\/|$)/.test(new URL(page).pathname),
+      filter: (page) => !/\/(insights|onboarding|client-onboarding|concepts)(\/|$)/.test(new URL(page).pathname),
     }),
     mdx()
   ],

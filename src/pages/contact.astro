@@ -193,6 +193,12 @@ const description = "Send Bolt Search a short brief on the role you are hiring f
     message: 'Please add a short message.',
   };
 
+  const params = new URLSearchParams(location.search);
+  if (params.get('about') === 'references') {
+    const msg = form.querySelector('#message') as HTMLTextAreaElement;
+    if (!msg.value) msg.value = 'I would like to speak to one or two references before we talk about a role.';
+  }
+
   const field = (id: string) => form.querySelector(`#${id}`) as HTMLInputElement | HTMLTextAreaElement;
 
   function clearErrors() {

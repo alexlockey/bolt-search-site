@@ -1,0 +1,303 @@
+---
+// Concept C, the Partner: warm and editorial. The person and what people say come first; the method second.
+import Artefact from '../Artefact.astro';
+import { hero, facts, roles, method, quotes, placements, about, closing } from '../../data/site';
+const [lead, ...rest] = quotes;
+---
+
+<section class="c-hero">
+  <div class="container-wide">
+    <h1>{hero.title}</h1>
+    <div class="c-hero-grid">
+      <div>
+        <p class="lede">{hero.lede}</p>
+        <div class="c-actions">
+          <a href={hero.primary.href} class="btn btn-primary">{hero.primary.label}</a>
+          <a href={hero.secondary.href} class="btn btn-outline">{hero.secondary.label}</a>
+        </div>
+      </div>
+      <figure class="c-portrait">
+        <img src="/alex-lockey.jpg" alt="Alex Lockey" width="420" height="420" loading="eager" />
+        <figcaption>
+          <strong>{about.name}</strong>
+          Runs every search himself
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="section section-subtle">
+  <div class="container-wide">
+    <blockquote class="c-lead">
+      <p>{lead.text}</p>
+      <footer>{lead.who}</footer>
+    </blockquote>
+    <div class="c-quotes">
+      {rest.map((q) => (
+        <blockquote>
+          <p>{q.text}</p>
+          <footer>{q.who}</footer>
+        </blockquote>
+      ))}
+    </div>
+    <p class="c-note">Paraphrased from fifteen LinkedIn recommendations. <a href={hero.secondary.href}>Ask to speak to a reference</a>.</p>
+  </div>
+</section>
+
+<section class="c-facts-band" aria-label="Track record">
+  <div class="container-wide">
+    <dl class="c-facts">
+      {facts.map((f) => (
+        <div>
+          <dt>{f.figure}</dt>
+          <dd>{f.label}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>
+
+<section class="section" id="how">
+  <div class="container-wide c-method">
+    <div>
+      <h2>{method.title}</h2>
+      <p>{method.intro}</p>
+      <ol class="c-steps">
+        {method.steps.map((s) => (
+          <li>
+            <h3>{s.name}</h3>
+            <p>{s.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+    <Artefact kind="shortlist" fig="Example" />
+  </div>
+</section>
+
+<section class="section section-subtle">
+  <div class="container-wide c-two">
+    <div>
+      <h2>Recent placements</h2>
+      <ul class="c-list">
+        {placements.map((p) => (
+          <li><span>{p.role}</span><span class="c-muted">{p.company}, {p.year}</span></li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <h2>Roles we fill</h2>
+      <ul class="c-list">
+        {roles.map((r) => <li><span>{r}</span></li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container c-about">
+    {about.body.map((t) => <p>{t}</p>)}
+    <a href={about.linkedin} target="_blank" rel="noopener">Alex on LinkedIn</a>
+  </div>
+</section>
+
+<section class="section section-dark">
+  <div class="container-wide c-close">
+    <h2>{closing.title}</h2>
+    <p>{closing.body}</p>
+    <a href={hero.primary.href} class="btn btn-white">{hero.primary.label}</a>
+  </div>
+</section>
+
+<style>
+  .c-hero {
+    padding: var(--space-4xl) 0 var(--space-3xl);
+  }
+
+  .c-hero h1 {
+    font-size: clamp(3rem, 9vw, 7rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    max-width: 11ch;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .c-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: var(--space-3xl);
+    align-items: end;
+  }
+
+  .c-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-xl);
+  }
+
+  .c-portrait img {
+    border-radius: 14px;
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .c-portrait figcaption {
+    margin-top: var(--space-sm);
+    color: var(--color-fg-subtle);
+    font-size: 0.9375rem;
+  }
+
+  .c-portrait strong {
+    color: var(--color-fg);
+    margin-right: 0.5em;
+  }
+
+  .c-lead {
+    max-width: 52rem;
+    margin-bottom: var(--space-3xl);
+  }
+
+  .c-lead p {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3.6vw, 2.75rem);
+    line-height: 1.3;
+    color: var(--color-fg);
+    margin-bottom: var(--space-md);
+  }
+
+  .c-quotes {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-2xl) var(--space-3xl);
+  }
+
+  .c-quotes p {
+    font-family: var(--font-display);
+    font-size: 1.3125rem;
+    line-height: 1.4;
+    color: var(--color-fg);
+    margin-bottom: var(--space-sm);
+  }
+
+  blockquote footer {
+    font-size: 0.875rem;
+    color: var(--color-fg-subtle);
+  }
+
+  .c-note {
+    margin-top: var(--space-2xl);
+    font-size: 0.9375rem;
+  }
+
+  .c-facts-band {
+    padding: var(--space-3xl) 0 0;
+  }
+
+  .c-facts {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .c-facts dt {
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+    line-height: 1;
+    color: var(--color-accent);
+    margin-bottom: var(--space-xs);
+  }
+
+  .c-facts dd {
+    color: var(--color-fg-muted);
+    font-size: 0.9375rem;
+    line-height: 1.45;
+  }
+
+  .c-method {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-3xl);
+    align-items: start;
+  }
+
+  .c-method h2 {
+    margin-bottom: var(--space-md);
+  }
+
+  .c-steps {
+    list-style: none;
+    display: grid;
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .c-steps h3 {
+    margin-bottom: 0.25rem;
+  }
+
+  .c-steps p {
+    margin: 0;
+  }
+
+  .c-two {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: var(--space-3xl);
+    align-items: start;
+  }
+
+  .c-two h2 {
+    margin-bottom: var(--space-lg);
+  }
+
+  .c-list {
+    list-style: none;
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .c-list li {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-bg-elevated);
+    border-radius: 8px;
+    padding: var(--space-md) var(--space-lg);
+    color: var(--color-fg);
+    font-weight: 500;
+  }
+
+  .c-muted {
+    font-weight: 400;
+    color: var(--color-fg-subtle);
+    font-size: 0.875rem;
+  }
+
+  .c-about p {
+    font-size: 1.1875rem;
+    line-height: 1.6;
+  }
+
+  .c-close {
+    max-width: 46rem;
+  }
+
+  .c-close h2 {
+    margin-bottom: var(--space-md);
+  }
+
+  .c-close p {
+    margin-bottom: var(--space-xl);
+  }
+
+  @media (max-width: 860px) {
+    .c-hero-grid, .c-method, .c-two, .c-quotes { grid-template-columns: 1fr; gap: var(--space-2xl); }
+    .c-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .c-portrait img { max-width: 320px; }
+  }
+
+  @media (max-width: 560px) {
+    .c-hero { padding: var(--space-3xl) 0 var(--space-2xl); }
+  }
+</style>

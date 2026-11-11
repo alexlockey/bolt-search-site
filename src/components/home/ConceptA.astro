@@ -1,0 +1,371 @@
+---
+// Concept A, the Dossier: the homepage reads like a well-set search report.
+import Artefact from '../Artefact.astro';
+import { hero, facts, roles, method, quotes, placements, about, closing } from '../../data/site';
+---
+
+<section class="a-hero">
+  <div class="container-wide a-hero-grid">
+    <div>
+      <h1>{hero.title}</h1>
+      <p class="lede">{hero.lede}</p>
+      <div class="a-actions">
+        <a href={hero.primary.href} class="btn btn-primary">{hero.primary.label}</a>
+        <a href={hero.secondary.href} class="btn btn-outline">{hero.secondary.label}</a>
+      </div>
+    </div>
+    <Artefact kind="shortlist" fig="FIG. 1" />
+  </div>
+</section>
+
+<section class="a-ledger" aria-label="Track record">
+  <div class="container-wide">
+    <dl class="a-facts">
+      {facts.map((f) => (
+        <div>
+          <dt>{f.figure}</dt>
+          <dd>{f.label}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>
+
+<section class="section" id="how">
+  <div class="container-wide">
+    <div class="a-split">
+      <div>
+        <h2>{method.title}</h2>
+        <p class="a-intro">{method.intro}</p>
+        <ol class="a-steps">
+          {method.steps.map((s) => (
+            <li>
+              <h3>{s.name}</h3>
+              <p>{s.body}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <div class="a-figs">
+        <Artefact kind="brief" fig="FIG. 2" />
+        <Artefact kind="map" fig="FIG. 3" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-subtle">
+  <div class="container-wide">
+    <h2 class="a-h2">What clients and candidates say</h2>
+    <div class="a-quotes">
+      {quotes.map((q) => (
+        <blockquote>
+          <p>{q.text}</p>
+          <footer>{q.who}</footer>
+        </blockquote>
+      ))}
+    </div>
+    <p class="a-more">
+      Paraphrased from fifteen LinkedIn recommendations. <a href="/contact/?about=references">Ask to speak to a reference</a>.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container-wide a-record">
+    <div>
+      <h2>Recent placements</h2>
+      <p>Roles and company types only. Clients and candidates are not named without their permission.</p>
+    </div>
+    <table class="a-table">
+      <thead>
+        <tr><th scope="col">Role</th><th scope="col">Company</th><th scope="col">Year</th></tr>
+      </thead>
+      <tbody>
+        {placements.map((p) => (
+          <tr><td>{p.role}</td><td>{p.company}</td><td class="a-year">{p.year}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section section-subtle">
+  <div class="container-wide a-record">
+    <div>
+      <h2>The roles we fill</h2>
+      <p>Commercial and technical people who carry a number or win the technical sale, in any market.</p>
+    </div>
+    <ul class="a-roles">
+      {roles.map((r) => <li>{r}</li>)}
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container-wide a-about">
+    <img src="/alex-lockey.jpg" alt="Alex Lockey" width="320" height="320" loading="lazy" />
+    <div>
+      <h2>{about.name}</h2>
+      <p class="mono a-role">{about.title}</p>
+      {about.body.map((t) => <p>{t}</p>)}
+      <a href={about.linkedin} target="_blank" rel="noopener">Alex on LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section-dark">
+  <div class="container-wide a-close">
+    <h2>{closing.title}</h2>
+    <p>{closing.body}</p>
+    <div class="a-actions">
+      <a href={hero.primary.href} class="btn btn-white">{hero.primary.label}</a>
+      <a href={hero.secondary.href} class="a-link-light">{hero.secondary.label}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .a-hero {
+    padding: var(--space-4xl) 0 var(--space-3xl);
+  }
+
+  .a-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: var(--space-3xl);
+    align-items: center;
+  }
+
+  .a-hero h1 {
+    margin-bottom: var(--space-lg);
+    max-width: 12ch;
+  }
+
+  .a-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-sm) var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .a-ledger {
+    background: var(--color-bg-subtle);
+    padding: var(--space-2xl) 0;
+  }
+
+  .a-facts {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .a-facts dt {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1;
+    color: var(--color-fg);
+    margin-bottom: var(--space-xs);
+  }
+
+  .a-facts dd {
+    color: var(--color-fg-muted);
+    font-size: 0.9375rem;
+    line-height: 1.45;
+  }
+
+  .a-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-3xl);
+    align-items: start;
+  }
+
+  .a-intro {
+    margin: var(--space-md) 0 var(--space-xl);
+    max-width: 34rem;
+  }
+
+  .a-steps {
+    list-style: none;
+    counter-reset: step;
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .a-steps li {
+    counter-increment: step;
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr);
+    column-gap: var(--space-sm);
+  }
+
+  .a-steps li::before {
+    content: counter(step);
+    grid-row: span 2;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    line-height: 1.1;
+    color: var(--color-accent);
+  }
+
+  .a-steps h3 {
+    margin-bottom: 0.25rem;
+  }
+
+  .a-steps p {
+    margin: 0;
+  }
+
+  .a-figs {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .a-h2 {
+    margin-bottom: var(--space-2xl);
+    max-width: 20ch;
+  }
+
+  .a-quotes {
+    columns: 2 22rem;
+    column-gap: var(--space-2xl);
+  }
+
+  .a-quotes blockquote {
+    break-inside: avoid;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .a-quotes p {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    line-height: 1.35;
+    color: var(--color-fg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .a-quotes footer {
+    font-size: 0.875rem;
+    color: var(--color-fg-subtle);
+  }
+
+  .a-more {
+    font-size: 0.9375rem;
+  }
+
+  .a-record {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+    gap: var(--space-3xl);
+    align-items: start;
+  }
+
+  .a-record h2 {
+    margin-bottom: var(--space-md);
+  }
+
+  .a-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 2px;
+    font-size: 0.9375rem;
+  }
+
+  .a-table th {
+    text-align: left;
+    font-family: var(--font-mono); /* taste-skill-ignore: approved Plex Mono labels, see CLAUDE.md */
+    font-weight: 400;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-fg-subtle);
+    padding: 0 0.75rem 0.5rem;
+  }
+
+  .a-table td {
+    background: var(--color-bg-subtle);
+    padding: 0.75rem;
+    color: var(--color-fg-muted);
+    vertical-align: top;
+  }
+
+  .a-table td:first-child {
+    color: var(--color-fg);
+    font-weight: 500;
+    border-radius: 4px 0 0 4px;
+  }
+
+  .a-table td:last-child {
+    border-radius: 0 4px 4px 0;
+  }
+
+  .a-year {
+    font-family: var(--font-mono); /* taste-skill-ignore: approved Plex Mono labels, see CLAUDE.md */
+    font-size: 0.8125rem;
+  }
+
+  .a-roles {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-sm);
+  }
+
+  .a-roles li {
+    background: var(--color-bg-elevated);
+    border-radius: 6px;
+    padding: var(--space-md) var(--space-lg);
+    color: var(--color-fg);
+    font-weight: 500;
+  }
+
+  .a-about {
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: var(--space-3xl);
+    align-items: center;
+    max-width: 60rem;
+  }
+
+  .a-about img {
+    border-radius: 10px;
+  }
+
+  .a-role {
+    margin: 0.25rem 0 var(--space-lg);
+  }
+
+  .a-close {
+    max-width: 46rem;
+  }
+
+  .a-close h2 {
+    margin-bottom: var(--space-md);
+  }
+
+  .a-link-light {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .a-link-light:hover {
+    color: var(--color-white);
+  }
+
+  @media (max-width: 900px) {
+    .a-hero-grid, .a-split, .a-record { grid-template-columns: 1fr; gap: var(--space-2xl); }
+    .a-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .a-about { grid-template-columns: 1fr; gap: var(--space-xl); }
+    .a-about img { max-width: 240px; }
+  }
+
+  @media (max-width: 560px) {
+    .a-hero { padding: var(--space-3xl) 0 var(--space-2xl); }
+    .a-roles { grid-template-columns: 1fr; }
+    .a-table th:nth-child(3), .a-table td:nth-child(3) { display: none; }
+  }
+</style>

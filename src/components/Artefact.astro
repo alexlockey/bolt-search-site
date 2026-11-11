@@ -1,0 +1,195 @@
+---
+// Working documents from a search, rendered as HTML. Every one is labelled as an example.
+import { briefArtefact, mapArtefact, shortlistArtefact } from '../data/site';
+
+export interface Props {
+  kind: 'brief' | 'map' | 'shortlist';
+  fig?: string;
+  variant?: 'paper' | 'panel';
+}
+
+const { kind, fig, variant = 'paper' } = Astro.props;
+const max = Math.max(...mapArtefact.rows.map((r) => r.count));
+---
+
+<figure class={`artefact artefact-${variant}`}>
+  {kind === 'brief' && (
+    <>
+      <figcaption class="mono">{fig && <span>{fig}</span>} {briefArtefact.label}</figcaption>
+      <p class="artefact-title">{briefArtefact.role}</p>
+      <p class="artefact-sub">{briefArtefact.company}</p>
+      <dl>
+        {briefArtefact.rows.map(([k, v]) => (
+          <div class="artefact-row">
+            <dt>{k}</dt>
+            <dd>{v}</dd>
+          </div>
+        ))}
+      </dl>
+    </>
+  )}
+
+  {kind === 'shortlist' && (
+    <>
+      <figcaption class="mono">{fig && <span>{fig}</span>} {shortlistArtefact.label}</figcaption>
+      <p class="artefact-title">{shortlistArtefact.candidate}</p>
+      <dl>
+        {shortlistArtefact.rows.map(([k, v]) => (
+          <div class="artefact-row">
+            <dt>{k}</dt>
+            <dd>{v}</dd>
+          </div>
+        ))}
+      </dl>
+    </>
+  )}
+
+  {kind === 'map' && (
+    <>
+      <figcaption class="mono">{fig && <span>{fig}</span>} {mapArtefact.label}</figcaption>
+      <ol class="funnel">
+        {mapArtefact.rows.map((r) => (
+          <li>
+            <span class="funnel-stage">{r.stage}</span>
+            <span class="funnel-bar" style={`--w:${Math.max(4, Math.round((r.count / max) * 100))}%`}>
+              <span class="funnel-count">{r.count}</span>
+            </span>
+            <span class="funnel-note">{r.note}</span>
+          </li>
+        ))}
+      </ol>
+    </>
+  )}
+</figure>
+
+<style>
+  .artefact {
+    border-radius: 10px;
+    padding: var(--space-lg) var(--space-lg) var(--space-md);
+    font-size: 0.9375rem;
+  }
+
+  .artefact-paper {
+    background: var(--color-bg-elevated);
+  }
+
+  .artefact-panel {
+    background: var(--color-bg-subtle);
+  }
+
+  figcaption {
+    margin-bottom: var(--space-md);
+  }
+
+  figcaption span {
+    color: var(--color-accent);
+    margin-right: 0.5em;
+  }
+
+  .artefact-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    line-height: 1.3;
+    color: var(--color-fg);
+    margin-bottom: 0.25rem;
+  }
+
+  .artefact-sub {
+    color: var(--color-fg-subtle);
+    font-size: 0.875rem;
+    margin-bottom: var(--space-md);
+  }
+
+  dl {
+    display: grid;
+    gap: 2px;
+  }
+
+  .artefact-row {
+    display: grid;
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+    gap: var(--space-md);
+    padding: 0.625rem 0.75rem;
+    background: var(--color-bg-subtle);
+    border-radius: 4px;
+  }
+
+  .artefact-panel .artefact-row {
+    background: var(--color-bg-elevated);
+  }
+
+  dt {
+    font-family: var(--font-mono); /* taste-skill-ignore: approved Plex Mono labels, see CLAUDE.md */
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-fg-subtle);
+    padding-top: 0.125rem;
+  }
+
+  dd {
+    color: var(--color-fg);
+    line-height: 1.5;
+  }
+
+  .funnel {
+    list-style: none;
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .funnel li {
+    display: grid;
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    grid-template-areas: 'stage bar' '. note';
+    column-gap: var(--space-md);
+    row-gap: 0.125rem;
+    align-items: center;
+  }
+
+  .funnel-stage {
+    grid-area: stage;
+    font-family: var(--font-mono); /* taste-skill-ignore: approved Plex Mono labels, see CLAUDE.md */
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-fg-subtle);
+  }
+
+  .funnel-bar {
+    grid-area: bar;
+    display: block;
+    width: var(--w);
+    min-width: 2.75rem;
+    background: var(--color-accent);
+    color: var(--color-btn-fg);
+    border-radius: 3px;
+    padding: 0.25rem 0.5rem;
+  }
+
+  [data-concept="b"] .funnel-bar {
+    color: #0E0F14;
+  }
+
+  .funnel-count {
+    font-family: var(--font-mono); /* taste-skill-ignore: approved Plex Mono labels, see CLAUDE.md */
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .funnel-note {
+    grid-area: note;
+    font-size: 0.8125rem;
+    color: var(--color-fg-muted);
+  }
+
+  @media (max-width: 480px) {
+    .artefact-row {
+      grid-template-columns: 1fr;
+      gap: 0.125rem;
+    }
+    .funnel li {
+      grid-template-columns: 5.5rem minmax(0, 1fr);
+    }
+  }
+</style>
