@@ -1,565 +1,243 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const title = "Trusted Executive Search & Board Advisory for Education & Training";
-const description = "Board and executive search for education, training, and edtech - trusted by investors and business leaders who value discretion, strategy, and lasting partnerships.";
+const title = "Commercial and technical hires for growth companies";
+const description = "Bolt Search recruits the sales, solutions and commercial people growth companies cannot afford to get wrong. Current focus: on-site power and data centre infrastructure, and first UK hires for US startups.";
 
-// Pull the two most recent published insights from the content collection
-import { getCollection } from 'astro:content';
-const allInsights = await getCollection('insights');
-const latestInsights = allInsights
-  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
-  .slice(0, 2)
-  .map((entry) => ({
-    slug: entry.id.replace(/\.md$/, ''),
-    title: entry.data.title,
-    date: entry.data.publishedAt.toISOString().split('T')[0],
-    excerpt: entry.data.description,
-    tag: entry.data.contentType,
-    sector: entry.data.sector
-  }));
-
-const sectors = [
+const focus = [
   {
-    name: "Training Providers",
-    href: "/sectors/",
-    description: "Apprenticeships, skills training, corporate L&D",
-    count: "1,200+ companies tracked"
+    heading: "On-site power and data centre infrastructure",
+    body: "Grid connections at the main data centre hubs can take years, so developers are turning to on-site generation and batteries. The firms building that capacity need people who can sell it and price it.",
+    roles: "Business development managers, estimators, proposals and sales engineers from generation, BESS and grid backgrounds.",
   },
   {
-    name: "EdTech",
-    href: "/sectors/",
-    description: "Learning platforms, LMS, assessment technology",
-    count: "400+ companies tracked"
+    heading: "First UK and EMEA hires for US startups",
+    body: "Your first hire outside the US sets the tone for the region. It needs someone who can work without a local team around them and has sold or delivered to UK and European buyers before.",
+    roles: "Founding account executives, solutions engineers and implementation leads.",
   },
-  {
-    name: "FE Colleges",
-    href: "/sectors/",
-    description: "Further education, vocational, adult learning",
-    count: "350+ institutions"
-  },
-  {
-    name: "Investors",
-    href: "/sectors/",
-    description: "PE firms, strategic buyers, education funds",
-    count: "150+ active investors"
-  }
 ];
 
-const clientLogos = [
-  "Turing College",
-  "QA",
-  "BPP",
-  "Global Education",
-  "B2W Group",
-  "AKG Education"
+const roles = [
+  "Business development and account management",
+  "Account executives, including founding AEs",
+  "Solutions, sales and proposals engineers",
+  "Estimators and bid managers",
+  "Implementation and customer success leads",
+  "Heads of sales, CROs and CCOs",
+];
+
+const steps = [
+  {
+    heading: "A proper brief",
+    body: "A 30-minute call on what the person has to achieve in their first year, not only what the job description says.",
+  },
+  {
+    heading: "A mapped market",
+    body: "We map the companies and people who have done this work before. AI-assisted research means we cover a market quickly. Every approach is still made by a person.",
+  },
+  {
+    heading: "A short list you can act on",
+    body: "You meet a small number of people we have spoken to, each with a note on why they fit, what they earn and what would move them.",
+  },
+  {
+    heading: "Through to start date",
+    body: "We run interviews, feedback, offer and notice period, and stay in touch through the first months.",
+  },
 ];
 ---
 
 <Layout title={title} description={description}>
-  <!-- Hero with background image -->
-  <section class="hero hero-parallax gradient-mesh">
-    <div class="gradient-orb gradient-orb-1"></div>
-    <div class="gradient-orb gradient-orb-2"></div>
-    <div class="gradient-orb gradient-orb-3"></div>
+  <section class="hero">
     <div class="container-wide">
-      <div class="hero-content animate-on-scroll">
-        <p class="section-label">Executive Search Â· Board Advisory Â· Fractional Leadership</p>
-        <h1>Expertise You Can't Automate</h1>
-        <p class="hero-subtitle">
-          Board and executive search for <strong>education, training, and edtech</strong> - trusted by investors and business leaders who value discretion, strategy, and lasting partnerships.
-        </p>
-        <div class="hero-actions">
-          <a href="/contact" class="btn btn-primary">Get in Touch <span aria-hidden="true">&rarr;</span></a>
-          <a href="/insights" class="btn btn-outline">Explore Insights</a>
-        </div>
+      <h1>The commercial and technical hires you can't afford to get wrong.</h1>
+      <p class="lede">
+        Bolt Search finds sales, solutions and commercial people for growth companies: the hires who carry a revenue number or win the technical sale.
+      </p>
+      <div class="hero-actions">
+        <a href="/contact/" class="btn btn-primary">Tell us about the role</a>
+        <a href="#how" class="btn btn-outline">How a search runs</a>
       </div>
+
+      <ul class="proof" aria-label="Track record">
+        <li><strong>10+ years</strong> recruiting commercial and leadership roles</li>
+        <li><strong>CRO, CCO, account director and BD</strong> placements</li>
+        <li><strong>Founder-led</strong>: every search run by Alex Lockey</li>
+      </ul>
     </div>
   </section>
 
-  <!-- Services Overview -->
   <section class="section section-subtle">
     <div class="container-wide">
-      <p class="section-label">What We Do</p>
-      <h2 style="margin-bottom: var(--space-2xl); max-width: 600px;">Three ways we help education businesses find the right people</h2>
-      <div class="grid-3">
-        <a href="/search" class="service-card card">
-          <div class="service-card-number">01</div>
-          <div class="service-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-            </svg>
-          </div>
-          <h3>Executive Search</h3>
-          <p>Senior, specialist hires at board and leadership level. Retained and semi-retained models for confidential, high-impact placements.</p>
-          <span class="card-link">Learn more &rarr;</span>
-        </a>
-        <a href="/advisory" class="service-card card">
-          <div class="service-card-number">02</div>
-          <div class="service-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-            </svg>
-          </div>
-          <h3>Board Advisory</h3>
-          <p>Strategic consulting, M&A advisory, and board-level guidance for organisations navigating growth, acquisition, or restructuring.</p>
-          <span class="card-link">Learn more &rarr;</span>
-        </a>
-        <a href="/fractional" class="service-card card">
-          <div class="service-card-number">03</div>
-          <div class="service-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-            </svg>
-          </div>
-          <h3>Fractional Operators</h3>
-          <p>Experienced leaders on a fractional basis - bringing senior capability without the full-time commitment. Ideal for scaling businesses.</p>
-          <span class="card-link">Learn more &rarr;</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Sector Intelligence -->
-  <section class="section">
-    <div class="container-wide">
-      <p class="section-label">Sector Focus</p>
-      <h2 style="margin-bottom: var(--space-xs); max-width: 600px;">Deep knowledge of the education ecosystem</h2>
-      <p style="margin-bottom: var(--space-2xl); max-width: 500px; font-size: 1.0625rem;">We track thousands of organisations across the UK education and skills landscape.</p>
-      <div class="sector-grid">
-        <a href={sectors[0].href} class="sector-card sector-training">
-          <h4>{sectors[0].name}</h4>
-          <p>{sectors[0].description}</p>
-          <span class="sector-count">{sectors[0].count}</span>
-        </a>
-        <a href={sectors[1].href} class="sector-card sector-edtech">
-          <h4>{sectors[1].name}</h4>
-          <p>{sectors[1].description}</p>
-          <span class="sector-count">{sectors[1].count}</span>
-        </a>
-        <a href={sectors[2].href} class="sector-card sector-fe">
-          <h4>{sectors[2].name}</h4>
-          <p>{sectors[2].description}</p>
-          <span class="sector-count">{sectors[2].count}</span>
-        </a>
-        <a href={sectors[3].href} class="sector-card sector-investors">
-          <h4>{sectors[3].name}</h4>
-          <p>{sectors[3].description}</p>
-          <span class="sector-count">{sectors[3].count}</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Latest Insights -->
-  <section class="section section-subtle">
-    <div class="container-wide">
-      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: var(--space-2xl);">
-        <div>
-          <p class="section-label">Latest Insights</p>
-          <h2 style="margin-bottom: 0;">Market intelligence and analysis</h2>
-        </div>
-        <a href="/insights" class="btn btn-outline" style="flex-shrink: 0;">View all &rarr;</a>
-      </div>
-      <div class="grid-3">
-        {latestInsights.map((post, idx) => (
-          <a href={`/insights/${post.slug}`} class="insight-card card">
-            <div class="insight-header">
-              <div class="insight-meta">
-                <span class="tag" style={`--tag-color: ${idx === 0 ? '#10B981' : idx === 1 ? '#F59E0B' : '#8B5CF6'}`}>{post.tag}</span>
-                <time datetime={post.date} style="font-size: 0.8125rem; color: var(--color-fg-subtle);">
-                  {new Date(post.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
-                </time>
-              </div>
-            </div>
-            <h3>{post.title}</h3>
-            <p>{post.excerpt}</p>
-            <span class="card-link">Read more &rarr;</span>
-          </a>
+      <h2 class="section-heading">Where we are working now</h2>
+      <div class="grid-2">
+        {focus.map((f) => (
+          <article class="focus-card">
+            <h3>{f.heading}</h3>
+            <p>{f.body}</p>
+            <p class="focus-roles"><strong>Typical hires:</strong> {f.roles}</p>
+          </article>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Trust / Social Proof -->
-  <section class="section section-dark lines-pattern">
-    <div class="container-wide" style="text-align: center;">
-      <p class="section-label" style="color: rgba(255,255,255,0.5);">Why Bolt Search</p>
-      <h2 style="margin-bottom: var(--space-xl); max-width: 700px; margin-left: auto; margin-right: auto;">
-        The sector's most connected search partner
-      </h2>
-      <div class="stats-grid">
-        <div class="stat animate-on-scroll stagger-1">
-          <span class="stat-number glow-text" data-count="3400" data-suffix="+">3,400+</span>
-          <span class="stat-label">Companies in our network</span>
-        </div>
-        <div class="stat animate-on-scroll stagger-2">
-          <span class="stat-number glow-text" data-count="1500" data-suffix="+">1,500+</span>
-          <span class="stat-label">Senior contacts mapped</span>
-        </div>
-        <div class="stat animate-on-scroll stagger-3">
-          <span class="stat-number glow-text" data-count="20">20</span>
-          <span class="stat-label">Years in recruitment &amp; education</span>
-        </div>
-        <div class="stat animate-on-scroll stagger-4">
-          <span class="stat-number glow-text" data-count="100" data-suffix="%">100%</span>
-          <span class="stat-label">Retained & advisory focus</span>
-        </div>
+  <section class="section">
+    <div class="container-wide roles-wrap">
+      <div>
+        <h2>The roles we fill</h2>
+        <p>Mid-level to leadership hires in sales, solutions and commercial teams, wherever the market is.</p>
       </div>
+      <ul class="roles">
+        {roles.map((r) => <li>{r}</li>)}
+      </ul>
     </div>
   </section>
 
-  <!-- CTA with background image -->
-  <section class="section cta-section gradient-mesh" style="background: linear-gradient(135deg, var(--color-navy) 0%, #1a1a3e 50%, #0f2027 100%);">
-    <div class="gradient-orb gradient-orb-1" style="opacity: 0.08;"></div>
-    <div class="gradient-orb gradient-orb-2" style="opacity: 0.08;"></div>
-    <div class="container-wide" style="text-align: center; position: relative; z-index: 2;">
-      <div class="animate-on-scroll">
-        <h2 style="margin-bottom: var(--space-md); color: white;">Ready to find the right leader?</h2>
-        <p style="max-width: 500px; margin: 0 auto var(--space-xl); font-size: 1.0625rem; color: rgba(255, 255, 255, 0.9);">
-          Whether you're making a critical hire, exploring an acquisition, or need fractional leadership - let's talk.
-        </p>
-        <div style="display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap;">
-          <a href="/contact" class="btn btn-primary">Book a Discovery Call <span aria-hidden="true">&rarr;</span></a>
-          <a href="/subscribe" class="btn btn-white">Subscribe to the Briefing</a>
-        </div>
-      </div>
+  <section class="section section-subtle" id="how">
+    <div class="container-wide">
+      <h2 class="section-heading">How a search runs</h2>
+      <ol class="steps">
+        {steps.map((s) => (
+          <li>
+            <h3>{s.heading}</h3>
+            <p>{s.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="container-wide closing">
+      <h2>Hiring for a role like this?</h2>
+      <p>Tell us what the role has to achieve. Alex reads and replies to every brief personally.</p>
+      <a href="/contact/" class="btn btn-white">Tell us about the role</a>
     </div>
   </section>
 </Layout>
 
 <style>
-  /* Hero */
   .hero {
-    background: var(--color-navy);
-    color: var(--color-white);
-    padding: var(--space-5xl) 0;
-    position: relative;
-    overflow: hidden;
-    min-height: 85vh;
-    display: flex;
-    align-items: center;
-  }
-
-  .hero-content {
-    position: relative;
-    max-width: 720px;
-    z-index: 2;
-  }
-
-  .hero .section-label {
-    color: rgba(255, 255, 255, 0.5);
-    margin-bottom: var(--space-lg);
+    padding: var(--space-4xl) 0 var(--space-3xl);
   }
 
   .hero h1 {
-    color: var(--color-white);
-    font-size: clamp(2.5rem, 6vw, 4rem);
+    max-width: 18ch;
     margin-bottom: var(--space-lg);
-    line-height: 1.1;
-  }
-
-  .hero-subtitle {
-    font-size: clamp(1.0625rem, 2vw, 1.25rem);
-    color: rgba(255, 255, 255, 0.75);
-    line-height: 1.6;
-    margin-bottom: var(--space-2xl);
-  }
-
-  .hero-subtitle strong {
-    color: white;
   }
 
   .hero-actions {
     display: flex;
-    gap: var(--space-md);
     flex-wrap: wrap;
-  }
-
-  .hero .btn-primary {
-    background: var(--color-accent);
-    color: white;
-  }
-
-  .hero .btn-primary:hover {
-    background: var(--color-accent-dark);
-  }
-
-  .hero .btn-outline {
-    border-color: rgba(255, 255, 255, 0.3);
-    color: white;
-  }
-
-  .hero .btn-outline:hover {
-    border-color: white;
-    color: white;
-  }
-
-  /* Service cards */
-  .service-card {
-    text-decoration: none;
-    display: block;
-    color: inherit;
-  }
-
-  .service-icon {
-    width: 48px;
-    height: 48px;
-    background: var(--color-accent-light);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: var(--space-lg);
-    color: var(--color-accent);
-  }
-
-  .service-card h3 {
-    margin-bottom: var(--space-sm);
-  }
-
-  .card-link {
-    display: inline-block;
-    margin-top: var(--space-md);
-    color: var(--color-accent);
-    font-weight: 500;
-    font-size: 0.9375rem;
-  }
-
-  .service-card:hover .card-link {
-    text-decoration: underline;
-  }
-
-  /* Sector grid */
-  .sector-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-md);
-  }
-
-  .sector-card {
-    padding: var(--space-xl);
-    border: 1px solid var(--color-border);
-    border-radius: 10px;
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.25s ease;
-    display: block;
-  }
-
-  .sector-card:hover {
-    border-color: var(--color-accent);
-    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.08);
-    transform: translateY(-2px);
-  }
-
-  .sector-card h4 {
-    margin-bottom: var(--space-xs);
-    font-size: 1rem;
-  }
-
-  .sector-card p {
-    font-size: 0.875rem;
-    margin-bottom: var(--space-sm);
-  }
-
-  .sector-count {
-    font-size: 0.8125rem;
-    color: var(--color-accent);
-    font-weight: 500;
-  }
-
-  @media (max-width: 768px) {
-    .sector-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .sector-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  /* Insight cards */
-  .insight-card {
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .insight-meta {
-    display: flex;
-    align-items: center;
     gap: var(--space-sm);
-    margin-bottom: var(--space-md);
+    margin-top: var(--space-xl);
   }
 
-  .insight-meta time {
-    font-size: 0.8125rem;
-    color: var(--color-fg-subtle);
-  }
-
-  .insight-card h3 {
-    font-size: 1.125rem;
-    margin-bottom: var(--space-sm);
-    line-height: 1.35;
-  }
-
-  .insight-card p {
-    font-size: 0.9375rem;
-    flex: 1;
-  }
-
-  .insight-card:hover h3 {
-    color: var(--color-accent);
-  }
-
-  /* Stats */
-  .stats-grid {
+  .proof {
+    list-style: none;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-xl);
-    margin-top: var(--space-2xl);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-3xl);
   }
 
-  .stat-number {
-    display: block;
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: white;
-    line-height: 1;
-    margin-bottom: var(--space-xs);
-  }
-
-  .stat-label {
-    font-size: 0.875rem;
-    color: rgba(255, 255, 255, 0.5);
-  }
-
-  @media (max-width: 768px) {
-    .stats-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-lg);
-    }
-  }
-
-  /* Service cards enhancements */
-  .service-card {
-    position: relative;
-    border-top: 3px solid transparent;
-    border-image: linear-gradient(135deg, #3B82F6, #8B5CF6, #10B981) 1;
-  }
-
-  .service-card-number {
-    position: absolute;
-    top: var(--space-xl);
-    right: var(--space-xl);
-    font-size: 3.5rem;
-    font-weight: 700;
-    color: var(--color-accent);
-    opacity: 0.08;
-  }
-
-  .service-icon {
-    width: 64px !important;
-    height: 64px !important;
-    background: linear-gradient(135deg, var(--color-accent-light), rgba(139, 92, 246, 0.1)) !important;
-  }
-
-  /* Client logos section */
-  .client-logos-section {
+  .proof li {
     background: var(--color-bg-subtle);
-    padding: var(--space-3xl) 0;
-  }
-
-  .client-logos-wrapper {
-    overflow: hidden;
-    mask-image: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%);
-  }
-
-  .client-logos-marquee {
-    display: flex;
-    gap: var(--space-2xl);
-    animation: marquee 30s linear infinite;
-    padding: var(--space-lg) 0;
-  }
-
-  .client-logo-badge {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background: var(--color-bg-elevated);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
+    border-radius: 10px;
+    padding: var(--space-lg);
     color: var(--color-fg-muted);
     font-size: 0.9375rem;
-    font-weight: 500;
-    white-space: nowrap;
-    transition: all 0.3s ease;
+    line-height: 1.5;
   }
 
-  .client-logos-marquee:hover .client-logo-badge {
-    opacity: 0.5;
+  .proof strong {
+    display: block;
+    color: var(--color-fg);
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    margin-bottom: 0.25rem;
   }
 
-  .client-logos-marquee:hover .client-logo-badge:hover {
-    opacity: 1;
-    color: var(--color-accent);
-    border-color: var(--color-accent);
+  .section-heading {
+    margin-bottom: var(--space-2xl);
   }
 
-  /* Sector cards with gradient accents */
-  .sector-card {
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    border-top: 4px solid var(--color-accent);
+  .focus-card {
+    background: var(--color-white);
+    border-radius: 12px;
+    padding: var(--space-xl);
   }
 
-  .sector-training {
-    border-top-color: #3B82F6;
-  }
-
-  .sector-edtech {
-    border-top-color: #8B5CF6;
-  }
-
-  .sector-fe {
-    border-top-color: #10B981;
-  }
-
-  .sector-investors {
-    border-top-color: #F59E0B;
-  }
-
-  /* Insight cards enhancements */
-  .insight-header {
+  .focus-card h3 {
     margin-bottom: var(--space-md);
-    padding-bottom: var(--space-md);
-    border-bottom: 2px solid var(--color-border);
   }
 
-  .insight-card .tag {
-    background: var(--tag-color, var(--color-accent-light));
-    color: white;
-    padding: 0.375rem 0.875rem;
+  .focus-roles {
+    margin-bottom: 0;
+    color: var(--color-fg);
   }
 
-  /* CTA section */
-  .cta-section {
-    background-size: cover;
-    background-position: center;
+  .roles-wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    gap: var(--space-2xl);
+    align-items: start;
   }
 
-  /* Responsive */
-  @media (max-width: 768px) {
-    .client-logos-marquee {
-      gap: var(--space-lg);
-    }
+  .roles-wrap h2 {
+    margin-bottom: var(--space-md);
+  }
 
-    .sector-image-container {
-      height: 140px;
-    }
+  .roles {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-sm);
+  }
+
+  .roles li {
+    background: var(--color-accent-light);
+    color: var(--color-navy);
+    border-radius: 8px;
+    padding: var(--space-md) var(--space-lg);
+    font-weight: 500;
+    font-size: 0.9375rem;
+  }
+
+  .steps {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .steps h3 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .steps p {
+    margin-bottom: 0;
+  }
+
+  .closing {
+    max-width: 44rem;
+  }
+
+  .closing h2 {
+    margin-bottom: var(--space-md);
+  }
+
+  .closing p {
+    margin-bottom: var(--space-xl);
+  }
+
+  @media (max-width: 900px) {
+    .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .roles-wrap { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 640px) {
+    .hero { padding: var(--space-3xl) 0 var(--space-2xl); }
+    .proof, .roles, .steps { grid-template-columns: 1fr; }
   }
 </style>

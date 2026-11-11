@@ -15,9 +15,24 @@
  *     usually send neither, or a foreign one.
  */
 
-const ALLOWED = ['bolt-search.com', 'localhost'];
-
-const fromSite = (value: string) => ALLOWED.some((host) => value.includes(host));
+// The live domain, local dev, and this project's own Vercel preview URLs
+// (bolt-search-site-<hash or git-branch>-alex-lockeys-projects.vercel.app).
+const fromSite = (value: string) => {
+  let host = '';
+  try {
+    host = new URL(value).hostname;
+  } catch {
+    return false;
+  }
+  return (
+    host === 'bolt-search.com' ||
+    host.endsWith('.bolt-search.com') ||
+    host === 'localhost' ||
+    host === '127.0.0.1' ||
+    host === 'bolt-search-site.vercel.app' ||
+    /^bolt-search-site-[a-z0-9-]+-alex-lockeys-projects\.vercel\.app$/.test(host)
+  );
+};
 
 export type GuardResult = { ok: true } | { ok: false; response: Response };
 

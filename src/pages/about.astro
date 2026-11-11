@@ -2,369 +2,144 @@
 import Layout from '../layouts/Layout.astro';
 
 const title = "About Bolt Search";
-const description = "Founded by Alex Lockey - executive search, advisory, and fractional leadership for education, training, and skills businesses.";
+const description = "Bolt Search is a founder-led recruitment firm run by Alex Lockey. Over 10 years of commercial and leadership placements, including CRO, CCO, account director and business development hires.";
+
+const principles = [
+  {
+    heading: "Few searches at once",
+    body: "We take on a small number of roles at a time, so each one gets real attention rather than a database search and a pile of CVs.",
+  },
+  {
+    heading: "Straight answers",
+    body: "If a candidate is not right, we say so. If the market cannot give you what the brief asks for, you hear that in week one, not week six.",
+  },
+  {
+    heading: "Discretion",
+    body: "Replacement hires and new market entries are often confidential. We run them quietly, for clients and candidates alike.",
+  },
+];
 ---
 
 <Layout title={title} description={description}>
-  <!-- Hero with background image -->
-  <section class="hero gradient-mesh">
-    <div class="gradient-orb gradient-orb-1"></div>
-    <div class="gradient-orb gradient-orb-2"></div>
-    <div class="gradient-orb gradient-orb-3"></div>
-    <div class="container-wide">
-      <div class="hero-content animate-on-scroll">
-        <p class="section-label">About</p>
-        <h1>Built on 20 years of relationships, rigour, and sector knowledge</h1>
-        <p class="hero-subtitle">
-          Bolt Search helps founders, investors, and leadership teams build and scale education, training, and edtech businesses through executive search, advisory, and fractional leadership.
+  <section class="about-hero">
+    <div class="container-wide about-grid">
+      <div>
+        <h1>A small search firm. Every brief run by the founder.</h1>
+        <p class="lede">
+          Bolt Search has recruited commercial and leadership people for more than 10 years. Placements include CROs, CCOs, account directors and business development hires for growing companies in the UK and abroad.
         </p>
       </div>
+      <figure class="portrait">
+        <img src="/alex-lockey.jpg" alt="Alex Lockey" width="360" height="360" loading="eager" />
+        <figcaption>
+          <strong>Alex Lockey</strong>
+          Founder and Managing Partner
+        </figcaption>
+      </figure>
     </div>
   </section>
 
-  <!-- Alex Lockey -->
-  <section class="section">
-    <div class="container-wide">
-      <div class="founder-grid">
-        <div class="founder-photo">
-          <img src="/alex-lockey.jpg" alt="Alex Lockey, Managing Partner at Bolt Search" class="founder-img" onerror="this.style.display='none'" />
-          <div class="founder-card-fallback">
-            <span class="founder-initials">AL</span>
-          </div>
-        </div>
-        <div class="founder-content">
-          <p class="section-label">Managing Partner</p>
-          <h2>Alex Lockey</h2>
-          <p class="founder-tagline">
-            Scaling Education & Training: Exec Search · Advisory · Innovation · Board Advisory · Ecosystem Builder
-          </p>
-          <p>
-            I help founders and investors build and scale education, training, talent, and edtech businesses. My work spans executive hiring, innovation, and board advisory.
-          </p>
-          <p>
-            Targeted, outcomes-first, and pragmatic. I combine 20 years in recruitment, education and commercial ops with a playbook that blends advisory rigour, operator empathy, and applied intelligence.
-          </p>
-          <p>
-            I work with founders seeking scale, investors needing credibility and value acceleration, and leadership teams navigating succession, transformation, or growth.
-          </p>
-          <div class="founder-roles">
-            <div class="role-item">
-              <h4>Bolt Search</h4>
-              <p>Managing Partner · Executive & board search, advisory</p>
-            </div>
-            <div class="role-item">
-              <h4>Boltjobs.com</h4>
-              <p>Founder · Education & training sector job platform</p>
-            </div>
-            <div class="role-item">
-              <h4>The Satori Partnership</h4>
-              <p>Principal & Innovation Partner · Value creation & innovation</p>
-            </div>
-            <div class="role-item">
-              <h4>SIAS</h4>
-              <p>Board Advisor</p>
-            </div>
-          </div>
-          <div class="founder-credentials">
-            <span class="credential">BEng Aeronautical Engineering, University of Bristol</span>
-            <span class="credential">23,000+ LinkedIn followers</span>
-          </div>
-          <a href="https://www.linkedin.com/in/alexlockey1/" target="_blank" rel="noopener" class="btn btn-outline" style="margin-top: var(--space-lg);">
-            Connect on LinkedIn &rarr;
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- What we do -->
   <section class="section section-subtle">
-    <div class="container-wide">
-      <p class="section-label">What We Do</p>
-      <h2 style="margin-bottom: var(--space-2xl); max-width: 600px;">Four ways we create value</h2>
-      <div class="what-grid">
-        <div class="what-item card">
-          <h3>Executive & Board Search</h3>
-          <p>Senior and board-level appointments across education, training, edtech, and skills. Retained and semi-retained, always confidential.</p>
-        </div>
-        <div class="what-item card">
-          <h3>Advisory</h3>
-          <p>Strategy, operations, and M&A advisory for education businesses navigating growth, acquisition, or restructuring.</p>
-        </div>
-        <div class="what-item card">
-          <h3>Innovation & Value Creation</h3>
-          <p>Working with portfolio companies and investors to drive operational improvement, AI adoption, and commercial acceleration.</p>
-        </div>
-        <div class="what-item card">
-          <h3>Ecosystem Building</h3>
-          <p>BoltJobs, Find A Training Provider, The Bolt Briefing - building platforms and publications that serve the sector.</p>
-        </div>
-      </div>
+    <div class="container about-copy">
+      <h2>Alex Lockey</h2>
+      <p>
+        Alex founded Bolt Search and runs every search himself, from the first call to the start date. He has spent his career around commercial teams: hiring them, building them and working alongside the people who lead them.
+      </p>
+      <p>
+        He trained as an engineer (BEng Aeronautical Engineering, University of Bristol), which helps when a hire has to hold a technical conversation with a buyer, not only a commercial one.
+      </p>
+      <p>
+        <a href="https://www.linkedin.com/in/alexlockey1/" target="_blank" rel="noopener">Alex on LinkedIn</a>
+      </p>
     </div>
   </section>
 
-  <!-- How we work -->
   <section class="section">
     <div class="container-wide">
-      <p class="section-label">How We Work</p>
-      <h2 style="margin-bottom: var(--space-2xl); max-width: 600px;">Principles, not process</h2>
-      <div class="principles-grid">
-        <div class="principle">
-          <h3>Discretion first</h3>
-          <p>For sensitive hires - board roles, CEO transitions, restructuring - confidentiality is built into how we operate. We protect your interests and your reputation.</p>
-        </div>
-        <div class="principle">
-          <h3>Sector-deep, not sector-wide</h3>
-          <p>We don't recruit across 20 industries. We know education: the funding models, the regulatory landscape, the key players, the unwritten rules.</p>
-        </div>
-        <div class="principle">
-          <h3>Relationship-led</h3>
-          <p>Every candidate we approach knows our name. We've built genuine relationships with leaders across the sector - that changes everything about the conversation.</p>
-        </div>
-        <div class="principle">
-          <h3>Commercially pragmatic</h3>
-          <p>We understand education finances, government relationships, regulatory constraints. Our advice is grounded in real sector dynamics, not theoretical best practice.</p>
-        </div>
-        <div class="principle">
-          <h3>Outcomes over activity</h3>
-          <p>We measure success by the quality of the placement and the longevity of the relationship - not by how many CVs we send or how many calls we make.</p>
-        </div>
-        <div class="principle">
-          <h3>Honest conversations</h3>
-          <p>If we don't think a candidate is right, we say so. If we're not the right fit for a brief, we'll tell you. Honesty beats false promises.</p>
-        </div>
+      <h2 class="section-heading">How we work</h2>
+      <div class="grid-3">
+        {principles.map((p) => (
+          <div class="card">
+            <h3>{p.heading}</h3>
+            <p>{p.body}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- Newsletter section -->
   <section class="section section-dark">
-    <div class="container-wide" style="text-align: center;">
-      <p class="section-label" style="color: rgba(255,255,255,0.5);">Stay Connected</p>
-      <h2 style="margin-bottom: var(--space-md); color: white;">The Bolt Briefing</h2>
-      <p style="max-width: 500px; margin: 0 auto var(--space-lg); color: rgba(255,255,255,0.7); font-size: 1.0625rem;">
-        Weekly intelligence on the education, training, and skills sector. Market signals, leadership moves, and analysis - read by sector professionals and investors.
-      </p>
-      <a href="/subscribe" class="btn btn-white">Subscribe &rarr;</a>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="section">
-    <div class="container-wide" style="text-align: center;">
-      <h2 style="margin-bottom: var(--space-md);">Let's start a conversation</h2>
-      <p style="max-width: 500px; margin: 0 auto var(--space-xl); font-size: 1.0625rem;">
-        Whether you're making a critical hire, exploring a strategic move, or want to discuss the sector - get in touch.
-      </p>
-      <div style="display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap;">
-        <a href="/contact" class="btn btn-primary">Get in Touch <span aria-hidden="true">&rarr;</span></a>
-        <a href="/insights" class="btn btn-outline">Read Our Insights</a>
-      </div>
+    <div class="container-wide closing">
+      <h2>Have a role in mind?</h2>
+      <p>Send a short note on the role and what it has to achieve. Alex will reply personally.</p>
+      <a href="/contact/" class="btn btn-white">Tell us about the role</a>
     </div>
   </section>
 </Layout>
 
 <style>
-  /* Hero */
-  .hero {
-    background: var(--color-navy);
-    color: var(--color-white);
-    padding: var(--space-5xl) 0;
-    position: relative;
-    overflow: hidden;
+  .about-hero {
+    padding: var(--space-4xl) 0 var(--space-3xl);
   }
 
-  .hero-content {
-    position: relative;
-    max-width: 720px;
-    z-index: 2;
-  }
-
-  .hero .section-label {
-    color: rgba(255, 255, 255, 0.5);
-    margin-bottom: var(--space-lg);
-  }
-
-  .hero h1 {
-    color: var(--color-white);
-    font-size: clamp(2rem, 5vw, 3rem);
-    margin-bottom: var(--space-lg);
-    line-height: 1.15;
-  }
-
-  .hero-subtitle {
-    font-size: clamp(1.0625rem, 2vw, 1.25rem);
-    color: rgba(255, 255, 255, 0.75);
-    line-height: 1.6;
-  }
-
-  /* Founder section */
-  .founder-grid {
+  .about-grid {
     display: grid;
-    grid-template-columns: 280px 1fr;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
     gap: var(--space-3xl);
-    align-items: start;
-  }
-
-  .founder-photo {
-    position: sticky;
-    top: calc(80px + var(--space-xl));
-  }
-
-  .founder-img {
-    width: 100%;
-    border-radius: 12px;
-    aspect-ratio: 1;
-    object-fit: cover;
-  }
-
-  .founder-card-fallback {
-    width: 100%;
-    aspect-ratio: 1;
-    background: var(--color-bg-subtle);
-    border-radius: 12px;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    border: 1px solid var(--color-border);
   }
 
-  .founder-img + .founder-card-fallback {
-    display: none;
+  .about-grid h1 {
+    margin-bottom: var(--space-lg);
   }
 
-  .founder-initials {
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--color-accent);
+  .portrait img {
+    border-radius: 12px;
+    width: 100%;
+    max-width: 360px;
   }
 
-  .founder-content h2 {
-    font-size: 2rem;
+  .portrait figcaption {
+    margin-top: var(--space-md);
+    color: var(--color-fg-subtle);
+    font-size: 0.9375rem;
+  }
+
+  .portrait strong {
+    display: block;
+    color: var(--color-fg);
+  }
+
+  .about-copy h2 {
+    margin-bottom: var(--space-lg);
+  }
+
+  .section-heading {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .card h3 {
     margin-bottom: var(--space-sm);
   }
 
-  .founder-tagline {
-    font-size: 1rem;
-    color: var(--color-accent);
-    font-weight: 500;
+  .card p {
+    margin-bottom: 0;
+  }
+
+  .closing {
+    max-width: 44rem;
+  }
+
+  .closing h2 {
+    margin-bottom: var(--space-md);
+  }
+
+  .closing p {
     margin-bottom: var(--space-xl);
   }
 
-  .founder-content > p {
-    font-size: 1.0625rem;
-    line-height: 1.75;
-    margin-bottom: var(--space-lg);
-    color: var(--color-fg-muted);
-  }
-
-  .founder-roles {
-    margin-top: var(--space-xl);
-    padding-top: var(--space-xl);
-    border-top: 1px solid var(--color-border);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-lg);
-  }
-
-  .role-item h4 {
-    font-size: 0.9375rem;
-    margin-bottom: 0.25rem;
-  }
-
-  .role-item p {
-    font-size: 0.875rem;
-    color: var(--color-fg-subtle);
-    margin-bottom: 0;
-  }
-
-  .founder-credentials {
-    margin-top: var(--space-xl);
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
-  }
-
-  .credential {
-    display: inline-block;
-    padding: 0.375rem 0.875rem;
-    background: var(--color-bg-subtle);
-    border-radius: 100px;
-    font-size: 0.8125rem;
-    color: var(--color-fg-muted);
-    font-weight: 500;
-  }
-
   @media (max-width: 768px) {
-    .founder-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-2xl);
-    }
-
-    .founder-photo {
-      position: static;
-      max-width: 200px;
-    }
-
-    .founder-roles {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  /* What we do grid */
-  .what-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-xl);
-  }
-
-  .what-item h3 {
-    margin-bottom: var(--space-sm);
-    font-size: 1.125rem;
-  }
-
-  .what-item p {
-    font-size: 0.9375rem;
-    margin-bottom: 0;
-  }
-
-  @media (max-width: 768px) {
-    .what-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  /* Principles grid */
-  .principles-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-xl);
-  }
-
-  .principle {
-    padding-top: var(--space-lg);
-    border-top: 2px solid var(--color-border);
-  }
-
-  .principle h3 {
-    font-size: 1.0625rem;
-    margin-bottom: var(--space-sm);
-  }
-
-  .principle p {
-    font-size: 0.9375rem;
-    margin-bottom: 0;
-  }
-
-  @media (max-width: 768px) {
-    .principles-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .principles-grid {
-      grid-template-columns: 1fr;
-    }
+    .about-hero { padding: var(--space-3xl) 0 var(--space-2xl); }
+    .about-grid { grid-template-columns: 1fr; gap: var(--space-xl); }
   }
 </style>

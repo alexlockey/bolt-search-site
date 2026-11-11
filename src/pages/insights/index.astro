@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
-const title = "Insights & Analysis";
+const title = "Insights archive";
 const description = "Long-form analysis of the education, training, and skills sector. Market trends, leadership insights, and strategic analysis for education executives and investors.";
 
 // Get all insights from content collection
@@ -44,15 +44,14 @@ function getColorByTag(sector: string): string {
 }
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} noindex={true}>
   <!-- Hero -->
   <section class="insights-hero">
     <div class="container-wide">
       <div style="max-width: 640px;">
-        <p class="section-label">Insights & Analysis</p>
-        <h1>Sector intelligence for education leaders and investors</h1>
+        <h1>Insights archive</h1>
         <p style="font-size: 1.0625rem; margin-top: var(--space-md); color: var(--color-fg-muted);">
-          Long-form analysis, market trends, and strategic thinking on the UK education, training, and skills sector.
+          Earlier analysis of the UK education, training and skills sector, kept here for reference.
         </p>
       </div>
     </div>
@@ -105,14 +104,13 @@ function getColorByTag(sector: string): string {
     </div>
   </section>
 
-  <!-- CTA Section -->
   <section class="section section-subtle">
     <div class="container" style="text-align: center;">
-      <h2 style="margin-bottom: var(--space-md);">Get insights like this weekly</h2>
-      <p style="margin-bottom: var(--space-lg); color: var(--color-fg-muted); max-width: 480px; margin-left: auto; margin-right: auto;">
-        Subscribe to The Bolt Briefing - sector intelligence, leadership moves, and market analysis for education professionals.
+      <h2 style="margin-bottom: var(--space-md);">Hiring for a commercial or technical role?</h2>
+      <p style="margin-bottom: var(--space-lg); max-width: 480px; margin-left: auto; margin-right: auto;">
+        Bolt Search now focuses on sales, solutions and commercial hires for growth companies.
       </p>
-      <a href="/subscribe" class="btn btn-primary">Subscribe to the Briefing <span aria-hidden="true">&rarr;</span></a>
+      <a href="/contact/" class="btn btn-primary">Tell us about the role</a>
     </div>
   </section>
 </Layout>
