@@ -4,7 +4,8 @@
 import Layout from '../layouts/Layout.astro';
 import Narrowing from '../components/Narrowing.astro';
 import BriefBuilder from '../components/BriefBuilder.astro';
-import { hero, narrowing, slip, notePitch, shortlistNote, facts, placements, placedRoles, quotes, contact } from '../data/site';
+import Shortlist from '../components/Shortlist.astro';
+import { hero, narrowing, slip, notePitch, facts, placements, placedRoles, quotes, contact } from '../data/site';
 
 const title = 'Commercial and technical hires for growth companies';
 const description = 'Bolt Search finds the commercial and technical people growth companies depend on. One recruiter runs every search, with a written note on every name.';
@@ -58,31 +59,12 @@ const description = 'Bolt Search finds the commercial and technical people growt
   </section>
 
   <section class="bs-note" aria-labelledby="bs-note-h">
-    <div class="bs-wrap bs-note-grid">
-      <div class="bs-note-copy" data-reveal>
-        <h2 id="bs-note-h" class="bs-h2">{notePitch.heading}</h2>
-        <p class="bs-two-tone">{notePitch.lead} <span>{notePitch.rest}</span></p>
-      </div>
-      <div class="bs-app" data-ui data-reveal style="--d:1">
-        <div class="bs-app-bar">
-          <span class="bs-app-title">Shortlist · Founding AE, UK</span>
-          <span class="bs-app-tag">Example, no real candidates</span>
-        </div>
-        <ul class="bs-app-list">
-          {notePitch.others.slice(0, 1).map((c) => (
-            <li><span class="bs-app-dot"></span><span class="bs-app-id">{c.id}</span><span class="bs-app-line">{c.line}</span><span class="bs-app-state">{c.state}</span></li>
-          ))}
-          <li class="is-open"><span class="bs-app-dot is-blue"></span><span class="bs-app-id">Candidate B</span><span class="bs-app-line">{shortlistNote.rows[0][1]}</span><span class="bs-app-state">Note open</span></li>
-        </ul>
-        <dl class="bs-app-note">
-          {shortlistNote.rows.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
-        </dl>
-        <ul class="bs-app-list">
-          {notePitch.others.slice(1).map((c) => (
-            <li><span class="bs-app-dot"></span><span class="bs-app-id">{c.id}</span><span class="bs-app-line">{c.line}</span><span class="bs-app-state">{c.state}</span></li>
-          ))}
-        </ul>
-      </div>
+    <div class="bs-wrap bs-split">
+      <h2 id="bs-note-h" class="bs-h2" data-reveal>{notePitch.heading}</h2>
+      <p class="bs-two-tone" data-reveal style="--d:1">{notePitch.lead} <span>{notePitch.rest}</span></p>
+    </div>
+    <div class="bs-wrap bs-note-app" data-reveal style="--d:2">
+      <Shortlist />
     </div>
   </section>
 

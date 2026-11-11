@@ -194,9 +194,9 @@ export const slip = {
 };
 
 export const notePitch = {
-  heading: 'A note with every name',
+  heading: 'A briefing on every name',
   lead: 'You never get a CV and a phone call.',
-  rest: 'Each person on a shortlist arrives with a written note: why they fit, what they earn, what would move them, and the risk.',
+  rest: 'Each person on a shortlist arrives with a full briefing: how they measure against your brief, what they have done, what they earn, why they would move, and the risks with how to test them. Pick a name to read one.',
   others: [
     { id: 'Candidate A', line: 'Mid-market AE, payments scale-up, Manchester', state: 'Interviewing' },
     { id: 'Candidate C', line: 'Founding AE, seed-stage analytics company, remote UK', state: 'Interviewing' },
@@ -257,3 +257,136 @@ export const exampleReply = {
   body: 'Thanks for this. Two questions before we talk: who will this person sell alongside in the first six months, and what has the US team tried in the UK so far? Could you do thirty minutes this week?',
   from: 'Alex',
 };
+
+// A full example shortlist: four briefings for one illustrative search. No real people.
+// Must-haves come from the example brief: sold a technical product to UK buyers, alone, first call to contract;
+// mid-market deal sizes; comfortable reporting to a US VP eight hours behind.
+export type Briefing = {
+  id: string;
+  title: string;
+  status: string;
+  summary: string;
+  glance: [string, string][];
+  fit: { need: string; evidence: string; level: 'meets' | 'partly' }[];
+  record: string[];
+  move: string;
+  risks: { risk: string; test: string }[];
+  references: string;
+  view: string;
+};
+
+export const briefingSearch = {
+  title: 'Shortlist · Founding AE, UK',
+  tag: 'Example search, no real candidates',
+  brief: 'Founding Account Executive, UK. Year one: the first ten UK customers and a repeatable mid-market motion. Reports to the VP Sales in the US.',
+};
+
+export const briefings: Briefing[] = [
+  {
+    id: 'Candidate B',
+    title: 'Enterprise AE, Series C data platform',
+    status: 'Recommended',
+    summary: 'Four years selling six-figure deals to UK financial services, mostly without a sales engineer. The closest match to the brief on this list.',
+    glance: [
+      ['Now', 'Enterprise AE, Series C data platform, London'],
+      ['Notice', 'One month'],
+      ['Package now', '£95k base, £190k OTE'],
+      ['Looking for', '£105k base, meaningful equity'],
+      ['Interviews', 'Free Tuesdays and Thursdays'],
+    ],
+    fit: [
+      { need: 'Sold a technical product to UK buyers', evidence: 'Data platform into banks and insurers since 2022', level: 'meets' },
+      { need: 'Alone, first call to contract', evidence: 'Ran her own technical demos on 9 of last year’s 12 deals', level: 'meets' },
+      { need: 'Mid-market deal sizes', evidence: 'Average deal £140k, smallest £45k', level: 'meets' },
+      { need: 'Reporting into the US', evidence: 'Current manager is in New York; weekly call at 4pm UK', level: 'meets' },
+    ],
+    record: ['118% of quota in 2025, 104% in 2024', 'Opened 7 new logos last year, 5 of them outbound', 'Promoted from mid-market AE after 18 months'],
+    move: 'Wants to be first in a market rather than one of forty AEs. Has turned down two scale-up offers this year because neither was a first hire.',
+    risks: [
+      { risk: 'Has not built a team', test: 'Ask how she would hire AE number two; her former manager’s reference covers how she brings people on' },
+      { risk: 'Used to a known brand opening doors', test: 'Walk through the 5 outbound wins: first touch to first meeting' },
+    ],
+    references: 'Former manager spoken to. Current peer to follow after first interview, with her consent.',
+    view: 'Meet first. She has done the job you are hiring for, in a harder market, and the move is about scope rather than money.',
+  },
+  {
+    id: 'Candidate A',
+    title: 'Mid-market AE, payments scale-up',
+    status: 'Strong',
+    summary: 'Sells a payments API to UK mid-market retailers and has carried a quota alone since the company had nine people.',
+    glance: [
+      ['Now', 'Mid-market AE, payments scale-up, Manchester'],
+      ['Notice', 'Three months'],
+      ['Package now', '£80k base, £160k OTE'],
+      ['Looking for', '£90k base, equity, remote-first'],
+      ['Interviews', 'Evenings, or a planned day off'],
+    ],
+    fit: [
+      { need: 'Sold a technical product to UK buyers', evidence: 'API product to heads of engineering and finance', level: 'meets' },
+      { need: 'Alone, first call to contract', evidence: 'First sales hire at a nine-person company in 2023', level: 'meets' },
+      { need: 'Mid-market deal sizes', evidence: 'Average deal £60k, some smaller', level: 'partly' },
+      { need: 'Reporting into the US', evidence: 'Has only worked for UK leadership', level: 'partly' },
+    ],
+    record: ['Took the company from 3 to 41 UK customers', '96% of a rising quota in 2025', 'Wrote the first sales playbook'],
+    move: 'The company now hires enterprise sellers above her. She wants to do the zero-to-one stage again with a bigger product.',
+    risks: [
+      { risk: 'Deal sizes are smaller than yours', test: 'Ask for her two largest deals and who signed them' },
+      { risk: 'Three months’ notice', test: 'Check the start date against your year-one plan before a second interview' },
+    ],
+    references: 'To be taken after first interview.',
+    view: 'Strong on the founding part of the role, lighter on deal size. Worth meeting if speed of first wins matters more than contract value.',
+  },
+  {
+    id: 'Candidate C',
+    title: 'Founding AE, seed-stage analytics company',
+    status: 'Strong',
+    summary: 'Already a founding AE, at a seed-stage company that has slowed hiring. Sells to product and data teams across the UK and the Nordics.',
+    glance: [
+      ['Now', 'Founding AE, seed-stage analytics company, remote UK'],
+      ['Notice', 'One month'],
+      ['Package now', '£85k base, £150k OTE'],
+      ['Looking for', '£95k base, a funded runway'],
+      ['Interviews', 'Flexible'],
+    ],
+    fit: [
+      { need: 'Sold a technical product to UK buyers', evidence: 'Analytics tooling to product and data leaders', level: 'meets' },
+      { need: 'Alone, first call to contract', evidence: 'Sole seller for 20 months', level: 'meets' },
+      { need: 'Mid-market deal sizes', evidence: 'Average deal £35k, growing', level: 'partly' },
+      { need: 'Reporting into the US', evidence: 'Reports to a London founder', level: 'partly' },
+    ],
+    record: ['Closed the company’s first 14 customers', 'Built the CRM and pipeline reviews from scratch', 'Ran two Nordic deals end to end'],
+    move: 'Her company’s runway is short and growth hiring has paused. She wants the same job with more backing.',
+    risks: [
+      { risk: 'Smaller deals than yours', test: 'Look at her pipeline for any deal over £75k and how far it got' },
+      { risk: 'Leaving for safety rather than the role', test: 'Ask what would make her stay; listen for the product, not the funding' },
+    ],
+    references: 'Investor reference offered by the candidate; to be taken after first interview.',
+    view: 'Has done the job already. Meet if you want someone who will not need the founding-seller role explained.',
+  },
+  {
+    id: 'Candidate D',
+    title: 'Account executive, US software firm, London office',
+    status: 'Second look',
+    summary: 'Sells for a US software company from its London office, so already lives the time-zone gap. Less experience starting a market from nothing.',
+    glance: [
+      ['Now', 'Account executive, US software firm, London office'],
+      ['Notice', 'One month'],
+      ['Package now', '£90k base, £180k OTE'],
+      ['Looking for', '£100k base'],
+      ['Interviews', 'Mornings'],
+    ],
+    fit: [
+      { need: 'Sold a technical product to UK buyers', evidence: 'Security software to UK mid-market', level: 'meets' },
+      { need: 'Alone, first call to contract', evidence: 'Supported by an SDR team and a solutions engineer', level: 'partly' },
+      { need: 'Mid-market deal sizes', evidence: 'Average deal £110k', level: 'meets' },
+      { need: 'Reporting into the US', evidence: 'Reports to Boston; three years of it', level: 'meets' },
+    ],
+    record: ['On target three years running', 'Top UK seller in 2024', 'Mentors two newer AEs'],
+    move: 'Wants equity and a bigger say in how the UK is built.',
+    risks: [
+      { risk: 'Has always had SDRs and an SE', test: 'Ask how he would fill his own pipeline in month one with neither' },
+    ],
+    references: 'Not yet taken.',
+    view: 'The safest on the US side, the least proven on starting alone. A second look if the others fall away on timing.',
+  },
+];

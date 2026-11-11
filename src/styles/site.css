@@ -2,9 +2,12 @@
    Built from concept F, round 3. Tone steps separate surfaces; no white fields. */
 .bs {
     --bg: #08090A;
-    --panel: #0F1011;
-    --raised: #16171A;
-    --line: #23252A;
+    --panel: #111215;
+    --raised: #191A1E;
+    --band: #1F2126;
+    --line: #2A2C32;
+    --field: #061A2A;
+    --field-raised: #0B2539;
     --ink: #F7F8F8;
     --muted: #8A8F98;
     --soft: #62666D;
@@ -145,7 +148,12 @@
   .bs-hero-link:hover { text-decoration-color: currentColor; }
 
   /* The narrowing */
-  .bs-narrow { padding: var(--gap) 0; }
+  .bs-narrow {
+    padding: var(--gap) 0;
+    background: var(--field);
+    --muted: #93A9BA;
+    --soft: #4D6A80;
+  }
   .bs-split {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -158,8 +166,8 @@
   .bs-dg-arrow { stroke: var(--soft); }
   .bs-dg-dash { stroke: var(--muted); }
   .bs-dot { fill: none; stroke-width: 1.5; }
-  .bs-dot-s0 { stroke: #3A3D44; }
-  .bs-dot-s1 { stroke: #50545C; }
+  .bs-dot-s0 { stroke: #1F3D55; }
+  .bs-dot-s1 { stroke: #2F5672; }
   .bs-dot-s2 { stroke: var(--soft); }
   .bs-dot-s3 { stroke: var(--muted); }
   .bs-dot-s4 { stroke: var(--ink); stroke-width: 2; }
@@ -288,7 +296,9 @@
   .bs-app-note dd { color: var(--ink); line-height: 1.5; }
 
   /* Record */
-  .bs-record { padding: var(--gap) 0; background: var(--panel); }
+  .bs-record { padding: var(--gap) 0; background: var(--band); }
+  .bs-record [data-ui].bs-log { background: var(--bg); }
+  .bs-record .bs-names { color: #858A93; }
   .bs-names {
     font-size: var(--s-lead);
     font-weight: 510;
@@ -663,3 +673,97 @@
   .bs-form-row { grid-template-columns: 1fr; }
 }
 .bs-next-stack .bs-mini { max-width: none; justify-self: stretch; }
+
+/* The shortlist: pick a name, read the briefing */
+.bs-note-app { margin-top: clamp(40px, 5vw, 72px); }
+.bs [data-ui].bs-sl {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: clip;
+  font-size: var(--s-small);
+}
+.bs-sl-body { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 8fr); }
+.bs [data-ui] .bs-sl-list { border-right: 1px solid var(--line); padding: 8px; display: flex; flex-direction: column; gap: 2px; }
+.bs-sl-tab {
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr) auto;
+  grid-template-areas: 'dot name status' '. title title';
+  gap: 2px 12px;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+.bs-sl-tab:hover { background: var(--raised); }
+.bs-sl-tab.is-active { background: var(--band); }
+.bs-sl-dot { grid-area: dot; width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--soft); }
+.bs-sl-dot.is-blue { background: var(--accent); border-color: var(--accent); }
+.bs-sl-name { grid-area: name; font-weight: 600; font-size: var(--s-body); }
+.bs-sl-title { grid-area: title; color: var(--muted); }
+.bs-sl-status { grid-area: status; color: var(--muted); }
+.bs-sl-tab.is-active .bs-sl-status { color: var(--ink); }
+.bs-sl-brief { margin-top: auto; padding: 16px 14px 10px; color: var(--muted); line-height: 1.5; }
+.bs-sl-brief span { display: block; color: var(--ink); font-weight: 560; margin-bottom: 4px; }
+
+.bs-sl-panels { max-height: min(760px, 78svh); overflow: auto; overscroll-behavior: contain; scrollbar-color: var(--line) transparent; }
+.bs-js .bs-sl-panel:not(.is-active) { display: none; }
+.bs-sl-panel { padding: 24px 28px 28px; }
+.bs-sl-panel + .bs-sl-panel { margin-top: 12px; background: var(--bg); }
+.bs-sl-panel:focus-visible { outline-offset: -3px; }
+.bs-sl-head h3 { font-size: var(--s-lead); font-weight: 560; letter-spacing: -0.015em; }
+.bs-sl-role { color: var(--muted); margin-top: 2px; }
+.bs-sl-summary { font-size: var(--s-body); line-height: 1.5; margin-top: 14px; max-width: 60ch; }
+.bs-sl-sec { margin-top: 26px; }
+.bs-sl-sec h4 { font-size: var(--s-small); font-weight: 600; color: var(--ink); margin-bottom: 10px; letter-spacing: 0; }
+.bs-sl-sec > p { line-height: 1.55; max-width: 62ch; }
+.bs-sl-kv { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 24px; }
+.bs-sl-kv dt { color: var(--muted); }
+.bs-sl-kv dd { margin-top: 2px; }
+.bs-sl-fit, .bs-sl-points, .bs-sl-risks { list-style: none; display: grid; gap: 2px; }
+.bs-sl-fit li {
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 12px;
+  align-items: baseline;
+  padding: 10px 12px;
+  background: var(--raised);
+  border-radius: 6px;
+}
+.bs-sl-mark { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--accent); transform: translateY(1px); }
+.bs-sl-mark.is-meets { background: var(--accent); }
+.bs-sl-mark.is-partly { display: grid; place-items: center; }
+.bs-sl-mark.is-partly::after { content: ''; width: 3px; height: 3px; border-radius: 50%; background: var(--accent); }
+.bs-sl-need { font-weight: 540; }
+.bs-sl-evidence { color: var(--muted); }
+.bs-sl-points li { padding-left: 20px; position: relative; line-height: 1.55; }
+.bs-sl-points li::before { content: ''; position: absolute; left: 2px; top: 0.55em; width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid var(--muted); }
+.bs-sl-risks li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 12px; padding: 10px 12px; background: var(--raised); border-radius: 6px; }
+.bs-sl-risks li span:first-child { font-weight: 540; }
+.bs-sl-risks li span:last-child { color: var(--muted); }
+.bs-sl-view { padding: 16px 18px; background: var(--field-raised); border-radius: 8px; }
+.bs-sl-view h4 { color: #9CC9EA; }
+.bs-sl-view p { font-size: var(--s-body); }
+
+@media (max-width: 880px) {
+  .bs-sl-body { grid-template-columns: minmax(0, 1fr); }
+  .bs [data-ui] .bs-sl-list { border-right: 0; border-bottom: 1px solid var(--line); flex-direction: row; overflow-x: auto; scroll-snap-type: x mandatory; }
+  .bs-sl-tab { min-width: 220px; scroll-snap-align: start; }
+  .bs-sl-brief { display: none; }
+  .bs-sl-panel { padding: 20px 18px 24px; }
+  .bs-sl-kv { grid-template-columns: minmax(0, 1fr); }
+  .bs-sl-fit li { grid-template-columns: 12px minmax(0, 1fr); }
+  .bs-sl-evidence { grid-column: 2; }
+  .bs-sl-risks li { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .bs-js .bs-sl-panel.is-active { animation: bs-fade 260ms ease both; }
+}
+@keyframes bs-fade { from { opacity: 0; } to { opacity: 1; } }

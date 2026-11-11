@@ -1,0 +1,128 @@
+---
+// A working shortlist: pick a candidate, read the full briefing. Illustrative, no real people.
+// Without script every briefing shows in turn; with script one shows at a time (tabs).
+import { briefings, briefingSearch } from '../data/site';
+const slug = (id: string) => id.toLowerCase().replace(/\s+/g, '-');
+---
+
+<div class="bs-sl" data-ui data-shortlist>
+  <div class="bs-app-bar">
+    <span class="bs-app-title">{briefingSearch.title}</span>
+    <span class="bs-app-tag">{briefingSearch.tag}</span>
+  </div>
+
+  <div class="bs-sl-body">
+    <div class="bs-sl-list" role="tablist" aria-label="Candidates on the shortlist">
+      {briefings.map((b, i) => (
+        <button
+          type="button"
+          role="tab"
+          class={`bs-sl-tab${i === 0 ? ' is-active' : ''}`}
+          id={`tab-${slug(b.id)}`}
+          aria-controls={`brief-${slug(b.id)}`}
+          aria-selected={i === 0 ? 'true' : 'false'}
+          tabindex={i === 0 ? 0 : -1}
+        >
+          <span class={`bs-sl-dot${b.status === 'Recommended' ? ' is-blue' : ''}`} aria-hidden="true"></span>
+          <span class="bs-sl-name">{b.id}</span>
+          <span class="bs-sl-title">{b.title}</span>
+          <span class="bs-sl-status">{b.status}</span>
+        </button>
+      ))}
+      <p class="bs-sl-brief"><span>The brief</span>{briefingSearch.brief}</p>
+    </div>
+
+    <div class="bs-sl-panels">
+      {briefings.map((b, i) => (
+        <article
+          class={`bs-sl-panel${i === 0 ? ' is-active' : ''}`}
+          id={`brief-${slug(b.id)}`}
+          role="tabpanel"
+          aria-labelledby={`tab-${slug(b.id)}`}
+          tabindex="0"
+        >
+          <header class="bs-sl-head">
+            <h3>{b.id}</h3>
+            <p class="bs-sl-role">{b.title}</p>
+            <p class="bs-sl-summary">{b.summary}</p>
+          </header>
+
+          <section class="bs-sl-sec">
+            <h4>At a glance</h4>
+            <dl class="bs-sl-kv">
+              {b.glance.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+            </dl>
+          </section>
+
+          <section class="bs-sl-sec">
+            <h4>Against your brief</h4>
+            <ul class="bs-sl-fit">
+              {b.fit.map((f) => (
+                <li>
+                  <span class={`bs-sl-mark is-${f.level}`} role="img" aria-label={f.level === 'meets' ? 'Meets' : 'Partly meets'}></span>
+                  <span class="bs-sl-need">{f.need}</span>
+                  <span class="bs-sl-evidence">{f.evidence}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section class="bs-sl-sec">
+            <h4>Track record</h4>
+            <ul class="bs-sl-points">{b.record.map((r) => <li>{r}</li>)}</ul>
+          </section>
+
+          <section class="bs-sl-sec">
+            <h4>Why they would move</h4>
+            <p>{b.move}</p>
+          </section>
+
+          <section class="bs-sl-sec">
+            <h4>Risks, and how to test them</h4>
+            <ul class="bs-sl-risks">
+              {b.risks.map((r) => <li><span>{r.risk}</span><span>{r.test}</span></li>)}
+            </ul>
+          </section>
+
+          <section class="bs-sl-sec">
+            <h4>References</h4>
+            <p>{b.references}</p>
+          </section>
+
+          <section class="bs-sl-sec bs-sl-view">
+            <h4>Alex’s view</h4>
+            <p>{b.view}</p>
+          </section>
+        </article>
+      ))}
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-shortlist]').forEach((root) => {
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('[role="tabpanel"]'));
+    const scroller = root.querySelector<HTMLElement>('.bs-sl-panels');
+    const select = (i: number, focus = false) => {
+      tabs.forEach((t, k) => {
+        const on = k === i;
+        t.classList.toggle('is-active', on);
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        panels[k].classList.toggle('is-active', on);
+      });
+      if (scroller) scroller.scrollTop = 0;
+      if (focus) tabs[i].focus();
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => select(i));
+      t.addEventListener('keydown', (e) => {
+        const keys: Record<string, number> = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 };
+        if (e.key in keys) { e.preventDefault(); select((i + keys[e.key] + tabs.length) % tabs.length, true); }
+        if (e.key === 'Home') { e.preventDefault(); select(0, true); }
+        if (e.key === 'End') { e.preventDefault(); select(tabs.length - 1, true); }
+      });
+    });
+  });
+</script>
