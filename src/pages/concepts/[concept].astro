@@ -1,64 +1,52 @@
 ---
 // Phase 3 concept review only. Noindex, out of the sitemap, removed once Alex picks one.
-import Layout from '../../layouts/Layout.astro';
-import ConceptA from '../../components/home/ConceptA.astro';
-import ConceptB from '../../components/home/ConceptB.astro';
-import ConceptC from '../../components/home/ConceptC.astro';
+import ConceptLayout from '../../layouts/ConceptLayout.astro';
+import Monument from '../../components/concepts/Monument.astro';
+import Annual from '../../components/concepts/Annual.astro';
+import Sentence from '../../components/concepts/Sentence.astro';
 
 export function getStaticPaths() {
   return [{ params: { concept: 'a' } }, { params: { concept: 'b' } }, { params: { concept: 'c' } }];
 }
 
 const { concept } = Astro.params as { concept: 'a' | 'b' | 'c' };
-const names = { a: 'A, the Dossier', b: 'B, the Instrument', c: 'C, the Partner' };
+const names = { a: 'A · The name', b: 'B · The report', c: 'C · The sentence' };
 ---
 
-<Layout title={`Concept ${names[concept]}`} concept={concept} noindex={true}>
-  {concept === 'a' && <ConceptA />}
-  {concept === 'b' && <ConceptB />}
-  {concept === 'c' && <ConceptC />}
-
-  <nav class="switcher" aria-label="Concept switcher">
-    <span>Concept</span>
+<ConceptLayout title={`Concept ${names[concept]}`}>
+  <nav class="concept-switch" aria-label="Concept switcher">
     {(['a', 'b', 'c'] as const).map((k) => (
       <a href={`/concepts/${k}/`} aria-current={k === concept ? 'page' : undefined}>{names[k]}</a>
     ))}
   </nav>
-</Layout>
 
-<style>
-  .switcher {
-    position: fixed;
-    left: 50%;
-    bottom: 1rem;
-    transform: translateX(-50%);
-    z-index: 200;
+  {concept === 'a' && <Monument />}
+  {concept === 'b' && <Annual />}
+  {concept === 'c' && <Sentence />}
+
+</ConceptLayout>
+
+<style is:global>
+  /* Review-only bar, static at the very top so it never covers the concept. */
+  .concept-switch {
     display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    padding: 0.375rem;
-    background: #121220;
-    border-radius: 999px;
-    font-family: var(--font-mono); /* taste-skill-ignore: approved Plex Mono labels, see CLAUDE.md */
-    font-size: 0.75rem;
-    max-width: calc(100vw - 1rem);
-    overflow-x: auto;
+    justify-content: center;
+    gap: 2px;
+    padding: 4px;
+    background: #111;
+    font: 500 13px/1 system-ui, sans-serif;
   }
-
-  .switcher span {
-    color: rgba(255, 255, 255, 0.6);
-    padding: 0 0.5rem;
-  }
-
-  .switcher a {
-    color: #FFFFFF;
-    padding: 0.375rem 0.75rem;
-    border-radius: 999px;
+  .concept-switch a {
+    color: #fff;
+    padding: 9px 14px;
+    text-decoration: none;
     white-space: nowrap;
   }
-
-  .switcher a[aria-current="page"] {
-    background: #FFFFFF;
-    color: #121220;
+  .concept-switch a[aria-current="page"] {
+    background: #fff;
+    color: #111;
+  }
+  @media (max-width: 480px) {
+    .concept-switch a { padding: 9px 8px; }
   }
 </style>

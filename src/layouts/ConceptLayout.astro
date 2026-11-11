@@ -1,0 +1,33 @@
+---
+// Bare page shell for Phase 3 concepts: meta, analytics, no shared styles, nav or footer.
+// Each concept owns its whole look. Fonts load through the "head" slot (CDN for review; self-hosted in Phase 4).
+export interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = 'Commercial and technical hires for growth companies, found by one recruiter who runs every search himself.' } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} | Bolt Search</title>
+  <meta name="description" content={description} />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" href="/bolt-favicon.png" />
+  <slot name="head" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DH9Y7K83RM"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DH9Y7K83RM');
+  </script>
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="iD4ebR6FRgq0JJoixaG7vw" async></script>
+</head>
+<body>
+  <slot />
+</body>
+</html>

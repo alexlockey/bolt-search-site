@@ -1,5 +1,7 @@
 # Bolt Search site: direction brief (Phase 2, 11 Nov 2026)
 
+> **Superseded in part, 11 Nov evening.** Alex rejected the first three concepts as sloppy. Cause: the taste-skill method (dealt directions, subject inventory, idea, real pictures, inspector and critique loop) was used only as a lint gate. The redo deals directions with `draw.mjs`: A "name as a monument", B "printed annual", C "sentence is the layout". The Plex Mono labels in section 4 are withdrawn (the house rules ban monospace). The references and the "show the working" intent stand.
+
 Input: the approved brief, `docs/reskin-brief-2026-11-11.md` v2 (showcase, no sectors, proof from recommendations and anonymised placements, references on request).
 
 ## 1. Audit

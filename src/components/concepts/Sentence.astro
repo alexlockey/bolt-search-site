@@ -1,0 +1,877 @@
+---
+// Concept C, "The sentence is the layout" (taste-skill direction sentence-as-layout, seed 1521742076).
+// Idea: on this page, the search itself becomes the frame inside the sentence.
+// The hero sentence "We find the person / your plan rests on" holds a reel of the search's stages;
+// each frame then opens to a full panel where its verb holds the screen.
+import BriefBuilder from '../BriefBuilder.astro';
+import {
+  name,
+  hero,
+  navLinks,
+  method,
+  shortlistNote,
+  facts,
+
+  quotes,
+  about,
+  brief,
+  contact,
+} from '../../data/site';
+
+const [half1, half2] = hero.sentence;
+const reel = [
+  { kind: 'img', src: '/images/alex-client-table', alt: 'Alex Lockey taking a brief with two clients', caption: 'Brief: what the first year must deliver', pos: '50% 40%' },
+  { kind: 'img', src: '/images/alex-whiteboard', alt: 'Alex Lockey mapping a market on a whiteboard', caption: 'Map: the whole market on one page', pos: '40% 35%' },
+  { kind: 'note', caption: 'Shortlist: a written note on every candidate' },
+  { kind: 'img', src: '/images/alex-headshot', alt: 'Alex Lockey', caption: 'Close: Alex stays on until they start', pos: '50% 30%' },
+];
+
+// The placements written as one run-on sentence (same facts as the copy deck, phrased to read aloud).
+const placed = [
+  'a fractional Chief Revenue Officer',
+  'a fractional CRO and business development lead',
+  'an interim standards consultant',
+  'an interim leader',
+  'a head of delivery and performance',
+  'a head of compliance and funding',
+  'three board members',
+  'a freelance technical instructor',
+];
+const lead = quotes[1];
+const others = quotes.filter((_, i) => i !== 1);
+const year = new Date().getFullYear();
+const [mail1, mail2] = contact.email.split('@');
+---
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Imbue:opsz,wght@10..100,400..600&family=Albert+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<div class="snt">
+  <script is:inline>document.documentElement.classList.add('js');</script>
+
+  <header class="snt-nav">
+    <a href="/" class="snt-mark"><img src="/bolt-search-logo.png" alt="Bolt Search" width="126" height="28" /></a>
+    <nav aria-label="Main">
+      <ul>
+        {navLinks.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+        <li><a href={hero.action.href} class="snt-btn snt-btn-sm">Send a brief</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- 1. Hero: the sentence, with the search running through its middle -->
+  <section class="snt-hero" aria-labelledby="snt-title" data-story>
+    <div class="snt-stage">
+      <h1 id="snt-title" class="snt-sentence">
+        <span class="snt-half snt-half-a"><span class="snt-line"><span data-line style="--i:0">{half1}</span></span></span>
+        <span class="snt-visually-hidden"> </span>
+        <span class="snt-half snt-half-b"><span class="snt-line"><span data-line style="--i:1">{half2}</span></span></span>
+      </h1>
+
+      <div class="snt-reel" aria-hidden="true">
+        <div class="snt-reel-window">
+        <div class="snt-reel-track" data-reel>
+          {reel.map((f) =>
+            f.kind === 'img' ? (
+              <figure class="snt-frame">
+                <img src={`${f.src}.webp`} srcset={`${f.src}-600.webp 600w, ${f.src}.webp 1200w`} sizes="(max-width: 700px) 92vw, 36vw" alt="" width="1200" height="1600" style={`object-position:${f.pos}`} fetchpriority="high" />
+              </figure>
+            ) : (
+              <figure class="snt-frame snt-frame-note">
+                <div class="snt-note-mini">
+                  <p class="snt-note-mini-title">{shortlistNote.candidate}</p>
+                  <p><strong>Why</strong> {shortlistNote.rows[1][1]}</p>
+                  <p><strong>Risk</strong> {shortlistNote.rows[4][1]}</p>
+                </div>
+              </figure>
+            )
+          )}
+        </div>
+        </div>
+        <p class="snt-reel-caption" data-reel-caption>{reel[0].caption}</p>
+      </div>
+
+      <div class="snt-hero-foot">
+        <p class="snt-support" data-load style="--d:420ms">{hero.support}</p>
+        <div class="snt-hero-actions" data-load style="--d:480ms">
+          <a href={hero.action.href} class="snt-btn">{hero.action.label}</a>
+          <a href={hero.second.href} class="snt-link">{hero.second.label}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. How a search runs: one verb at a time -->
+  <section id="method" class="snt-method" aria-labelledby="snt-method-h">
+    <div class="snt-method-head">
+      <h2 id="snt-method-h" data-reveal>{method.heading}</h2>
+      <p data-reveal style="--d:80ms">{method.note}</p>
+    </div>
+    {method.stages.map((s, i) => (
+      <article class={`snt-panel snt-panel-${i % 2 === 0 ? 'l' : 'r'} snt-tone-${i}`}>
+        <div class="snt-panel-pic">
+          {s.image ? (
+            <img src={`${s.image}.webp`} srcset={`${s.image}-600.webp 600w, ${s.image}.webp 1200w`} sizes="(max-width: 760px) 100vw, 50vw" alt={s.alt} width="1200" height="1600" loading="lazy" data-drift />
+          ) : (
+            <div class="snt-note" role="group" aria-label={shortlistNote.label}>
+              <p class="snt-note-title">{shortlistNote.candidate}</p>
+              <p class="snt-note-label">An example of the note you get with every shortlisted candidate.</p>
+              <dl>
+                {shortlistNote.rows.map(([k, v]) => (
+                  <div><dt>{k}</dt><dd>{v}</dd></div>
+                ))}
+              </dl>
+            </div>
+          )}
+        </div>
+        <div class="snt-panel-text">
+          <div class="snt-verb-hold">
+            <h3 class="snt-verb">{s.verb}</h3>
+          </div>
+          <div class="snt-panel-copy">
+            <p class="snt-panel-line">{s.line}</p>
+            <p>{s.body}</p>
+          </div>
+        </div>
+      </article>
+    ))}
+  </section>
+
+  <!-- 3. Track record: the placements as one sentence -->
+  <section id="record" class="snt-record" aria-labelledby="snt-record-h">
+    <h2 id="snt-record-h" class="snt-h2" data-reveal>Track record</h2>
+    <p class="snt-names" data-names data-reveal style="--d:80ms">
+      <span class="snt-names-open">Placed so far:</span>{' '}
+      {placed.map((p, i) => (
+        <><span class="snt-name">{p}</span>{i < placed.length - 2 ? ', ' : i === placed.length - 2 ? ' and ' : '.'}</>
+      ))}
+    </p>
+    <dl class="snt-facts">
+      {facts.map((f, i) => (
+        <div data-reveal style={`--d:${120 + i * 70}ms`}>
+          <dt>{f.figure}</dt>
+          <dd>{f.label}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <!-- 4. What they say: one quotation spread edge to edge, the rest beneath -->
+  <section class="snt-quote" aria-labelledby="snt-quote-h">
+    <h2 id="snt-quote-h" class="snt-visually-hidden">What clients and candidates say</h2>
+    <figure>
+      <blockquote class="snt-spread" data-reveal>
+        <p><span class="snt-row"><span>“Eleven</span><span>strong</span><span>people.</span></span><span class="snt-row"><span>We</span><span>appointed</span><span>three.”</span></span></p>
+      </blockquote>
+      <figcaption class="snt-spread-who" data-reveal style="--d:120ms">
+        <span>{lead.who}</span><span>Board search</span><span>Paraphrased from LinkedIn</span>
+      </figcaption>
+    </figure>
+    <div class="snt-quote-more">
+      {others.map((q, i) => (
+        <blockquote data-reveal style={`--d:${i * 70}ms`}>
+          <p>{q.text}</p>
+          <footer>{q.who}</footer>
+        </blockquote>
+      ))}
+    </div>
+  </section>
+
+  <!-- 5. About: the portrait as a drop cap -->
+  <section id="alex" class="snt-about" aria-labelledby="snt-about-h">
+    <div class="snt-about-side" data-reveal>
+      <h2 id="snt-about-h" class="snt-h2">{about.heading}</h2>
+      <dl>
+        {about.facts.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+      </dl>
+    </div>
+    <div class="snt-about-text" data-reveal style="--d:90ms">
+      <p class="snt-bio">
+        <img src="/images/alex-about-600.webp" alt="Alex Lockey" width="600" height="804" loading="lazy" class="snt-dropcap" />
+        <strong>{about.body[0].split(' has ')[0]}</strong> has {about.body[0].split(' has ').slice(1).join(' has ')}
+      </p>
+      <p class="snt-bio snt-bio-2">{about.body[1]} <a href={about.linkedin} target="_blank" rel="noopener">Alex on LinkedIn</a>.</p>
+    </div>
+  </section>
+
+  <!-- 6. Contact: the brief sentence is the form -->
+  <section id="brief" class="snt-brief" aria-labelledby="snt-brief-h">
+    <div class="snt-brief-main">
+      <h2 id="snt-brief-h" class="snt-h2" data-reveal>{brief.heading}</h2>
+      <p class="snt-brief-lead" data-reveal style="--d:80ms">{brief.lead}</p>
+      <div data-reveal style="--d:140ms"><BriefBuilder /></div>
+    </div>
+    <aside class="snt-brief-side" aria-label="Other ways to reach Alex" data-reveal style="--d:200ms">
+      <img src="/images/alex-headshot-600.webp" alt="Alex Lockey" width="600" height="804" loading="lazy" />
+      <div>
+        <p class="snt-q">Rather write an email?</p>
+        <p><a href={`mailto:${contact.email}`}>{contact.email}</a></p>
+        <p><a href={contact.linkedin} target="_blank" rel="noopener">LinkedIn</a></p>
+        <p class="snt-soft">{contact.reply} {brief.after}</p>
+      </div>
+    </aside>
+  </section>
+
+  <!-- 7. Footer: the email is the headline -->
+  <footer class="snt-foot">
+    <div class="snt-foot-top">
+      <p><img src="/bolt-search-logo.png" alt="Bolt Search" width="108" height="24" class="snt-foot-mark" /></p>
+      <p>Commercial and technical hires for growth companies.</p>
+      <p>{contact.where}</p>
+      <a href="#snt-title" class="snt-foot-top-link">Back to top</a>
+    </div>
+    <p class="snt-mail">
+      <a href={`mailto:${contact.email}`}><span>{mail1}</span><span>@{mail2}</span></a>
+    </p>
+    <div class="snt-foot-meta">
+      <span><a href="/contact/">Contact form</a> · <a href={contact.linkedin} target="_blank" rel="noopener">LinkedIn</a></span>
+      <span>Photographs of Alex Lockey, his own</span>
+      <span>{name}, UK, {year}</span>
+    </div>
+  </footer>
+</div>
+
+<style>
+  .snt {
+    --bg: #ffffff;
+    --surface: #f2f2f2;
+    --ink: #0a0a0a;
+    --muted: #4d4d4d;
+    --accent: #d92b21;
+    --accent-press: #b5221a;
+    --accent-ink: #ffffff;
+    --field: #0a0a0a;
+    --field-ink: #ffffff;
+    --display: 'Imbue', 'Times New Roman', serif;
+    --text: 'Albert Sans', system-ui, sans-serif;
+    --step-small: clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem);
+    --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+    --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+    --step-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
+    --step-statement: clamp(24px, 2.5vw, 36px);
+    --step-display: clamp(56px, 9vw, 150px);
+    --m: clamp(16px, 2.2vw, 32px);
+    --gap: clamp(96px, 10vw, 160px);
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--text);
+    font-size: var(--step-body);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+    position: relative;
+  }
+
+  :global(body:has(.snt)) { margin: 0; }
+  .snt :where(h1, h2, h3, p, figure, blockquote, dl, dd, ul) { margin: 0; padding: 0; }
+  .snt img { display: block; max-width: 100%; height: auto; }
+  .snt a { color: inherit; }
+  .snt :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .snt-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  /* Buttons and links: one shape for the whole page, square corners */
+  .snt-btn {
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 22px;
+    background: var(--accent);
+    color: var(--accent-ink) !important;
+    font: 500 var(--step-body) / 1 var(--text);
+    text-decoration: none;
+    border: 0;
+    cursor: pointer;
+    transition: background-color 180ms ease, transform 140ms var(--ease-out);
+  }
+  .snt-btn:hover { background: var(--accent-press); }
+  .snt-btn:active { transform: scale(0.97); }
+  .snt-btn-sm { min-height: 40px; padding: 0 16px; font-size: 15px; }
+
+  .snt-link {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: text-underline-offset 180ms ease, color 180ms ease;
+  }
+  .snt-link:hover { text-underline-offset: 7px; }
+
+  /* Navigation */
+  .snt-nav {
+    position: absolute;
+    inset: 0 0 auto 0;
+    z-index: 5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px var(--m);
+  }
+  .snt-mark img { height: 26px; width: auto; }
+  .snt-nav ul { display: flex; align-items: center; gap: clamp(14px, 2vw, 32px); list-style: none; font-size: 15px; }
+  .snt-nav ul a:not(.snt-btn) { text-decoration: none; transition: color 180ms ease; }
+  .snt-nav ul a:not(.snt-btn):hover { color: var(--accent); }
+
+  /* Hero */
+  .snt-hero { position: relative; height: 100svh; }
+  :global(.js) .snt-hero { height: 220svh; }
+  .snt-stage {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    min-height: 620px;
+    display: grid;
+    grid-template-columns: 1fr minmax(0, 36vw) 1fr;
+    align-items: center;
+    padding: 0 var(--m);
+    overflow: hidden;
+  }
+
+  .snt-sentence {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    display: grid;
+    grid-template-columns: subgrid;
+    align-items: center;
+    position: relative;
+    z-index: 3;
+  }
+  .snt-half {
+    font-family: var(--display);
+    font-weight: 500;
+    font-variation-settings: 'opsz' 100;
+    text-transform: uppercase;
+    font-size: clamp(56px, 7.2vw, 132px);
+    line-height: 0.9;
+    letter-spacing: -0.01em;
+    position: relative;
+    z-index: 2;
+  }
+  .snt-half-a { grid-column: 1; grid-row: 1; text-align: left; max-width: 6.2em; }
+  .snt-half-b { grid-column: 3; grid-row: 1; text-align: right; justify-self: end; max-width: 6.2em; }
+  .snt-line { display: block; overflow: hidden; padding-bottom: 0.06em; margin-bottom: -0.06em; }
+  .snt-line > span { display: block; }
+
+  /* The reel: a full-height strip of the search running through the middle of the sentence */
+  .snt-reel {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: stretch;
+    position: relative;
+    margin: 0 clamp(16px, 2vw, 32px);
+    background: var(--surface);
+    overflow: hidden;
+  }
+  .snt-reel-window { position: absolute; inset: 0 24px; }
+  .snt-reel-track {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    margin-top: calc(var(--fh, 11vw) / -2);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    transform: translateY(var(--reel-y, 0px));
+    will-change: transform;
+  }
+  .snt-frame {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 4px;
+    background: var(--bg);
+    flex: none;
+    transition: opacity 400ms ease;
+  }
+
+  .snt-frame img { width: 100%; height: 100%; object-fit: cover; }
+  .snt-frame-note { background: var(--field); color: var(--field-ink); display: flex; align-items: center; padding: 0 7%; }
+  .snt-note-mini { font-size: clamp(13px, 1.05vw, 16px); line-height: 1.4; display: grid; gap: 0.5em; }
+  .snt-note-mini-title { font-family: var(--display); text-transform: uppercase; font-size: 1.9em; line-height: 1; }
+  .snt-note-mini strong { font-weight: 600; margin-right: 0.35em; }
+  .snt-reel-caption {
+    position: absolute;
+    left: 50%;
+    bottom: 28px;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    padding: 10px 16px;
+    background: var(--ink);
+    color: var(--bg);
+    font-size: 15px;
+    z-index: 2;
+  }
+
+  .snt-hero-foot {
+    position: absolute;
+    left: var(--m);
+    right: var(--m);
+    bottom: 32px;
+    display: grid;
+    grid-template-columns: 1fr minmax(0, 36vw) 1fr;
+    align-items: end;
+    z-index: 3;
+    pointer-events: none;
+  }
+  .snt-hero-foot > * { pointer-events: auto; }
+  .snt-support { grid-column: 1; max-width: 26rem; }
+  .snt-hero-actions { grid-column: 3; justify-content: flex-end; }
+  .snt-support { font-size: var(--step-body); line-height: 1.45; padding-right: 24px; }
+  .snt-hero-actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+
+  /* Method: one verb at a time */
+  .snt-method { padding-top: var(--gap); }
+  .snt-method-head {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 0 24px;
+    padding: 0 var(--m) 64px;
+    align-items: end;
+  }
+  .snt-method-head h2 {
+    grid-column: 1 / span 6;
+    font-family: var(--display);
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: var(--step-head);
+    line-height: 0.95;
+  }
+  .snt-method-head p { grid-column: 8 / span 5; font-size: var(--step-body); max-width: 34rem; }
+
+  .snt-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100svh;
+  }
+  .snt-panel-r .snt-panel-pic { order: 2; }
+  .snt-panel-pic { position: relative; overflow: hidden; min-height: 100svh; background: var(--surface); }
+  .snt-panel-pic img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
+  .snt-panel-text {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 var(--m) 48px;
+  }
+  .snt-tone-0, .snt-tone-2, .snt-tone-4 { background: var(--bg); }
+  .snt-tone-1 { background: var(--surface); }
+  .snt-tone-3 { background: var(--field); color: var(--field-ink); }
+  .snt-tone-3 .snt-panel-pic { background: var(--accent); }
+
+  .snt-verb-hold { flex: 1; display: flex; align-items: center; }
+  .snt-verb {
+    font-family: var(--display);
+    font-weight: 500;
+    font-variation-settings: 'opsz' 100;
+    text-transform: uppercase;
+    font-size: var(--step-display);
+    line-height: 0.88;
+    letter-spacing: -0.01em;
+  }
+  .snt-panel-copy { max-width: 30rem; display: grid; gap: 10px; }
+  .snt-panel-line { font-size: var(--step-lead); line-height: 1.25; font-weight: 500; }
+
+  .snt-note {
+    position: absolute;
+    inset: clamp(24px, 6vw, 96px) clamp(20px, 5vw, 80px);
+    background: var(--bg);
+    color: var(--ink);
+    padding: clamp(20px, 3vw, 44px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+  }
+  .snt-note-label { font-size: 15px; color: var(--muted); margin-top: -8px; }
+  .snt-note-title { font-family: var(--display); text-transform: uppercase; font-size: var(--step-statement); line-height: 1; }
+  .snt-note dl { display: grid; gap: 4px; }
+  .snt-note dl > div { display: grid; grid-template-columns: 9.5em minmax(0, 1fr); gap: 16px; background: var(--surface); padding: 10px 14px; }
+  .snt-note dt { font-weight: 600; font-size: 15px; }
+  .snt-note dd { font-size: 15px; line-height: 1.45; }
+
+  /* Track record */
+  .snt-record { padding: var(--gap) var(--m) 0; }
+  .snt .snt-h2 {
+    font-family: var(--display);
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: var(--step-head);
+    line-height: 0.95;
+    margin-bottom: 40px;
+  }
+  .snt-names {
+    font-family: var(--text);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    font-size: var(--step-statement);
+    line-height: 1.15;
+    max-width: 40em;
+    color: #8c8c8c;
+  }
+  .snt-names-open { color: var(--ink); }
+  .snt-name { transition: color 400ms ease; }
+  .snt-name.is-lit { color: var(--ink); }
+  .snt-facts {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 120px;
+  }
+  .snt-facts dt {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: var(--step-display);
+    line-height: 0.9;
+    font-variation-settings: 'opsz' 100;
+  }
+  .snt-facts dd { margin-top: 12px; max-width: 18rem; }
+
+  /* Quotation spread */
+  .snt-quote { padding: var(--gap) var(--m) calc(var(--gap) * 0.8); margin-top: var(--gap); background: var(--field); color: var(--field-ink); }
+  .snt-spread p { display: grid; gap: 0.08em; }
+  .snt-row {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--display);
+    font-weight: 500;
+    font-variation-settings: 'opsz' 100;
+    text-transform: uppercase;
+    font-size: var(--step-display);
+    line-height: 1;
+  }
+  .snt-spread-who {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 40px;
+    font-size: var(--step-body);
+    color: #c9c9c9;
+  }
+  .snt-quote-more {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 56px 64px;
+    margin-top: 140px;
+  }
+  .snt-quote-more p { font-size: var(--step-lead); line-height: 1.35; }
+  .snt-quote-more footer { margin-top: 12px; font-size: 15px; color: #c9c9c9; }
+
+  /* About */
+  .snt-about {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 0 24px;
+    padding: var(--gap) var(--m) calc(var(--gap) * 0.8);
+  }
+  .snt-about-side { grid-column: 1 / span 3; }
+  .snt-about-side dl { display: grid; gap: 18px; }
+  .snt-about-side dt { font-weight: 600; font-size: 15px; }
+  .snt-about-side dd { font-size: 15px; }
+  .snt-about-text { grid-column: 4 / span 9; }
+  .snt-bio { font-size: var(--step-statement); line-height: 1.25; }
+  .snt-bio strong { font-weight: 600; }
+  .snt-bio-2 { margin-top: 1.6em; font-size: var(--step-body); line-height: 1.55; color: var(--muted); max-width: 40rem; clear: both; }
+  .snt-bio-2 a { color: var(--ink); text-underline-offset: 4px; }
+  .snt .snt-dropcap {
+    float: left;
+    width: 3.9em;
+    height: 3.9em;
+    object-fit: cover;
+    object-position: 50% 25%;
+    margin: 0.25em 0.55em 0 0;
+  }
+
+  /* Brief */
+  .snt-brief {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 0 24px;
+    padding: calc(var(--gap) * 0.8) var(--m);
+    background: var(--surface);
+  }
+  .snt-brief-main { grid-column: 1 / span 8; }
+  .snt .snt-brief-lead { font-size: var(--step-lead); line-height: 1.3; max-width: 34rem; margin: 0 0 48px; }
+  .snt-brief-side { grid-column: 10 / span 3; display: grid; gap: 20px; align-content: start; padding-top: 8px; }
+  .snt-brief-side img { width: 160px; height: 160px; object-fit: cover; object-position: 50% 25%; }
+  .snt-brief-side p { font-size: var(--step-body); }
+  .snt-q { font-weight: 600; margin-bottom: 12px !important; }
+  .snt-brief-side a { text-underline-offset: 4px; }
+  .snt-soft { color: var(--muted); font-size: 15px !important; margin-top: 12px !important; }
+
+  .snt :global(.bb) { display: grid; gap: 40px; }
+  .snt :global(.bb-sentence) {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: var(--step-statement);
+    line-height: 1.5;
+  }
+  .snt :global(.bb-slot input) {
+    border: 0;
+    border-bottom: 2px solid var(--ink);
+    background: transparent;
+    padding: 0 2px;
+    margin: 0 0.15em;
+    color: var(--ink);
+    font-family: var(--display);
+    min-width: 8ch;
+    width: auto;
+  }
+  .snt :global(.bb-slot input::placeholder) { color: #9a9a9a; }
+  .snt :global(.bb-slot input:focus) { outline: none; border-bottom-color: var(--accent); }
+  .snt :global(.bb-slot input[aria-invalid]) { border-bottom-color: var(--accent); }
+  .snt :global(.bb-who) { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .snt :global(.bb-field) { display: grid; gap: 6px; font-size: 15px; font-weight: 500; }
+  .snt :global(.bb-field input) {
+    min-height: 48px;
+    padding: 0 12px;
+    font: 400 var(--step-body) var(--text);
+    color: var(--ink);
+    background: var(--bg);
+    border: 1px solid #bdbdbd;
+    border-radius: 0;
+  }
+  .snt :global(.bb-field input:focus) { outline: 2px solid var(--accent); outline-offset: 0; border-color: transparent; }
+  .snt :global(.bb-field input[aria-invalid]) { border-color: var(--accent); }
+  .snt :global(.bb-actions) { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .snt :global(.bb-send) {
+    min-height: 52px;
+    padding: 0 26px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font: 500 var(--step-body) / 1 var(--text);
+    border: 0;
+    cursor: pointer;
+    transition: background-color 180ms ease, transform 140ms var(--ease-out);
+  }
+  .snt :global(.bb-send:hover) { background: var(--accent-press); }
+  .snt :global(.bb-send:active) { transform: scale(0.97); }
+  .snt :global(.bb-status) { font-size: 15px; color: var(--accent-press); }
+  .snt :global(.bb-done) { font-size: var(--step-lead); line-height: 1.35; }
+  .snt :global(.bb-done-title) { font-family: var(--display); text-transform: uppercase; font-size: var(--step-head); line-height: 1; margin-bottom: 16px; }
+
+  /* Footer */
+  .snt-foot {
+    background: var(--accent);
+    color: var(--accent-ink);
+    min-height: 90svh;
+    padding: 40px var(--m) 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 64px;
+  }
+  .snt-foot-top { display: grid; grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr) auto; gap: 32px; font-size: 15px; align-items: start; }
+  .snt-foot .snt-foot-mark { height: 24px; width: auto; filter: brightness(0) invert(1); }
+  .snt-foot-top-link { text-underline-offset: 4px; }
+  .snt-mail a {
+    display: flex;
+    flex-wrap: wrap;
+    text-decoration: none;
+    font-family: var(--text);
+    font-weight: 500;
+    font-size: var(--step-display);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    transition: opacity 180ms ease;
+  }
+  .snt-mail a:hover { opacity: 0.85; }
+  .snt-foot-meta { display: flex; justify-content: space-between; gap: 16px; font-size: 15px; flex-wrap: wrap; }
+  .snt-foot-meta a { text-underline-offset: 3px; }
+
+  /* Tablet */
+  @media (max-width: 1024px) {
+    .snt-panel { grid-template-columns: 1fr; min-height: 0; }
+    .snt-panel-r .snt-panel-pic { order: 0; }
+    .snt-panel-pic { min-height: 0; aspect-ratio: 4 / 3; }
+    .snt-tone-3 .snt-panel-pic { aspect-ratio: auto; min-height: 0; padding: clamp(20px, 6vw, 72px); }
+    .snt-note { position: static; inset: auto; }
+    .snt-panel-text { padding: 40px var(--m) 88px; }
+    .snt-verb-hold { display: block; }
+    .snt-verb { margin-bottom: 24px; }
+    .snt-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 56px; }
+    .snt-brief-main { grid-column: 1 / -1; }
+    .snt-brief-side { grid-column: 1 / -1; grid-template-columns: 160px minmax(0, 1fr); margin-top: 72px; }
+    .snt-about-side { grid-column: 1 / -1; margin-bottom: 40px; }
+    .snt-about-side dl { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .snt-about-text { grid-column: 1 / -1; }
+    .snt-foot-top { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* Phone */
+  @media (max-width: 760px) {
+    .snt-nav ul li:not(:last-child) { display: none; }
+    :global(.js) .snt-hero { height: 200svh; }
+    .snt-stage {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto auto;
+      align-content: start;
+      row-gap: 0;
+      padding-top: 84px;
+      padding-bottom: 0;
+      min-height: 0;
+    }
+    .snt-sentence { grid-row: 1 / span 3; grid-template-rows: subgrid; }
+    .snt-half { font-size: clamp(44px, 13.5vw, 72px); }
+    .snt-half-a { grid-column: 1; grid-row: 1; }
+    .snt-half-b { grid-column: 1; grid-row: 3; }
+    .snt-reel {
+      grid-column: 1;
+      grid-row: 2;
+      align-self: auto;
+      margin: 14px calc(-1 * var(--m));
+      padding: 0 var(--m);
+    }
+    .snt-reel-window { position: relative; inset: auto; aspect-ratio: 4 / 3; overflow: hidden; margin-block: 28px; }
+    .snt-reel-track { top: 0; margin-top: 0; }
+    .snt-frame { aspect-ratio: 4 / 3; opacity: 1; }
+    .snt-reel-caption { display: none; }
+    .snt-hero-foot { position: static; grid-column: 1; grid-row: 4; grid-template-columns: 1fr; gap: 14px; margin-top: 20px; }
+    .snt-support, .snt-hero-actions { grid-column: 1; justify-content: flex-start; padding: 0; }
+    .snt-support { font-size: 16px; }
+
+    .snt-method-head { display: block; }
+    .snt-method-head p { margin-top: 16px; }
+    .snt-panel-pic { aspect-ratio: 4 / 5; }
+    .snt-tone-3 .snt-panel-pic { padding: 20px; }
+    .snt-note dl > div { grid-template-columns: 1fr; gap: 2px; }
+    .snt-panel-text { padding: 32px var(--m) 72px; }
+
+    .snt-facts { gap: 40px 16px; margin-top: 64px; }
+    .snt-row { font-size: 11vw; }
+    .snt-spread-who { flex-direction: column; gap: 4px; font-size: 15px; }
+    .snt-spread-who span:nth-child(2) { text-align: center; }
+    .snt-spread-who span:nth-child(3) { text-align: right; }
+    .snt-quote-more { grid-template-columns: 1fr; margin-top: 80px; }
+    .snt-about-side dl { grid-template-columns: 1fr; gap: 10px; }
+    .snt-bio { font-size: var(--step-body); line-height: 1.5; }
+    .snt-names { font-size: 20px; line-height: 1.3; }
+    .snt-dropcap { width: 5.2em; height: 5.2em; }
+
+    .snt :global(.bb-who) { grid-template-columns: 1fr; }
+    .snt :global(.bb-sentence) { font-size: 24px; line-height: 1.6; }
+    .snt-brief-side { grid-template-columns: 96px minmax(0, 1fr); gap: 16px; }
+    .snt-brief-side img { width: 96px; height: 96px; }
+
+    .snt-foot-top { grid-template-columns: 1fr; gap: 10px; }
+    .snt-mail a { flex-direction: column; font-size: 10vw; }
+    .snt-foot-meta { flex-direction: column; gap: 6px; }
+  }
+
+  /* Motion: load sequence, entrances, drift. Everything is visible without script or with reduced motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js) .snt-half [data-line] { transform: translateY(105%); animation: snt-line 900ms var(--ease-expo) forwards; animation-delay: calc(120ms + var(--i) * 110ms); }
+    :global(.js) .snt [data-load] { opacity: 0; transform: translateY(14px); animation: snt-rise 520ms var(--ease-out) forwards; animation-delay: var(--d); }
+    :global(.js) .snt-reel { clip-path: inset(0 0 100% 0); animation: snt-open 1000ms var(--ease-in-out) 120ms forwards; }
+    :global(.js) .snt [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity 700ms var(--ease-out), transform 900ms var(--ease-expo); transition-delay: var(--d, 0ms); }
+    :global(.js) .snt [data-reveal].is-in { opacity: 1; transform: none; }
+    .snt [data-drift] { transform: scale(1.08); transition: transform 1600ms cubic-bezier(0.33, 1, 0.68, 1); }
+    .snt [data-drift].is-in { transform: scale(1); }
+  }
+  @keyframes snt-line { to { transform: none; } }
+  @keyframes snt-rise { to { opacity: 1; transform: none; } }
+  @keyframes snt-open { to { clip-path: inset(0 0 0 0); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js) .snt-hero { height: 100svh; }
+  }
+</style>
+
+<script>
+  const root = document.querySelector('.snt');
+  if (root) {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Entrances, once, as each part arrives.
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-in');
+            io.unobserve(e.target);
+          }
+        }
+      },
+      { rootMargin: '0px 0px -10% 0px', threshold: 0.12 }
+    );
+    root.querySelectorAll('[data-reveal], [data-drift]').forEach((el) => io.observe(el));
+
+    // The pinned story: the reel advances one frame per step while the sentence holds.
+    const hero = root.querySelector('[data-story]') as HTMLElement | null;
+    const track = root.querySelector('[data-reel]') as HTMLElement | null;
+    const caption = root.querySelector('[data-reel-caption]') as HTMLElement | null;
+    const captions = [
+      'Brief: what the first year must deliver',
+      'Map: the whole market on one page',
+      'Shortlist: a written note on every candidate',
+      'Close: Alex stays on until they start',
+    ];
+    if (hero && track && !reduce) {
+      const frames = Array.from(track.children) as HTMLElement[];
+      let ticking = false;
+      let current = -1;
+      const update = () => {
+        ticking = false;
+        const rect = hero.getBoundingClientRect();
+        const travel = hero.offsetHeight - window.innerHeight;
+        const p = travel > 0 ? Math.min(1, Math.max(0, -rect.top / travel)) : 0;
+        const fh = frames[0].offsetHeight;
+        const step = fh + 24;
+        track.style.setProperty('--fh', `${fh}px`);
+        // Frame i sits in the middle of the strip; between steps the strip glides.
+        const pos = p * (frames.length - 1);
+        track.style.setProperty('--reel-y', `${-pos * step}px`);
+        const idx = Math.round(pos);
+        if (idx !== current) {
+          current = idx;
+          frames.forEach((f, k) => f.classList.toggle('is-on', k === idx));
+          if (caption) caption.textContent = captions[idx];
+        }
+      };
+      const onScroll = () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      };
+      update();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+    } else if (track) {
+      const f = track.firstElementChild as HTMLElement;
+      track.style.setProperty('--fh', `${f.offsetHeight}px`);
+      Array.from(track.children).forEach((c) => c.classList.add('is-on'));
+    }
+
+    // Track record: one placement lit at a time.
+    const names = Array.from(root.querySelectorAll('.snt-name'));
+    if (names.length && !reduce) {
+      let i = 0;
+      names[0].classList.add('is-lit');
+      setInterval(() => {
+        names[i].classList.remove('is-lit');
+        i = (i + 1) % names.length;
+        names[i].classList.add('is-lit');
+      }, 2000);
+    } else {
+      names.forEach((n) => n.classList.add('is-lit'));
+    }
+  }
+</script>

@@ -8,8 +8,8 @@ Gates before asking to merge:
 - Impeccable detector on the built HTML: `IMPECCABLE_NO_TELEMETRY=1 <alexlockey-com-v3>/.claude/skills/impeccable/scripts/impeccable detect .vercel/output/static/**/index.html`
 - `npm run build` passes; no horizontal overflow from 320 to 1024px; nothing gated on JS.
 
-## Documented brand overrides
-- **IBM Plex Mono for labels and figure captions** (artefact metadata, `.mono`). Approved by Alex in the Phase 2 direction brief, 11 Nov 2026 (`docs/direction-brief-2026-11-11.md`). These lines carry `taste-skill-ignore`. Plex Mono is never used for body copy or headings.
+## Design method
+Concepts and redesigns follow the taste-skill run in full (`<alexlockey-com-v3>/tools/taste-skill/SKILL.md`): inventory, argument, `draw.mjs` directions, the idea sentence, one live thing, real pictures (four or more), `inspect.mjs` at 0 FAIL, a written critique, then the motion layer. Its house rules apply without exception (no monospace, eyebrows, index numbers, hairlines, shadows, gradients or card grids). No brand overrides are documented.
 
 ## Content rules
 - No em dashes. No sectors or lanes named on the site (11 Nov 2026 brief).
