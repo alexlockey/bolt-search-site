@@ -1,12 +1,12 @@
 {
   "redirects": [
     {
-      "source": "/(search|advisory|fractional|sectors|subscribe|knowledge-base)/?",
+      "source": "/:page(search|advisory|fractional|sectors|subscribe|knowledge-base)",
       "destination": "/",
       "permanent": true
     },
     {
-      "source": "/(sectors|knowledge-base)/:path+",
+      "source": "/:page(search|advisory|fractional|sectors|subscribe|knowledge-base)/:rest(.*)",
       "destination": "/",
       "permanent": true
     },
