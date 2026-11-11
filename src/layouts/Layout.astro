@@ -16,6 +16,7 @@ const {
 } = Astro.props;
 
 import '@fontsource-variable/inter';
+import '@fontsource-variable/newsreader/opsz.css';
 import '../styles/global.css';
 import '../styles/site.css';
 import { navLinks, contact } from '../data/site';
@@ -34,7 +35,7 @@ const year = new Date().getFullYear();
   <meta name="description" content={description} />
   {noindex && <meta name="robots" content="noindex, nofollow" />}
   <link rel="canonical" href={canonicalURL} />
-  <meta name="theme-color" content="#08090A" />
+  <meta name="theme-color" content="#070B0D" />
 
   <meta property="og:type" content={article ? 'article' : 'website'} />
   <meta property="og:url" content={canonicalURL} />

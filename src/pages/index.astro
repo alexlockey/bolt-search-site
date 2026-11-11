@@ -1,60 +1,52 @@
 ---
-// Home. Idea: the market narrows to one person. Type carries the first screen, one diagram tells the
-// method, and the search's own working documents (slip, shortlist, log, the brief) are the pictures.
+// Home. The market narrows to one person: a short centred hero, the narrowing straight under it,
+// the method as four drawn steps, a working shortlist, the record, three voices, the brief.
 import Layout from '../layouts/Layout.astro';
 import Narrowing from '../components/Narrowing.astro';
+import LineFigure from '../components/LineFigure.astro';
 import BriefBuilder from '../components/BriefBuilder.astro';
 import Shortlist from '../components/Shortlist.astro';
-import { hero, narrowing, slip, notePitch, facts, placements, placedRoles, quotes, contact } from '../data/site';
+import { hero, narrowing, steps, notePitch, facts, placements, quotes, contact } from '../data/site';
 
 const title = 'Commercial and technical hires for growth companies';
-const description = 'Bolt Search finds the commercial and technical people growth companies depend on. One recruiter runs every search, with a written note on every name.';
+const description = 'Bolt Search finds the commercial and technical people growth companies depend on. One recruiter runs every search, with a full briefing on every name.';
 ---
 
 <Layout title={title} description={description}>
   <section class="bs-hero" aria-labelledby="bs-title">
-    <div class="bs-hero-ink">
+    <div class="bs-wrap bs-hero-in">
       <h1 id="bs-title" class="bs-h1 bs-lines">
         <span class="bs-line"><span data-line style="--i:0">Hires that carry</span></span>
         <span class="bs-line"><span data-line style="--i:1">the number.</span></span>
       </h1>
-    </div>
-    <div class="bs-hero-paper">
       <p class="bs-hero-support" data-after>{hero.support}</p>
       <div class="bs-hero-actions" data-after>
-        <a href="#brief" class="bs-btn bs-btn-dark">{hero.action.label}</a>
+        <a href="#brief" class="bs-btn bs-btn-ink">{hero.action.label}</a>
         <a href={hero.second.href} class="bs-hero-link">{hero.second.label}</a>
       </div>
     </div>
   </section>
 
   <section class="bs-narrow" id="method" aria-labelledby="bs-narrow-h">
-    <div class="bs-wrap bs-split">
+    <Narrowing />
+    <div class="bs-wrap bs-narrow-foot">
       <h2 id="bs-narrow-h" class="bs-h2" data-reveal>{narrowing.heading}</h2>
       <p class="bs-two-tone" data-reveal style="--d:1">{narrowing.lead} <span>{narrowing.rest}</span></p>
     </div>
-    <Narrowing />
   </section>
 
-  <section class="bs-runs" aria-labelledby="bs-runs-h">
-    <div class="bs-wrap bs-runs-grid">
-      <div class="bs-runs-copy" data-reveal>
-        <h2 id="bs-runs-h" class="bs-h2">How a search runs</h2>
-        <p class="bs-lead">{slip.lead}</p>
-        <p class="bs-body">Thirty minutes on what the first year has to achieve, what has not worked before, and who the person reports to. Then Alex does the rest himself.</p>
-      </div>
-      <div class="bs-slip" data-ui data-reveal style="--d:1">
-        <p class="bs-slip-title">{slip.title}</p>
-        {slip.groups.map((g, k) => (
-          <div class="bs-slip-group" style={`--k:${k}`}>
-            <p class="bs-slip-head">{g.group}</p>
-            {g.rows.map(([what, who]) => (
-              <p class="bs-slip-row"><span>{what}</span><span class="bs-leader" aria-hidden="true"></span><span>{who}</span></p>
-            ))}
-          </div>
+  <section class="bs-steps" aria-labelledby="bs-steps-h">
+    <div class="bs-wrap">
+      <h2 id="bs-steps-h" class="bs-h2 bs-steps-h" data-reveal>{steps.heading}</h2>
+      <ol class="bs-step-list">
+        {steps.items.map((s, i) => (
+          <li data-reveal style={`--d:${i}`}>
+            <LineFigure kind={s.kind} label={s.figure} />
+            <h3>{s.verb}</h3>
+            <p>{s.line}</p>
+          </li>
         ))}
-        <p class="bs-slip-total"><span>{slip.total[0]}</span><span>{slip.total[1]}</span></p>
-      </div>
+      </ol>
     </div>
   </section>
 
@@ -69,63 +61,53 @@ const description = 'Bolt Search finds the commercial and technical people growt
   </section>
 
   <section class="bs-record" id="record" aria-labelledby="bs-record-h">
-    <div class="bs-wrap">
-      <div class="bs-names" data-names>
-        <h2 id="bs-record-h" class="bs-names-h">Placed so far:</h2>
-        {placedRoles.map((n, i) => <span class={`bs-name${i === 0 ? ' is-lit' : ''}`}>{n}{i < placedRoles.length - 1 ? ', ' : '.'}</span>)}
-      </div>
-      <div class="bs-record-grid">
-        <dl class="bs-figures" data-reveal>
+    <div class="bs-wrap bs-record-grid">
+      <div>
+        <h2 id="bs-record-h" class="bs-h2" data-reveal>Track record</h2>
+        <dl class="bs-figures bs-figures-gap" data-reveal>
           {facts.slice(0, 3).map((f) => <div><dt>{f.figure}</dt><dd>{f.label}</dd></div>)}
         </dl>
-        <div class="bs-log" data-ui data-reveal style="--d:1">
-          <div class="bs-app-bar"><span class="bs-app-title">Placement log</span><span class="bs-app-tag">Roles only, no names</span></div>
-          <ul>
-            {placements.map((p, k) => (
-              <li style={`--k:${k}`}>
-                <span class="bs-log-check" aria-hidden="true">
-                  <svg viewBox="0 0 16 16" width="16" height="16"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5" /><polyline points="5,8.2 7.2,10.3 11,6" fill="none" stroke="currentColor" stroke-width="1.5" /></svg>
-                </span>
-                <span class="bs-log-role">{p.role}</span>
-                <span class="bs-log-co">{p.company}</span>
-                <span class="bs-log-year">{p.year}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+      </div>
+      <div class="bs-log" data-ui data-reveal style="--d:1">
+        <div class="bs-app-bar"><span class="bs-app-title">Placement log</span><span class="bs-app-tag">Roles only, no names</span></div>
+        <ul>
+          {placements.map((p, k) => (
+            <li style={`--k:${k}`}>
+              <span class="bs-log-check" aria-hidden="true">
+                <svg viewBox="0 0 16 16" width="16" height="16"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5" /><polyline points="5,8.2 7.2,10.3 11,6" fill="none" stroke="currentColor" stroke-width="1.5" /></svg>
+              </span>
+              <span class="bs-log-role">{p.role}</span>
+              <span class="bs-log-co">{p.company}</span>
+              <span class="bs-log-year">{p.year}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   </section>
 
   <section class="bs-letter" aria-labelledby="bs-letter-h">
-    <div class="bs-wrap bs-letter-grid">
+    <div class="bs-wrap bs-voices">
       <h2 id="bs-letter-h" class="bs-h2" data-reveal>In their words</h2>
-      <div class="bs-letter-body">
-        <blockquote class="bs-letter-open" data-reveal>
-          <p>{quotes[0].text}</p>
-          <footer>{quotes[0].who}</footer>
-        </blockquote>
-        {quotes.slice(1).map((q, i) => (
-          <blockquote data-reveal style={`--d:${i % 2}`}>
+      <div class="bs-voice-list">
+        {[quotes[1], quotes[3], quotes[0]].map((q, i) => (
+          <blockquote data-reveal style={`--d:${i}`}>
             <p>{q.text}</p>
             <footer>{q.who}</footer>
           </blockquote>
         ))}
-        <p class="bs-letter-sign">Paraphrased from fifteen LinkedIn recommendations. <a href={hero.second.href}>Ask to speak to a reference</a>.</p>
       </div>
+      <p class="bs-letter-sign" data-reveal>From fifteen LinkedIn recommendations. <a href={hero.second.href}>Ask to speak to a reference</a>.</p>
     </div>
   </section>
 
-  <section class="bs-about" id="alex" aria-labelledby="bs-about-h">
-    <div class="bs-wrap">
-      <h2 id="bs-about-h" class="bs-h2 bs-about-h" data-reveal>Alex Lockey</h2>
-      <div class="bs-about-text" data-reveal>
-        <div class="bs-para">
-          Alex has recruited since <mark class="hl-a">2007</mark> and founded Bolt Search in <mark class="hl-a">2016</mark>. He runs <mark class="hl-b">every search himself</mark>: the brief, the map, every call, the shortlist notes and the check-in after the start date.
-        </div>
-        <div class="bs-para">
-          He trained as an <mark class="hl-b">engineer</mark>, with a BEng in Aeronautical Engineering from the <mark class="hl-c">University of Bristol</mark>, which helps when a hire has to hold a technical conversation with a buyer as well as a commercial one. <a href="/about/" class="hl-go">More about Alex and how he works.</a>
-        </div>
+  <section class="bs-alex" id="alex" aria-labelledby="bs-alex-h">
+    <div class="bs-wrap bs-alex-in" data-reveal>
+      <img src="/images/alex-headshot-600.webp" alt="Alex Lockey" width="600" height="804" loading="lazy" />
+      <div>
+        <h2 id="bs-alex-h" class="bs-h2">Alex Lockey</h2>
+        <p class="bs-two-tone">Recruiting since 2007, founder since 2016. <span>Trained as an engineer, and still runs every search himself.</span></p>
+        <a href="/about/" class="bs-hero-link bs-alex-link">More about Alex</a>
       </div>
     </div>
   </section>
@@ -134,8 +116,7 @@ const description = 'Bolt Search finds the commercial and technical people growt
     <div class="bs-wrap bs-contact-grid">
       <div class="bs-contact-copy" data-reveal>
         <h2 id="bs-contact-h" class="bs-h2">Tell us about the role</h2>
-        <p class="bs-two-tone">Fill in the sentence. <span>It becomes your brief, and Alex replies personally.</span></p>
-        <p class="bs-body bs-contact-note">References from past clients and placed candidates are available on request.</p>
+        <p class="bs-two-tone">Fill in the sentence. <span>Alex replies personally.</span></p>
       </div>
       <div class="bs-composer" data-ui data-reveal style="--d:1">
         <div class="bs-app-bar"><span class="bs-app-title">New brief</span><span class="bs-app-tag">To Alex Lockey</span></div>
@@ -144,8 +125,6 @@ const description = 'Bolt Search finds the commercial and technical people growt
     </div>
     <div class="bs-rows">
       <a class="bs-row" href={`mailto:${contact.email}`}><span>{contact.email}</span></a>
-      <a class="bs-row" href={contact.linkedin} target="_blank" rel="noopener"><span>LinkedIn</span></a>
-      <p class="bs-row"><span>UK-based, UK and US clients</span></p>
     </div>
   </section>
 </Layout>

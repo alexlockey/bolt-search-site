@@ -4,28 +4,28 @@
 /* Legacy tokens, mapped onto the dark site system (site.css) so older pages
    (insights archive, onboarding forms, 404) render in the same world. */
 :root {
-  --color-navy: #16171A;
+  --color-navy: #172126;
   --color-navy-mid: #23252A;
   --color-white: #F7F8F8;
   --color-error: #F2734B;
 
-  --color-bg: #08090A;
-  --color-bg-subtle: #0F1011;
-  --color-bg-elevated: #16171A;
-  --color-fg: #F7F8F8;
-  --color-fg-muted: #B4B8BF;
-  --color-fg-subtle: #8A8F98;
+  --color-bg: #070B0D;
+  --color-bg-subtle: #0F161A;
+  --color-bg-elevated: #172126;
+  --color-fg: #F2F6F8;
+  --color-fg-muted: #B9C4CC;
+  --color-fg-subtle: #93A3B0;
   --color-accent: #009EE2;
   --color-accent-dark: #2BB4F0;
-  --color-accent-light: #13324A;
-  --color-border: #23252A;
-  --color-border-strong: #33363C;
+  --color-accent-light: #163646;
+  --color-border: #2E3B42;
+  --color-border-strong: #3A4A52;
   --color-btn-bg: #009EE2;
   --color-btn-fg: #08090A;
   --color-btn-hover: #2BB4F0;
   --color-btn2-bg: #16171A;
   --color-btn2-fg: #F7F8F8;
-  --color-footer: #0F1011;
+  --color-footer: #0F161A;
 
   --font-sans: 'Inter Variable', 'Inter', system-ui, sans-serif;
   --font-display: 'Inter Variable', 'Inter', system-ui, sans-serif;

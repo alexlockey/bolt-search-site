@@ -14,8 +14,7 @@ export const hero = {
   // Two-line budget: about 32 characters.
   title: 'Hires that carry the number',
   sentence: ['We find the person', 'your plan rests on'],
-  support:
-    'Commercial and technical hires for growth companies, found by one recruiter who runs every search himself.',
+  support: 'Commercial and technical hires for growth companies. One recruiter runs every search, start to finish.',
   action: { label: 'Tell us about the role', href: '/#brief' },
   second: { label: 'Ask for references', href: '/contact/?about=references' },
 };
@@ -167,7 +166,7 @@ export const contact = {
 export const narrowing = {
   heading: 'Every search narrows to one person',
   lead: 'It starts with the whole market.',
-  rest: 'Research tools, including AI, map it fast. Every judgement and conversation is Alex’s.',
+  rest: 'Research tools, including AI, map it fast. The judgement and every call are Alex’s.',
   caption: 'An illustrative search. The numbers change with every role; the shape does not.',
   stages: [
     { name: 'Mapped', count: 214, note: 'people at comparable companies' },
@@ -196,7 +195,7 @@ export const slip = {
 export const notePitch = {
   heading: 'A briefing on every name',
   lead: 'You never get a CV and a phone call.',
-  rest: 'Each person on a shortlist arrives with a full briefing: how they measure against your brief, what they have done, what they earn, why they would move, and the risks with how to test them. Pick a name to read one.',
+  rest: 'Every name arrives with a full briefing. Pick one.',
   others: [
     { id: 'Candidate A', line: 'Mid-market AE, payments scale-up, Manchester', state: 'Interviewing' },
     { id: 'Candidate C', line: 'Founding AE, seed-stage analytics company, remote UK', state: 'Interviewing' },
@@ -390,3 +389,14 @@ export const briefings: Briefing[] = [
     view: 'The safest on the US side, the least proven on starting alone. A second look if the others fall away on timing.',
   },
 ];
+
+// How a search runs, after the map: four steps, each drawn.
+export const steps = {
+  heading: 'How a search runs',
+  items: [
+    { kind: 'brief' as const, verb: 'Brief', line: 'Thirty minutes on what the first year must deliver.', figure: 'You and Alex agree the brief, then a line runs to the year-one goal.' },
+    { kind: 'approach' as const, verb: 'Approach', line: 'Alex makes every call, mostly to people not looking.', figure: 'Alex at the centre reaching five people inside a dashed ring of people not looking.' },
+    { kind: 'shortlist' as const, verb: 'Shortlist', line: 'A few people, each with a full briefing.', figure: 'Twelve people narrowed to four, each with a written briefing.' },
+    { kind: 'close' as const, verb: 'Close', line: 'Offer, notice, start date, then a check-in.', figure: 'The hire moves into the seat and is ticked off.' },
+  ],
+};

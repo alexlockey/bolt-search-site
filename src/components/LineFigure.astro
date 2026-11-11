@@ -1,0 +1,73 @@
+---
+// One-idea line diagrams in the Visualize Value grammar, drawn as they scroll into view.
+// Hollow circle: a person. Filled blue circle: the hire. Dashed ring: not looking. Arrow: an approach.
+// Lines use pathLength="1" so CSS can draw them; with reduced motion or no script they simply show finished.
+export interface Props {
+  kind: 'brief' | 'approach' | 'shortlist' | 'close';
+  label: string;
+}
+const { kind, label } = Astro.props;
+
+// Approach: Alex in the middle, eight people around him, five of them reached.
+const ring = Array.from({ length: 8 }, (_, i) => {
+  const a = (i / 8) * Math.PI * 2 - Math.PI / 2;
+  return { x: 120 + Math.cos(a) * 92, y: 90 + Math.sin(a) * 66, i };
+});
+const reached = [0, 2, 3, 5, 7];
+
+// Shortlist: twelve people, four kept, each with a note beside them.
+const grid = Array.from({ length: 12 }, (_, i) => ({ x: 21 + i * 18, y: 62, keep: [1, 4, 7, 10].includes(i) }));
+---
+
+<svg class={`bs-fig bs-fig-${kind}`} viewBox="0 0 240 180" role="img" aria-label={label} data-diagram>
+  {kind === 'brief' && (
+    <g fill="none" stroke-width="1.5" stroke-linecap="round">
+      <circle class="bs-f-soft" cx="40" cy="90" r="12" />
+      <circle class="bs-f-ink" cx="96" cy="90" r="12" />
+      <line class="bs-f-draw bs-f-ink" x1="52" y1="90" x2="84" y2="90" pathLength="1" style="--t:0ms" />
+      <line class="bs-f-pop bs-f-soft bs-f-dash" x1="108" y1="90" x2="196" y2="90" style="--t:420ms" />
+      <circle class="bs-f-pop bs-f-blue-ring" cx="208" cy="90" r="12" style="--t:900ms" />
+      <circle class="bs-f-pop bs-f-blue" cx="208" cy="90" r="4" style="--t:1100ms" />
+      <path class="bs-f-draw bs-f-muted" d="M140 66 h36 M140 74 h24" pathLength="1" style="--t:620ms" />
+    </g>
+  )}
+
+  {kind === 'approach' && (
+    <g fill="none" stroke-width="1.5" stroke-linecap="round">
+      <ellipse class="bs-f-soft bs-f-dash-ring" cx="120" cy="90" rx="110" ry="82" />
+      {ring.map((p) => <circle class={reached.includes(p.i) ? 'bs-f-ink' : 'bs-f-soft'} cx={p.x} cy={p.y} r="8" />)}
+      {reached.map((i, k) => {
+        const p = ring[i];
+        const dx = p.x - 120, dy = p.y - 90, d = Math.hypot(dx, dy);
+        const x1 = 120 + (dx / d) * 14, y1 = 90 + (dy / d) * 14, x2 = p.x - (dx / d) * 12, y2 = p.y - (dy / d) * 12;
+        return <line class="bs-f-draw bs-f-muted" x1={x1} y1={y1} x2={x2} y2={y2} pathLength="1" style={`--t:${k * 180}ms`} />;
+      })}
+      <circle class="bs-f-blue" cx="120" cy="90" r="9" />
+    </g>
+  )}
+
+  {kind === 'shortlist' && (
+    <g fill="none" stroke-width="1.5" stroke-linecap="round">
+      {grid.map((p, i) => (
+        <circle class={p.keep ? 'bs-f-ink' : 'bs-f-soft bs-f-fade'} cx={p.x} cy={p.y} r="6.5" style={`--t:${300 + i * 40}ms`} />
+      ))}
+      {grid.filter((p) => p.keep).map((p, k) => (
+        <g class="bs-f-pop" style={`--t:${900 + k * 160}ms`}>
+          <line class="bs-f-muted" x1={p.x} y1={p.y + 10} x2={p.x} y2={p.y + 26} />
+          <rect class="bs-f-muted" x={p.x - 11} y={p.y + 30} width="22" height="30" rx="2" />
+          <path class="bs-f-muted" d={`M${p.x - 6} ${p.y + 39} h12 M${p.x - 6} ${p.y + 46} h9 M${p.x - 6} ${p.y + 53} h11`} />
+        </g>
+      ))}
+    </g>
+  )}
+
+  {kind === 'close' && (
+    <g fill="none" stroke-width="1.5" stroke-linecap="round">
+      <rect class="bs-f-soft" x="140" y="58" width="64" height="64" rx="10" />
+      <path class="bs-f-pop bs-f-soft bs-f-dash" d="M58 90 H 132" style="--t:0ms" />
+      <circle class="bs-f-move bs-f-blue" cx="172" cy="90" r="11" style="--t:200ms" />
+      <path class="bs-f-draw bs-f-ink" d="M166 134 l6 6 l12 -12" pathLength="1" style="--t:1150ms" />
+      <circle class="bs-f-soft" cx="44" cy="90" r="11" />
+    </g>
+  )}
+</svg>
