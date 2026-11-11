@@ -4,18 +4,21 @@ import ConceptLayout from '../../layouts/ConceptLayout.astro';
 import Monument from '../../components/concepts/Monument.astro';
 import Annual from '../../components/concepts/Annual.astro';
 import Sentence from '../../components/concepts/Sentence.astro';
+import Performs from '../../components/concepts/Performs.astro';
+import Quiet from '../../components/concepts/Quiet.astro';
+import Statement from '../../components/concepts/Statement.astro';
 
 export function getStaticPaths() {
-  return [{ params: { concept: 'a' } }, { params: { concept: 'b' } }, { params: { concept: 'c' } }];
+  return ['a', 'b', 'c', 'd', 'e', 'f'].map((concept) => ({ params: { concept } }));
 }
 
-const { concept } = Astro.params as { concept: 'a' | 'b' | 'c' };
-const names = { a: 'A · The name', b: 'B · The report', c: 'C · The sentence' };
+const { concept } = Astro.params as { concept: 'a' | 'b' | 'c' | 'd' | 'e' | 'f' };
+const names = { d: 'D · Product', e: 'E · Quiet', f: 'F · Statement', a: 'A · Round 2', b: 'B · Round 2', c: 'C · Round 2' };
 ---
 
 <ConceptLayout title={`Concept ${names[concept]}`}>
   <nav class="concept-switch" aria-label="Concept switcher">
-    {(['a', 'b', 'c'] as const).map((k) => (
+    {(['d', 'e', 'f', 'a'] as const).map((k) => (
       <a href={`/concepts/${k}/`} aria-current={k === concept ? 'page' : undefined}>{names[k]}</a>
     ))}
   </nav>
@@ -23,6 +26,9 @@ const names = { a: 'A · The name', b: 'B · The report', c: 'C · The sentence'
   {concept === 'a' && <Monument />}
   {concept === 'b' && <Annual />}
   {concept === 'c' && <Sentence />}
+  {concept === 'd' && <Performs />}
+  {concept === 'e' && <Quiet />}
+  {concept === 'f' && <Statement />}
 
 </ConceptLayout>
 

@@ -1,0 +1,876 @@
+---
+// Concept F, "Type and nothing else" (round 3): Linear-weighted dark precision with a Visualize Value diagram.
+// Idea: on this page, the market narrows to one person. Type carries the first screen; one diagram tells
+// the whole method; the search's own working documents (slip, shortlist, log, the brief composer) are the pictures.
+import '@fontsource-variable/inter';
+import BriefBuilder from '../BriefBuilder.astro';
+import { hero, navLinks, method, shortlistNote, facts, placements, quotes, about, contact } from '../../data/site';
+
+// The narrowing, as an illustrative search. Counts match the round-1 example funnel.
+const stages = [
+  { name: 'Mapped', count: 214, note: 'people at comparable companies' },
+  { name: 'Matched', count: 61, note: 'on deal size, buyer and stage' },
+  { name: 'Approached', count: 27, note: 'by Alex, most not looking' },
+  { name: 'Spoken to', count: 12, note: 'against the brief' },
+  { name: 'Shortlisted', count: 4, note: 'each with a written note' },
+  { name: 'Hired', count: 1, note: 'the person the plan rests on' },
+];
+
+// Desktop diagram: columns of circles that thin out left to right.
+type Dot = { x: number; y: number; r: number; s: number };
+function columnDots(count: number, cx: number, w: number, h: number, r: number, gap: number): { x: number; y: number }[] {
+  const cols = Math.max(1, Math.round(Math.sqrt((count * w) / h)));
+  const rows = Math.ceil(count / cols);
+  const step = r * 2 + gap;
+  const x0 = cx - ((cols - 1) * step) / 2;
+  const y0 = 210 - ((rows - 1) * step) / 2;
+  const out: { x: number; y: number }[] = [];
+  for (let i = 0; i < count; i++) out.push({ x: x0 + (i % cols) * step, y: y0 + Math.floor(i / cols) * step });
+  return out;
+}
+const W = 1122;
+const centres = [140, 400, 600, 760, 900, 1060];
+const radii = [4, 5, 6, 7.5, 11, 22];
+const gaps = [6, 7, 8, 9, 14, 0];
+const boxes: [number, number][] = [[200, 300], [130, 220], [96, 180], [60, 140], [40, 120], [44, 44]];
+const dots: Dot[] = stages.flatMap((st, s) =>
+  columnDots(st.count, centres[s], boxes[s][0], boxes[s][1], radii[s], gaps[s]).map((p) => ({ ...p, r: radii[s], s }))
+);
+
+// Phone diagram: rows that thin out top to bottom.
+const PW = 360;
+const prowsY = [70, 230, 350, 450, 530, 610];
+const pradii = [3, 4, 5, 6, 9, 18];
+function rowDots(count: number, cy: number, r: number, gap: number, maxW: number) {
+  const step = r * 2 + gap;
+  const perRow = Math.max(1, Math.min(count, Math.floor(maxW / step)));
+  const rows = Math.ceil(count / perRow);
+  const out: { x: number; y: number }[] = [];
+  for (let i = 0; i < count; i++) {
+    const row = Math.floor(i / perRow);
+    const inRow = row === rows - 1 ? count - row * perRow : perRow;
+    const x0 = PW / 2 - ((inRow - 1) * step) / 2;
+    out.push({ x: x0 + (i % perRow) * step, y: cy - ((rows - 1) * step) / 2 + row * step });
+  }
+  return out;
+}
+const pdots: Dot[] = stages.flatMap((st, s) =>
+  rowDots(st.count, prowsY[s], pradii[s], s < 2 ? 4 : 8, 300).map((p) => ({ ...p, r: pradii[s], s }))
+);
+
+const slip = [
+  { group: 'Brief', rows: [['What the first year must deliver', '30 minutes'], ['What has not worked before', 'with you'], ['Who the hire reports to', 'with you']] },
+  { group: 'Map', rows: [['Companies that have done this work', 'researched'], ['People filtered on what predicts success', 'researched']] },
+  { group: 'Approach', rows: [['Every call, including people not looking', 'Alex']] },
+  { group: 'Shortlist', rows: [['A few people, each with a written note', 'in writing']] },
+  { group: 'Close', rows: [['Interviews, feedback and offer', 'Alex'], ['Notice period and start date', 'Alex'], ['A check-in once they have started', 'Alex']] },
+];
+
+const lit = [
+  'a fractional Chief Revenue Officer',
+  'a fractional CRO and business development lead',
+  'a head of delivery and performance',
+  'a head of compliance and funding',
+  'three board members',
+];
+
+const otherCandidates = [
+  { id: 'Candidate A', line: 'Mid-market AE, payments scale-up, Manchester', state: 'Interviewing' },
+  { id: 'Candidate C', line: 'Founding AE, seed-stage analytics company, remote UK', state: 'Interviewing' },
+  { id: 'Candidate D', line: 'Account director, US software firm, London office', state: 'Second look' },
+];
+---
+
+<script is:inline>document.documentElement.classList.add('stm-js');</script>
+
+<div class="stm">
+  <header class="stm-nav">
+    <a href="/concepts/f/" class="stm-wordmark">Bolt Search</a>
+    <nav aria-label="Main" class="stm-links">
+      {navLinks.map((l) => <a href={l.href}>{l.label}</a>)}
+    </nav>
+    <a href="#brief" class="stm-btn stm-btn-accent stm-nav-action">Send a brief</a>
+  </header>
+
+  <section class="stm-hero" aria-labelledby="stm-title">
+    <div class="stm-hero-ink">
+      <h1 id="stm-title" class="stm-h1 stm-lines">
+        <span class="stm-line"><span data-line style="--i:0">Hires that carry</span></span>
+        <span class="stm-line"><span data-line style="--i:1">the number.</span></span>
+      </h1>
+    </div>
+    <div class="stm-hero-paper">
+      <p class="stm-hero-support" data-after>{hero.support}</p>
+      <div class="stm-hero-actions" data-after>
+        <a href={hero.action.href} class="stm-btn stm-btn-dark">{hero.action.label}</a>
+        <a href={hero.second.href} class="stm-hero-link">{hero.second.label}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="stm-narrow" id="method" aria-labelledby="stm-narrow-h">
+    <div class="stm-wrap stm-split">
+      <h2 id="stm-narrow-h" class="stm-h2" data-reveal>Every search narrows to one person</h2>
+      <p class="stm-two-tone" data-reveal style="--d:1">
+        It starts with the whole market. <span>Research tools, including AI, map it fast. Every judgement and conversation is Alex’s.</span>
+      </p>
+    </div>
+    <figure class="stm-diagram" data-diagram>
+      <svg class="stm-dg-wide" viewBox={`0 72 ${W} 276`} role="img" aria-label="An illustrative search: 214 people mapped, 61 matched, 27 approached, 12 spoken to, 4 shortlisted, 1 hired.">
+        <g fill="none" stroke-width="1.5">
+          {[0, 1, 2, 3, 4].map((s) => (
+            <g class="stm-dg-arrow" style={`--s:${s}`}>
+              <line x1={centres[s] + boxes[s][0] / 2 + 14} y1="210" x2={centres[s + 1] - boxes[s + 1][0] / 2 - 18} y2="210" />
+              <polyline points={`${centres[s + 1] - boxes[s + 1][0] / 2 - 26},202 ${centres[s + 1] - boxes[s + 1][0] / 2 - 18},210 ${centres[s + 1] - boxes[s + 1][0] / 2 - 26},218`} />
+            </g>
+          ))}
+          <circle class="stm-dg-dash" cx={centres[2]} cy="210" r="86" stroke-dasharray="4 7" />
+        </g>
+        {dots.map((d) => (
+          <circle class={`stm-dot stm-dot-s${d.s}`} cx={d.x} cy={d.y} r={d.r} style={`--s:${d.s}`} />
+        ))}
+      </svg>
+      <svg class="stm-dg-tall" viewBox={`0 0 ${PW} 660`} role="img" aria-label="An illustrative search: 214 people mapped, 61 matched, 27 approached, 12 spoken to, 4 shortlisted, 1 hired.">
+        {pdots.map((d) => (
+          <circle class={`stm-dot stm-dot-s${d.s}`} cx={d.x} cy={d.y} r={d.r} style={`--s:${d.s}`} />
+        ))}
+      </svg>
+      <ol class="stm-stages">
+        {stages.map((st, i) => (
+          <li style={`--s:${i};--x:${(centres[i] / W) * 100}%`}>
+            <span class="stm-count">{st.count}</span>
+            <span class="stm-stage">{st.name}</span>
+            <span class="stm-stage-note">{st.note}</span>
+          </li>
+        ))}
+      </ol>
+      <figcaption>An illustrative search. The numbers change with every role; the shape does not.</figcaption>
+    </figure>
+  </section>
+
+  <section class="stm-runs" aria-labelledby="stm-runs-h">
+    <div class="stm-wrap stm-runs-grid">
+      <div class="stm-runs-copy" data-reveal>
+        <h2 id="stm-runs-h" class="stm-h2">{method.heading}</h2>
+        <p class="stm-lead">One person runs every stage. You know what happens next, and who is doing it.</p>
+        <p class="stm-body">{method.stages[0].body}</p>
+      </div>
+      <div class="stm-slip" data-ui data-reveal style="--d:1">
+        <p class="stm-slip-title">Search for a founding AE, UK</p>
+        {slip.map((g, k) => (
+          <div class="stm-slip-group" style={`--k:${k}`}>
+            <p class="stm-slip-head">{g.group}</p>
+            {g.rows.map(([what, who]) => (
+              <p class="stm-slip-row"><span>{what}</span><span class="stm-leader" aria-hidden="true"></span><span>{who}</span></p>
+            ))}
+          </div>
+        ))}
+        <p class="stm-slip-total"><span>You hold</span><span>a hire who is in the seat</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="stm-note" aria-labelledby="stm-note-h">
+    <div class="stm-wrap stm-note-grid">
+      <div class="stm-note-copy" data-reveal>
+        <h2 id="stm-note-h" class="stm-h2">A note with every name</h2>
+        <p class="stm-two-tone">You never get a CV and a phone call. <span>Each person on a shortlist arrives with a written note: why they fit, what they earn, what would move them, and the risk.</span></p>
+      </div>
+      <div class="stm-app" data-ui data-reveal style="--d:1">
+        <div class="stm-app-bar">
+          <span class="stm-app-title">Shortlist · Founding AE, UK</span>
+          <span class="stm-app-tag">Example, no real candidates</span>
+        </div>
+        <ul class="stm-app-list">
+          {otherCandidates.slice(0, 1).map((c) => (
+            <li><span class="stm-app-dot"></span><span class="stm-app-id">{c.id}</span><span class="stm-app-line">{c.line}</span><span class="stm-app-state">{c.state}</span></li>
+          ))}
+          <li class="is-open"><span class="stm-app-dot is-blue"></span><span class="stm-app-id">Candidate B</span><span class="stm-app-line">{shortlistNote.rows[0][1]}</span><span class="stm-app-state">Note open</span></li>
+        </ul>
+        <dl class="stm-app-note">
+          {shortlistNote.rows.map(([k, v]) => (
+            <div><dt>{k}</dt><dd>{v}</dd></div>
+          ))}
+        </dl>
+        <ul class="stm-app-list">
+          {otherCandidates.slice(1).map((c) => (
+            <li><span class="stm-app-dot"></span><span class="stm-app-id">{c.id}</span><span class="stm-app-line">{c.line}</span><span class="stm-app-state">{c.state}</span></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="stm-record" id="record" aria-labelledby="stm-record-h">
+    <div class="stm-wrap">
+      <div class="stm-names" data-names>
+        <h2 id="stm-record-h" class="stm-names-h">Placed so far:</h2>
+        {lit.map((n, i) => (
+          <span class={`stm-name${i === 0 ? ' is-lit' : ''}`}>{n}{i < lit.length - 1 ? ', ' : '.'}</span>
+        ))}
+      </div>
+
+      <div class="stm-record-grid">
+        <dl class="stm-figures" data-reveal>
+          {facts.slice(0, 3).map((f) => (
+            <div><dt>{f.figure}</dt><dd>{f.label}</dd></div>
+          ))}
+        </dl>
+        <div class="stm-log" data-ui data-reveal style="--d:1">
+          <div class="stm-app-bar"><span class="stm-app-title">Placement log</span><span class="stm-app-tag">Roles only, no names</span></div>
+          <ul>
+            {placements.map((p, k) => (
+              <li style={`--k:${k}`}>
+                <span class="stm-log-check" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" width="16" height="16"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5" /><polyline points="5,8.2 7.2,10.3 11,6" fill="none" stroke="currentColor" stroke-width="1.5" /></svg>
+                </span>
+                <span class="stm-log-role">{p.role}</span>
+                <span class="stm-log-co">{p.company}</span>
+                <span class="stm-log-year">{p.year}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stm-letter" aria-labelledby="stm-letter-h">
+    <div class="stm-wrap stm-letter-grid">
+      <h2 id="stm-letter-h" class="stm-h2" data-reveal>In their words</h2>
+      <div class="stm-letter-body">
+        <blockquote class="stm-letter-open" data-reveal>
+          <p>{quotes[0].text}</p>
+          <footer>{quotes[0].who}</footer>
+        </blockquote>
+        {quotes.slice(1).map((q, i) => (
+          <blockquote data-reveal style={`--d:${i % 2}`}>
+            <p>{q.text}</p>
+            <footer>{q.who}</footer>
+          </blockquote>
+        ))}
+        <p class="stm-letter-sign">Paraphrased from fifteen LinkedIn recommendations. <a href={hero.second.href}>Ask to speak to a reference</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="stm-about" id="alex" aria-labelledby="stm-about-h">
+    <div class="stm-wrap">
+      <h2 id="stm-about-h" class="stm-h2 stm-about-h" data-reveal>Alex Lockey</h2>
+      <div class="stm-about-text" data-reveal>
+        <div class="stm-para">
+          Alex has recruited since <mark class="hl-a">2007</mark> and founded Bolt Search in <mark class="hl-a">2016</mark>. He runs <mark class="hl-b">every search himself</mark>: the brief, the map, every call, the shortlist notes and the check-in after the start date.
+        </div>
+        <div class="stm-para">
+          He trained as an <mark class="hl-b">engineer</mark>, with a BEng in Aeronautical Engineering from the <mark class="hl-c">University of Bristol</mark>, which helps when a hire has to hold a technical conversation with a buyer as well as a commercial one. <mark class="hl-c">Fifteen</mark> clients and placed candidates have written recommendations for him. He works from the UK with companies in the <mark class="hl-a">UK and the US</mark>. <a href="#brief" class="hl-go">Tell him about your role.</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stm-contact" id="brief" aria-labelledby="stm-contact-h">
+    <div class="stm-wrap stm-contact-grid">
+      <div class="stm-contact-copy" data-reveal>
+        <h2 id="stm-contact-h" class="stm-h2">Tell us about the role</h2>
+        <p class="stm-two-tone">Fill in the sentence. <span>It becomes your brief, and Alex replies personally.</span></p>
+        <p class="stm-body stm-contact-note">References from past clients and placed candidates are available on request.</p>
+      </div>
+      <div class="stm-composer" data-ui data-reveal style="--d:1">
+        <div class="stm-app-bar"><span class="stm-app-title">New brief</span><span class="stm-app-tag">To Alex Lockey</span></div>
+        <BriefBuilder />
+      </div>
+    </div>
+    <div class="stm-rows">
+      <a class="stm-row" href={`mailto:${contact.email}`}><span>{contact.email}</span></a>
+      <a class="stm-row" href={contact.linkedin} target="_blank" rel="noopener"><span>LinkedIn</span></a>
+      <p class="stm-row"><span>UK-based, UK and US clients</span></p>
+    </div>
+  </section>
+
+  <footer class="stm-foot">
+    <div class="stm-foot-cols">
+      <div><p>Bolt Search</p><p>Commercial and technical hires for growth companies.</p></div>
+      <div><p>Pages</p>{navLinks.map((l) => <p><a href={l.href}>{l.label}</a></p>)}</div>
+      <div><p>Contact</p><p><a href={`mailto:${contact.email}`}>{contact.email}</a></p><p><a href={contact.linkedin} target="_blank" rel="noopener">LinkedIn</a></p></div>
+      <div><p>Where</p><p>{contact.where}</p></div>
+    </div>
+    <svg class="stm-foot-mark" viewBox="0 0 1000 176" aria-hidden="true" focusable="false"><text x="0" y="148" textLength="1000" lengthAdjust="spacingAndGlyphs">Bolt Search</text></svg>
+    <p class="stm-foot-legal">© {new Date().getFullYear()} Bolt Search. Example documents on this page are illustrative.</p>
+  </footer>
+</div>
+
+<style is:global>
+  .stm {
+    --bg: #08090A;
+    --panel: #0F1011;
+    --raised: #16171A;
+    --line: #23252A;
+    --ink: #F7F8F8;
+    --muted: #8A8F98;
+    --soft: #62666D;
+    --accent: #009EE2;
+    --accent-ink: #08090A;
+    --paper: #F7F8F8;
+    --paper-ink: #08090A;
+    --paper-muted: #4A4D55;
+    --ease-out: cubic-bezier(.16, 1, .3, 1);
+    --m: clamp(20px, 3.4vw, 48px);
+    --gap: clamp(64px, 7.5vw, 112px);
+    --s-display: clamp(2.6rem, 8.6vw, 8.5rem);
+    --s-h2: clamp(2rem, 3.6vw, 3.25rem);
+    --s-lead: clamp(1.375rem, 1.9vw, 1.75rem);
+    --s-body: 1.0625rem;
+    --s-small: 0.875rem;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter Variable', 'Inter', system-ui, sans-serif;
+    font-size: var(--s-body);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+    overflow-x: clip;
+  }
+
+  .stm *, .stm *::before, .stm *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  .stm a { color: inherit; }
+  .stm :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .stm-wrap { padding: 0 var(--m); max-width: 1440px; margin: 0 auto; }
+
+  .stm-h2 {
+    font-size: var(--s-h2);
+    font-weight: 540;
+    letter-spacing: -0.022em;
+    line-height: 1.06;
+    max-width: 16ch;
+    text-wrap: balance;
+  }
+
+  .stm-two-tone {
+    font-size: var(--s-lead);
+    font-weight: 510;
+    letter-spacing: -0.012em;
+    line-height: 1.3;
+    max-width: 32ch;
+  }
+  .stm-two-tone span { color: var(--muted); }
+
+  .stm-lead { font-size: var(--s-lead); font-weight: 510; letter-spacing: -0.012em; line-height: 1.3; max-width: 26ch; margin: 1.25rem 0 1rem; }
+  .stm-body { color: var(--ink); max-width: 38ch; }
+
+  .stm-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 1.1rem;
+    border-radius: 8px;
+    border: 0;
+    font: inherit;
+    font-size: var(--s-body);
+    font-weight: 560;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 140ms var(--ease-out), background-color 200ms ease;
+  }
+  .stm-btn:active { transform: scale(0.97); }
+  .stm .stm-btn-accent { background: var(--accent); color: var(--accent-ink); }
+  .stm .stm-btn-accent:hover { background: #2BB4F0; }
+
+  /* Nav */
+  .stm-nav {
+    position: absolute;
+    z-index: 3;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 20px var(--m);
+  }
+  .stm-wordmark { font-weight: 600; font-size: var(--s-body); letter-spacing: -0.02em; text-decoration: none; }
+  .stm-links { display: flex; gap: 1.75rem; margin-left: auto; }
+  .stm-links a { font-size: var(--s-small); color: var(--muted); text-decoration: none; transition: color 200ms ease; }
+  .stm-links a:hover { color: var(--ink); }
+
+  /* Hero: waterline. Two flat fields; the headline stands on the seam. */
+  .stm-hero {
+    min-height: clamp(620px, 100svh, calc(72vw + 200px));
+    display: grid;
+    grid-template-rows: 64fr 36fr;
+  }
+  .stm-hero-ink {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 96px var(--m) 0;
+  }
+  .stm-h1 {
+    font-size: var(--s-display);
+    font-weight: 560;
+    letter-spacing: -0.035em;
+    line-height: 0.95;
+    text-align: center;
+    white-space: nowrap;
+    margin-bottom: 0.06em;
+  }
+  .stm-lines .stm-line { display: block; overflow: clip; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+  .stm-lines [data-line] { display: block; }
+  .stm-hero-paper {
+    background: var(--paper);
+    color: var(--paper-ink);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 0 var(--m) 44px;
+  }
+  .stm-hero-support {
+    font-size: var(--s-lead);
+    font-weight: 510;
+    letter-spacing: -0.012em;
+    line-height: 1.3;
+    max-width: 30ch;
+  }
+  .stm-hero-actions { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+  .stm .stm-btn-dark { background: var(--paper-ink); color: var(--paper); }
+  .stm .stm-btn-dark:hover { background: #2A2C31; }
+  .stm-hero-link {
+    color: var(--paper-ink);
+    text-decoration: underline;
+    text-decoration-color: #9A9DA4;
+    text-underline-offset: 0.22em;
+    transition: text-decoration-color 200ms ease;
+  }
+  .stm-hero-link:hover { text-decoration-color: currentColor; }
+
+  /* The narrowing */
+  .stm-narrow { padding: var(--gap) 0; }
+  .stm-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 2rem var(--m);
+    align-items: start;
+  }
+  .stm-diagram { padding: clamp(48px, 6vw, 88px) var(--m) 0; max-width: 1440px; margin: 0 auto; }
+  .stm-diagram svg { display: block; width: 100%; height: auto; }
+  .stm-dg-tall { display: none !important; }
+  .stm-dg-arrow { stroke: var(--soft); }
+  .stm-dg-dash { stroke: var(--muted); }
+  .stm-dot { fill: none; stroke-width: 1.5; }
+  .stm-dot-s0 { stroke: #3A3D44; }
+  .stm-dot-s1 { stroke: #50545C; }
+  .stm-dot-s2 { stroke: var(--soft); }
+  .stm-dot-s3 { stroke: var(--muted); }
+  .stm-dot-s4 { stroke: var(--ink); stroke-width: 2; }
+  .stm-dot-s5 { fill: var(--accent); stroke: var(--accent); }
+  .stm-stages {
+    list-style: none;
+    position: relative;
+    height: 7.5rem;
+    margin-top: 1.75rem;
+  }
+  .stm-stages li {
+    position: absolute;
+    top: 0;
+    left: var(--x);
+    width: 11%;
+    transform: translateX(-50%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .stm-count { font-size: var(--s-lead); font-weight: 540; letter-spacing: -0.02em; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .stm-stages li:last-child .stm-count { color: var(--accent); }
+  .stm-stages li:last-child { left: auto; right: 0; transform: none; text-align: right; width: 10%; }
+  .stm-stage { font-weight: 560; }
+  .stm-stage-note { color: var(--muted); font-size: var(--s-small); line-height: 1.4; }
+  .stm-diagram figcaption { margin-top: 2.5rem; color: var(--muted); font-size: var(--s-small); }
+
+  /* Method slip */
+  .stm-runs { background: var(--panel); padding: var(--gap) 0; }
+  .stm-runs-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 3rem var(--m);
+    align-items: start;
+  }
+  .stm-runs-copy { position: sticky; top: 48px; }
+  .stm-slip {
+    justify-self: end;
+    width: min(100%, 520px);
+    background: var(--paper);
+    color: var(--paper-ink);
+    padding: 28px 28px 44px;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), 96% 100%, 92% calc(100% - 12px), 88% 100%, 84% calc(100% - 12px), 80% 100%, 76% calc(100% - 12px), 72% 100%, 68% calc(100% - 12px), 64% 100%, 60% calc(100% - 12px), 56% 100%, 52% calc(100% - 12px), 48% 100%, 44% calc(100% - 12px), 40% 100%, 36% calc(100% - 12px), 32% 100%, 28% calc(100% - 12px), 24% 100%, 20% calc(100% - 12px), 16% 100%, 12% calc(100% - 12px), 8% 100%, 4% calc(100% - 12px), 0 100%);
+    font-size: var(--s-body);
+  }
+  .stm-slip-title { font-weight: 640; letter-spacing: -0.01em; }
+  .stm-slip-group { margin-top: 26px; }
+  .stm-slip-head { font-weight: 640; margin-bottom: 6px; }
+  .stm-slip-row { display: flex; align-items: baseline; gap: 10px; padding: 3px 0; color: var(--paper-muted); }
+  .stm-slip-row span:first-child { color: var(--paper-ink); }
+  .stm-leader {
+    flex: 1;
+    min-width: 16px;
+    height: 4px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='4'%3E%3Ccircle cx='2' cy='2' r='1.4' fill='%239A9DA4'/%3E%3C/svg%3E");
+    background-size: 8px 4px;
+    background-repeat: repeat-x;
+    transform: translateY(-2px);
+  }
+  .stm-slip-total {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 26px;
+    padding: 0 14px;
+    min-height: 44px;
+    align-items: center;
+    background: var(--paper-ink);
+    color: var(--paper);
+    font-weight: 560;
+  }
+
+  /* Shared app chrome for interface fragments */
+  .stm [data-ui].stm-app, .stm [data-ui].stm-log, .stm [data-ui].stm-composer {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: clip;
+    font-size: var(--s-small);
+  }
+  .stm [data-ui] .stm-app-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--line);
+    background: var(--raised);
+  }
+  .stm-app-title { font-weight: 560; }
+  .stm-app-tag { color: var(--muted); font-size: var(--s-small); }
+
+  /* Shortlist note */
+  .stm-note { padding: var(--gap) 0; }
+  .stm-note-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 3rem var(--m);
+    align-items: center;
+  }
+  .stm-note-copy .stm-two-tone { margin-top: 1.5rem; }
+  .stm-app-list { list-style: none; }
+  .stm [data-ui] .stm-app-list li {
+    display: grid;
+    grid-template-columns: 14px 7.5rem minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--line);
+  }
+  .stm-app-list:last-child li:last-child { border-bottom: 0; }
+  .stm-app-list li.is-open { background: var(--raised); }
+  .stm-app-dot { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--soft); }
+  .stm-app-dot.is-blue { border-color: var(--accent); background: var(--accent); }
+  .stm-app-id { font-weight: 560; }
+  .stm-app-line { color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .stm-app-state { color: var(--muted); font-size: var(--s-small); }
+  .stm [data-ui] .stm-app-note {
+    padding: 8px 18px 16px 44px;
+    background: var(--raised);
+    border-bottom: 1px solid var(--line);
+  }
+  .stm-app-note div { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: 12px; padding: 7px 0; }
+  .stm-app-note dt { color: var(--muted); }
+  .stm-app-note dd { color: var(--ink); line-height: 1.5; }
+
+  /* Record */
+  .stm-record { padding: var(--gap) 0; background: var(--panel); }
+  .stm-names {
+    font-size: var(--s-lead);
+    font-weight: 510;
+    letter-spacing: -0.018em;
+    line-height: 1.25;
+    max-width: 46ch;
+    color: #7C818A;
+  }
+  .stm-names-h { display: inline; font: inherit; color: var(--ink); margin-right: 0.3em; }
+  .stm-name { transition: color 400ms ease; }
+  .stm-name.is-lit { color: var(--ink); }
+  .stm-record-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+    gap: 3rem var(--m);
+    margin-top: var(--gap);
+    align-items: start;
+  }
+  .stm-figures { display: grid; gap: 2.25rem; }
+  .stm-figures dt { font-size: var(--s-h2); font-weight: 540; letter-spacing: -0.035em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .stm-figures dd { color: var(--muted); margin-top: 0.4rem; max-width: 26ch; }
+  .stm-log ul { list-style: none; }
+  .stm [data-ui] .stm-log li, .stm [data-ui].stm-log li {
+    display: grid;
+    grid-template-columns: 16px minmax(0, 1.25fr) minmax(0, 1fr) auto;
+    gap: 14px;
+    align-items: baseline;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--line);
+  }
+  .stm-log li:last-child { border-bottom: 0; }
+  .stm-log-check { color: var(--accent); align-self: center; display: flex; }
+  .stm-log-role { font-weight: 540; }
+  .stm-log-co { color: var(--muted); }
+  .stm-log-year { color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  /* Letter */
+  .stm-letter { padding: var(--gap) 0; }
+  .stm-letter-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+    gap: 2.5rem var(--m);
+    align-items: start;
+  }
+  .stm-letter-body { max-width: 40rem; }
+  .stm-letter-body blockquote { margin-bottom: 2.25rem; }
+  .stm-letter-body blockquote p { font-size: var(--s-body); line-height: 1.55; }
+  .stm-letter-body footer { margin-top: 0.4rem; color: var(--muted); font-size: var(--s-small); }
+  .stm-letter-open p { font-size: var(--s-lead) !important; font-weight: 510; letter-spacing: -0.012em; line-height: 1.3 !important; }
+  .stm-letter-sign { color: var(--muted); padding-top: 0.5rem; }
+  .stm-letter-sign a { color: var(--ink); text-underline-offset: 0.2em; }
+
+  /* About: two columns, highlighted words */
+  .stm-about { padding: var(--gap) 0; background: var(--panel); }
+  .stm-about-text {
+    columns: 2;
+    column-gap: 3rem;
+    font-size: var(--s-lead);
+    line-height: 1.3;
+    letter-spacing: -0.012em;
+    color: #A9AEB6;
+  }
+  .stm-about-text .stm-para { margin-bottom: 1.1em; }
+  .stm-about-h { margin-bottom: clamp(32px, 4vw, 56px); }
+  .stm-about-text mark {
+    color: var(--ink);
+    padding: 0 0.12em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    border-radius: 3px;
+  }
+  .hl-a { background: #13324A; }
+  .hl-b { background: #2A2C31; }
+  .hl-c { background: #1C2A24; }
+  .hl-go {
+    background: var(--accent);
+    color: var(--accent-ink);
+    padding: 0 0.12em;
+    border-radius: 3px;
+    text-decoration: none;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    transition: background-color 200ms ease;
+  }
+  .hl-go:hover { background: #2BB4F0; }
+
+  /* Contact */
+  .stm-contact { padding: var(--gap) 0 0; }
+  .stm-contact-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 3rem var(--m);
+    align-items: start;
+  }
+  .stm-contact-copy .stm-two-tone { margin-top: 1.5rem; }
+  .stm-contact-note { color: var(--muted); margin-top: 1.25rem; max-width: 34ch; }
+  .stm-composer .bb { padding: 22px 18px 20px; }
+  .stm-composer .bb-sentence {
+    font-size: var(--s-lead);
+    font-weight: 510;
+    letter-spacing: -0.012em;
+    line-height: 1.7;
+  }
+  .stm [data-ui] .bb-slot input {
+    background: transparent;
+    border: 0;
+    border-bottom: 1.5px solid var(--soft);
+    padding: 0 0.15em;
+    color: var(--ink);
+    transition: border-color 200ms ease;
+  }
+  .stm-composer .bb-slot input::placeholder { color: var(--soft); }
+  .stm-composer .bb-slot input:focus { outline: none; border-bottom-color: var(--accent); }
+  .stm-composer .bb-slot input[aria-invalid] { border-bottom-color: #F2734B; }
+  .stm-composer .bb-who {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 22px;
+  }
+  .stm-composer .bb-field { display: flex; flex-direction: column; gap: 6px; font-size: var(--s-small); color: var(--muted); }
+  .stm [data-ui] .bb-field input {
+    font: inherit;
+    font-size: var(--s-body);
+    color: var(--ink);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    min-height: 44px;
+    padding: 0 12px;
+    transition: border-color 200ms ease;
+  }
+  .stm-composer .bb-field input:focus { outline: none; border-color: var(--accent); }
+  .stm-composer .bb-field input[aria-invalid] { border-color: #F2734B; }
+  .stm-composer .bb-actions { display: flex; align-items: center; gap: 16px; margin-top: 20px; flex-wrap: wrap; }
+  .stm-composer .bb-send {
+    min-height: 44px;
+    padding: 0 1.1rem;
+    border: 0;
+    border-radius: 8px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font: inherit;
+    font-size: var(--s-body);
+    font-weight: 560;
+    cursor: pointer;
+    transition: transform 140ms var(--ease-out), background-color 200ms ease;
+  }
+  .stm-composer .bb-send:hover { background: #2BB4F0; }
+  .stm-composer .bb-send:active { transform: scale(0.97); }
+  .stm-composer .bb-status { color: #F2A48B; font-size: var(--s-small); }
+  .stm-composer .bb-done { padding: 28px 18px; }
+  .stm-composer .bb-done-title { font-size: var(--s-lead); font-weight: 540; margin-bottom: 0.5rem; }
+  .stm-composer .bb-done p:last-child { color: var(--muted); }
+
+  .stm-rows { margin-top: var(--gap); }
+  .stm-row {
+    display: flex;
+    align-items: flex-end;
+    min-height: clamp(96px, 10vw, 150px);
+    padding: 0 var(--m) 0.35em;
+    font-size: var(--s-h2);
+    font-weight: 510;
+    letter-spacing: -0.025em;
+    line-height: 1;
+    text-decoration: none;
+    background: var(--panel);
+    transition: background-color 200ms ease, color 200ms ease;
+  }
+  .stm-row:nth-child(2) { background: var(--raised); }
+  a.stm-row:hover { background: var(--accent); color: var(--accent-ink); }
+  .stm-row span { display: block; padding-bottom: 0.35em; }
+
+  /* Footer: inverted, wordmark below */
+  .stm-foot {
+    background: var(--paper);
+    color: var(--paper-ink);
+    min-height: 92svh;
+    display: grid;
+    grid-template-rows: auto 1fr auto auto;
+    padding: 40px var(--m) 24px;
+  }
+  .stm-foot-cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; font-size: var(--s-small); }
+  .stm-foot-cols p { color: var(--paper-muted); }
+  .stm-foot-cols p:first-child { color: var(--paper-ink); font-weight: 560; margin-bottom: 4px; }
+  .stm-foot-cols a { text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 0.2em; transition: text-decoration-color 200ms ease; }
+  .stm-foot-cols a:hover { text-decoration-color: currentColor; }
+  .stm-foot-mark {
+    grid-row: 3;
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .stm-foot-mark text { font-family: 'Inter Variable', 'Inter', sans-serif; font-size: 190px; font-weight: 600; letter-spacing: -0.04em; fill: var(--paper-ink); }
+  .stm-foot-legal { grid-row: 4; font-size: var(--s-small); color: var(--paper-muted); margin-top: 16px; }
+
+  /* Phone */
+  @media (max-width: 880px) {
+    .stm-split, .stm-runs-grid, .stm-note-grid, .stm-record-grid, .stm-letter-grid, .stm-contact-grid { grid-template-columns: minmax(0, 1fr); }
+    .stm-foot { min-height: auto; grid-template-rows: auto clamp(120px, 18svh, 220px) auto auto; }
+    .stm-runs-copy { position: static; }
+    .stm-slip { justify-self: stretch; width: 100%; }
+    .stm-stages { height: auto; display: grid; gap: 22px; margin-top: 2rem; }
+    .stm-stages li, .stm-stages li:last-child { position: static; transform: none; width: auto; text-align: left; display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); column-gap: 1rem; }
+    .stm-stages .stm-count { grid-row: span 2; }
+    .stm-about-text { columns: 1; }
+    .stm-foot-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 28px; }
+  }
+  @media (max-width: 640px) {
+    .stm-links { display: none; }
+    .stm-nav-action { margin-left: auto; }
+    .stm-hero { grid-template-rows: 54fr 46fr; }
+    .stm-hero-ink { justify-content: flex-start; }
+    .stm-h1 { font-size: 10.6vw; text-align: left; }
+    .stm-hero-paper { flex-direction: column; align-items: flex-start; justify-content: flex-end; gap: 1.25rem; padding-bottom: 32px; padding-top: 40px; }
+    .stm-dg-wide { display: none !important; }
+    .stm-dg-tall { display: block !important; max-width: 360px; margin: 0 auto; }
+    .stm-app-list li { grid-template-columns: 12px minmax(0, 1fr) auto; }
+    .stm-app-line { display: none; }
+    .stm-app-note { padding-left: 18px; }
+    .stm-app-note div { grid-template-columns: 1fr; gap: 2px; }
+    .stm-log li { grid-template-columns: 16px minmax(0, 1fr) auto; }
+    .stm-log-co { grid-column: 2 / 4; grid-row: 2; }
+    .stm-composer .bb-who { grid-template-columns: 1fr; }
+    .stm-slip { padding: 22px 18px 40px; }
+    .stm-slip-row { flex-wrap: wrap; column-gap: 8px; }
+    .stm-slip-row span:first-child { flex: 1 1 100%; }
+    .stm-slip-row .stm-leader { display: none; }
+    .stm-slip-row span:last-child { font-size: var(--s-small); }
+    .stm-slip-total { flex-direction: column; align-items: flex-start; justify-content: center; gap: 0; padding: 10px 14px; }
+    .stm-row { font-size: var(--s-lead); min-height: 84px; }
+  }
+
+  /* Motion. Hidden states exist only when script ran and motion is allowed. */
+  @media (prefers-reduced-motion: no-preference) {
+    .stm-js .stm-lines [data-line] {
+      transform: translateY(105%);
+      animation: stm-line-up 900ms var(--ease-out) forwards;
+      animation-delay: calc(var(--i) * 110ms + 120ms);
+    }
+    .stm-js [data-after] { opacity: 0; animation: stm-fade 600ms var(--ease-out) 650ms forwards; }
+    .stm-js [data-reveal] {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 500ms var(--ease-out), transform 650ms var(--ease-out);
+      transition-delay: calc(var(--d, 0) * 80ms);
+    }
+    .stm-js [data-reveal].is-in { opacity: 1; transform: none; }
+    /* The diagram narrows on arrival: each stage's circles brighten in turn, and the hire settles last. */
+    .stm-js [data-diagram] .stm-dot { opacity: 0.2; transition: opacity 450ms ease; transition-delay: calc(var(--s) * 140ms); }
+    .stm-js [data-diagram] .stm-dot-s5 { transform-box: fill-box; transform-origin: center; transform: scale(0.5); transition: opacity 450ms ease, transform 700ms var(--ease-out); transition-delay: 700ms; }
+    .stm-js [data-diagram] .stm-dg-arrow { opacity: 0.2; transition: opacity 400ms ease; transition-delay: calc(var(--s) * 140ms + 90ms); }
+    .stm-js [data-diagram].is-in .stm-dot, .stm-js [data-diagram].is-in .stm-dg-arrow { opacity: 1; }
+    .stm-js [data-diagram].is-in .stm-dot-s5 { transform: none; }
+    .stm-js .stm-log li, .stm-js .stm-slip-group { opacity: 0; transform: translateY(8px); transition: opacity 400ms var(--ease-out), transform 500ms var(--ease-out); transition-delay: calc(var(--k, 0) * 50ms); }
+    .stm-js .stm-log.is-in li, .stm-js .stm-slip.is-in .stm-slip-group { opacity: 1; transform: none; }
+  }
+  @keyframes stm-line-up { to { transform: none; } }
+  @keyframes stm-fade { to { opacity: 1; } }
+</style>
+
+<script>
+  const root = document.querySelector('.stm');
+  if (root) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+      },
+      { rootMargin: '0px 0px -10% 0px', threshold: 0.12 }
+    );
+    root.querySelectorAll('[data-reveal], [data-diagram]').forEach((el) => io.observe(el));
+
+    // The lit name moves through the placed roles every two seconds.
+    const names = Array.from(root.querySelectorAll('[data-names] .stm-name'));
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (names.length && !still) {
+      let i = 0;
+      setInterval(() => {
+        names[i].classList.remove('is-lit');
+        i = (i + 1) % names.length;
+        names[i].classList.add('is-lit');
+      }, 2000);
+    }
+  }
+</script>

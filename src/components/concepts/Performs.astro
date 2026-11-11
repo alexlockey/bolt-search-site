@@ -1,0 +1,779 @@
+---
+// Concept D, round 3: "The product performs".
+// Idea: on this page a live search becomes the product shot. The hero is the search itself,
+// at true interface size: a pipeline grouped by stage, with the shortlist note of the selected
+// candidate open beside it. Everything in the fragments is an example; no real person appears.
+import '@fontsource-variable/inter';
+import '@fontsource-variable/inter/wght-italic.css';
+import BriefBuilder from '../BriefBuilder.astro';
+import { hero, navLinks, method, facts, placements, roles, quotes, brief, contact } from '../../data/site';
+
+// Illustrative search data for the fragments. Candidates are lettered, never named.
+type Row = { id: string; who: string; now: string; where: string; when: string };
+const groups: { stage: 'short' | 'spoken' | 'approached' | 'mapped'; title: string; count: number; rows: Row[] }[] = [
+  {
+    stage: 'short',
+    title: 'Shortlisted',
+    count: 4,
+    rows: [
+      { id: 'B', who: 'Candidate B', now: 'Enterprise AE, Series C data platform', where: 'London', when: '14 Nov' },
+      { id: 'D', who: 'Candidate D', now: 'Mid-market AE, Series B HR software', where: 'Manchester', when: '13 Nov' },
+      { id: 'F', who: 'Candidate F', now: 'Founding AE, seed-stage developer tool', where: 'Remote, UK', when: '13 Nov' },
+      { id: 'K', who: 'Candidate K', now: 'Senior AE, payments infrastructure', where: 'London', when: '12 Nov' },
+    ],
+  },
+  {
+    stage: 'spoken',
+    title: 'Spoken to',
+    count: 12,
+    rows: [
+      { id: 'M', who: 'Candidate M', now: 'AE, Series A procurement software', where: 'Leeds', when: '11 Nov' },
+      { id: 'P', who: 'Candidate P', now: 'Account Director, SaaS reseller', where: 'London', when: '10 Nov' },
+    ],
+  },
+  {
+    stage: 'approached',
+    title: 'Approached',
+    count: 27,
+    rows: [{ id: 'R', who: 'Candidate R', now: 'Solutions-led AE, data integration', where: 'Bristol', when: '7 Nov' }],
+  },
+  {
+    stage: 'mapped',
+    title: 'Mapped',
+    count: 214,
+    rows: [{ id: 'T', who: '38 companies', now: 'Comparable sellers into UK mid-market', where: 'UK', when: '4 Nov' }],
+  },
+];
+
+const notes: Record<string, { status: string; rows: [string, string][] }> = {
+  B: {
+    status: 'Shortlisted',
+    rows: [
+      ['Now', 'Enterprise AE at a Series C data platform, London'],
+      ['Why', 'Four years selling six-figure deals to UK financial services, mostly without an SE'],
+      ['Earns', 'Base and OTE confirmed on the call, inside your range'],
+      ['Would move for', 'First-hire scope and a say in who joins next'],
+      ['Risk', 'Has not built a team yet; a former manager’s reference covers how they bring people on'],
+    ],
+  },
+  D: {
+    status: 'Shortlisted',
+    rows: [
+      ['Now', 'Mid-market AE at a Series B HR software company, Manchester'],
+      ['Why', 'Opened the north of England for a US company from a standing start'],
+      ['Earns', 'Below your range on base; OTE agreed in principle'],
+      ['Would move for', 'A bigger territory and a clear route to leading it'],
+      ['Risk', 'Has sold to HR buyers, not finance; the first ten customers would be new ground'],
+    ],
+  },
+  F: {
+    status: 'Shortlisted',
+    rows: [
+      ['Now', 'Founding AE at a seed-stage developer tool, remote'],
+      ['Why', 'Closed the company’s first eight customers with no marketing behind them'],
+      ['Earns', 'Inside your range; equity matters more than base'],
+      ['Would move for', 'A Series B balance sheet and a product with pull'],
+      ['Risk', 'Deal sizes have been small; the reference from the CEO speaks to pace'],
+    ],
+  },
+  K: {
+    status: 'Shortlisted',
+    rows: [
+      ['Now', 'Senior AE at a payments infrastructure company, London'],
+      ['Why', 'Technical buyer conversations every week; comfortable with a security review'],
+      ['Earns', 'Top of your range'],
+      ['Would move for', 'Being first in, not fifth'],
+      ['Risk', 'Used to an SE in every call; we tested how they demo alone'],
+    ],
+  },
+};
+
+const cards = [
+  { stage: 'Brief', status: 'draft', field: 'Year one: open the UK, first ten customers', meta: 'Reports to VP Sales, US', check: [] as [string, boolean][] },
+  { stage: 'Map', status: 'mapped', field: '214 people across 38 companies', meta: '27 approached by Alex', check: [] as [string, boolean][] },
+  {
+    stage: 'Shortlist',
+    status: 'short',
+    field: '4 shortlisted from 12 spoken to',
+    meta: '',
+    check: [
+      ['Notes written', true],
+      ['Pay confirmed', true],
+      ['References taken', false],
+      ['Interviews booked', false],
+    ] as [string, boolean][],
+  },
+  { stage: 'Close', status: 'placed', field: 'Placed. Started 3 March', meta: 'Check-in booked after the start date', check: [] as [string, boolean][] },
+];
+const stageLines = [method.stages[0], method.stages[1], method.stages[3], method.stages[4]];
+
+const proofTiles = [
+  ...facts.slice(0, 3).map((f) => ({ kind: 'fact', big: f.figure, small: f.label })),
+  ...placements.slice(0, 7).map((p) => ({ kind: 'role', big: p.role, small: `${p.company}, ${p.year}` })),
+];
+
+const [lead, ...rest] = quotes;
+---
+
+<div class="pf" id="pf-root">
+  <header class="pf-nav">
+    <a href="#top" class="pf-word">Bolt Search</a>
+    <nav aria-label="Main">
+      {navLinks.map((l) => <a href={l.href}>{l.label}</a>)}
+      <a href="#brief" class="pf-btn pf-btn-small">Send a brief</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- Hero: headline upper left, the search itself on a shaped stage -->
+    <section class="pf-hero" aria-labelledby="pf-h1">
+      <div class="pf-hero-text">
+        <h1 id="pf-h1" data-load style="--d:60ms"><span>Hires that carry</span> <span>the number</span></h1>
+        <p class="pf-support" data-load style="--d:180ms">{hero.support}</p>
+        <div class="pf-actions" data-load style="--d:280ms">
+          <a href={hero.action.href} class="pf-btn">{hero.action.label}</a>
+          <a href={hero.second.href} class="pf-link">{hero.second.label}</a>
+        </div>
+      </div>
+
+      <div class="pf-stage" aria-label="An example search, shown as a working tool">
+        <div class="pf-app" data-ui role="group" aria-label="Example search: Founding Account Executive, UK">
+          <div class="ui-top">
+            <span class="ui-crumb"><span class="ui-dim">Searches</span> <span class="ui-dim">/</span> Founding Account Executive, UK</span>
+            <span class="ui-pill">Example</span>
+            <span class="ui-avatar" title="Alex Lockey">AL</span>
+          </div>
+          <div class="ui-split">
+            <div class="ui-list" role="listbox" aria-label="Candidates by stage">
+              {groups.map((g) => (
+                <div class="ui-group">
+                  <div class="ui-ghead">
+                    <svg class={`ui-dot ui-dot-${g.stage}`} viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="5.5" /><path d="M7 1.5a5.5 5.5 0 0 1 0 11z" /></svg>
+                    <span>{g.title}</span>
+                    <span class="ui-count">{g.count}</span>
+                  </div>
+                  {g.rows.map((r, i) => (
+                    <button
+                      type="button"
+                      class={`ui-row${g.stage === 'short' && i === 0 ? ' is-sel' : ''}`}
+                      data-id={r.id}
+                      data-has-note={notes[r.id] ? 'true' : 'false'}
+                      role="option"
+                      aria-selected={g.stage === 'short' && i === 0 ? 'true' : 'false'}
+                    >
+                      <svg class={`ui-dot ui-dot-${g.stage}`} viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="5.5" /><path d="M7 1.5a5.5 5.5 0 0 1 0 11z" /></svg>
+                      <span class="ui-who">{r.who}</span>
+                      <span class="ui-now">{r.now}</span>
+                      <span class="ui-when">{r.when}</span>
+                    </button>
+                  ))}
+                  {g.count > g.rows.length && <div class="ui-more">{g.count - g.rows.length} more</div>}
+                </div>
+              ))}
+            </div>
+
+            <aside class="ui-panel" aria-live="polite">
+              {Object.entries(notes).map(([id, n], i) => (
+                <div class="ui-note" data-note={id} hidden={i !== 0}>
+                  <div class="ui-note-head">
+                    <span class="ui-note-title">Candidate {id}</span>
+                    <span class="ui-status"><svg class="ui-dot ui-dot-short" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="5.5" /><path d="M7 1.5a5.5 5.5 0 0 1 0 11z" /></svg>{n.status}</span>
+                  </div>
+                  <p class="ui-note-meta">Shortlist note by Alex. Example only, not a real candidate.</p>
+                  <dl>
+                    {n.rows.map(([k, v]) => (
+                      <div class="ui-kv"><dt>{k}</dt><dd>{v}</dd></div>
+                    ))}
+                  </dl>
+                  <div class="ui-note-foot">
+                    <span class="ui-chip">Reference: former manager</span>
+                    <span class="ui-chip">Pay confirmed</span>
+                  </div>
+                </div>
+              ))}
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works: one card, four fields, further along each time -->
+    <section class="pf-strip" id="method" aria-labelledby="pf-method">
+      {cards.map((c, i) => (
+        <div class={`pf-field pf-field-${i + 1}`}>
+          {i === 0 && <h2 id="pf-method" class="pf-strip-h" data-rise style="--d:0ms">{method.heading}</h2>}
+          <svg class="pf-vv" viewBox="0 0 200 90" aria-hidden="true" data-rise style={`--d:${60 + i * 70}ms`}>
+            {i === 0 && (
+              <g>
+                <circle cx="24" cy="45" r="7" class="vv-o" />
+                <path d="M34 45H164" class="vv-l" />
+                <path d="M156 38l9 7-9 7" class="vv-l" />
+                <circle cx="180" cy="45" r="9" class="vv-f" />
+              </g>
+            )}
+            {i === 1 && (
+              <g>
+                {Array.from({ length: 24 }).map((_, k) => (
+                  <circle cx={18 + (k % 8) * 23} cy={18 + Math.floor(k / 8) * 27} r="4.5" class="vv-o" />
+                ))}
+                <circle cx="110" cy="45" r="36" class="vv-d" />
+              </g>
+            )}
+            {i === 2 && (
+              <g>
+                {Array.from({ length: 12 }).map((_, k) => (
+                  <circle cx={14 + k * 15} cy="20" r="4" class="vv-o" />
+                ))}
+                <path d="M30 32L72 62M178 32L136 62" class="vv-l" />
+                {[0, 1, 2, 3].map((k) => <circle cx={78 + k * 16} cy="70" r="5" class="vv-f" />)}
+              </g>
+            )}
+            {i === 3 && (
+              <g>
+                <circle cx="100" cy="45" r="34" class="vv-l" />
+                <circle cx="100" cy="45" r="11" class="vv-f" />
+              </g>
+            )}
+          </svg>
+
+          <div class="pf-card" data-ui data-rise style={`--d:${120 + i * 70}ms`}>
+            <div class="ui-card-top">
+              <svg class={`ui-dot ui-dot-${c.status}`} viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="5.5" /><path d="M7 1.5a5.5 5.5 0 0 1 0 11z" /></svg>
+              <span class="ui-card-stage">{c.stage}</span>
+              <span class="ui-avatar ui-avatar-sm">AL</span>
+            </div>
+            <p class="ui-card-title">Founding Account Executive, UK</p>
+            <p class="ui-card-field">{c.field}</p>
+            {c.meta && <p class="ui-card-meta">{c.meta}</p>}
+            {c.check.length > 0 && (
+              <ul class="ui-check">
+                {c.check.map(([t, done]) => (
+                  <li class={done ? 'is-done' : ''}>
+                    <svg viewBox="0 0 14 14" aria-hidden="true"><rect x="1.5" y="1.5" width="11" height="11" rx="3" />{done && <path d="M4 7.2l2 2 4-4.4" />}</svg>
+                    {t}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          <p class="pf-clause" data-rise style={`--d:${200 + i * 70}ms`}>{stageLines[i].line}</p>
+        </div>
+      ))}
+    </section>
+
+    <!-- Proof: filled tiles, the heading tile in the accent -->
+    <section class="pf-proof" id="record" aria-labelledby="pf-record">
+      <div class="pf-tiles">
+        <div class="pf-tile pf-tile-head" data-rise style="--d:0ms">
+          <h2 id="pf-record">Track record</h2>
+          <p>Verified placements and numbers. Clients and candidates are not named.</p>
+        </div>
+        {proofTiles.map((t, i) => (
+          <div class={`pf-tile pf-tile-${t.kind}`} data-rise style={`--d:${60 + i * 50}ms`}>
+            <p class="pf-tile-big">{t.big}</p>
+            <p class="pf-tile-small">{t.small}</p>
+          </div>
+        ))}
+      </div>
+      <p class="pf-roles" data-rise style="--d:120ms">
+        <span>We fill</span> {roles.map((r, i) => r.charAt(0).toLowerCase() + r.slice(1) + (i === roles.length - 1 ? '.' : '; '))}
+      </p>
+    </section>
+
+    <!-- References, set as one long letter -->
+    <section class="pf-letter" aria-labelledby="pf-refs">
+      <h2 id="pf-refs" data-rise style="--d:0ms">In their words</h2>
+      <div class="pf-letter-body">
+        <blockquote class="pf-letter-open" data-rise style="--d:80ms">
+          <p>{lead.text}</p>
+          <footer>{lead.who}</footer>
+        </blockquote>
+        {rest.map((q, i) => (
+          <blockquote class="pf-letter-para" data-rise style={`--d:${140 + i * 60}ms`}>
+            <p>{q.text}</p>
+            <footer>{q.who}</footer>
+          </blockquote>
+        ))}
+        <p class="pf-letter-sign" data-rise style="--d:200ms">
+          Paraphrased from fifteen LinkedIn recommendations. <a href={hero.second.href}>Ask to speak to a reference</a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- About: a short founder's note, the one photograph on the page -->
+    <section class="pf-about" id="alex" aria-labelledby="pf-alex">
+      <div class="pf-about-col">
+        <img src="/images/alex-headshot-600.webp" alt="Alex Lockey" width="88" height="88" loading="lazy" data-rise style="--d:0ms" />
+        <h2 id="pf-alex" data-rise style="--d:60ms">A note from Alex</h2>
+        <p data-rise style="--d:120ms">I have recruited since 2007 and started Bolt Search in 2016. <mark>I run every search myself</mark>, from the first call to the check-in after the start date.</p>
+        <p data-rise style="--d:180ms">I trained as an engineer (BEng Aeronautical Engineering, University of Bristol). It helps when a hire has to hold a technical conversation with a buyer, not only a commercial one.</p>
+        <p data-rise style="--d:240ms">Research tools, including AI, help me cover a market quickly. The judgement and every conversation stay with me.</p>
+        <p class="pf-sign" data-rise style="--d:300ms"><em>Alex Lockey</em><span>Founder, Bolt Search. {contact.where}</span></p>
+      </div>
+    </section>
+
+    <!-- Contact: one prompt, the brief sentence, and the brief card filling in as you type -->
+    <section class="pf-contact" id="brief" aria-labelledby="pf-brief">
+      <div class="pf-contact-main">
+        <h2 id="pf-brief" class="pf-prompt" data-rise style="--d:0ms">Tell us what the hire must achieve</h2>
+        <div class="pf-bb" data-rise style="--d:80ms">
+          <BriefBuilder />
+        </div>
+        <p class="pf-next">{brief.lead} {brief.after}</p>
+      </div>
+
+      <div class="pf-contact-side">
+        <div class="pf-briefcard" data-ui data-rise style="--d:160ms" aria-label="Your brief, as it will reach Alex">
+          <div class="ui-card-top">
+            <svg class="ui-dot ui-dot-draft" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="5.5" /><path d="M7 1.5a5.5 5.5 0 0 1 0 11z" /></svg>
+            <span class="ui-card-stage">New brief</span>
+            <span class="ui-avatar ui-avatar-sm">AL</span>
+          </div>
+          <p class="ui-card-title" data-mirror="role">{brief.placeholders.role}</p>
+          <dl>
+            <div class="ui-kv"><dt>Where</dt><dd data-mirror="where">{brief.placeholders.where}</dd></div>
+            <div class="ui-kv"><dt>Year one</dt><dd data-mirror="outcome">{brief.placeholders.outcome}</dd></div>
+            <div class="ui-kv"><dt>Company</dt><dd data-mirror="company">Your company</dd></div>
+          </dl>
+        </div>
+        <dl class="pf-reach">
+          <div><dt>Email</dt><dd><a href={`mailto:${contact.email}`}>{contact.email}</a></dd></div>
+          <div><dt>LinkedIn</dt><dd><a href={contact.linkedin} target="_blank" rel="noopener">Alex Lockey</a></dd></div>
+          <div><dt>Based</dt><dd>{contact.where}</dd></div>
+        </dl>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer: the last two rows of a board -->
+  <footer class="pf-foot" aria-label="Footer">
+    <div class="pf-ft pf-ft-statement">
+      <p>Commercial and technical hires for growth companies, found by one recruiter.</p>
+      <p class="pf-legal">&copy; 2026 Bolt Search</p>
+    </div>
+    <nav class="pf-ft pf-ft-nav" aria-label="Footer">
+      {navLinks.map((l) => <a href={l.href}>{l.label}</a>)}
+      <a href="#brief">Send a brief</a>
+    </nav>
+    <div class="pf-ft pf-ft-time">
+      <p>UK time</p>
+      <p class="pf-clock" id="pf-clock">London</p>
+    </div>
+    <div class="pf-ft pf-ft-mail">
+      <a href={`mailto:${contact.email}`}>{contact.email}</a>
+    </div>
+    <div class="pf-ft pf-ft-word" aria-hidden="true"><span>Bolt Search</span></div>
+    <a class="pf-ft pf-ft-cta" href="#brief">
+      <span>Send a brief</span>
+      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 38L38 10M16 10h22v22" /></svg>
+    </a>
+  </footer>
+</div>
+
+<style is:global>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #08090A; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  .pf {
+    --bg: #08090A;
+    --panel: #0F1011;
+    --raised: #16171A;
+    --raised-2: #1F2125;
+    --ink: #F7F8F8;
+    --muted: #8A8F98;
+    --soft: #8A8F98;
+    --accent: #009EE2;
+    --accent-ink: #04121B;
+    --m: 40px;
+    --r: 6px;
+    --ease: cubic-bezier(.16, 1, .3, 1);
+    --s-ui: 13px;
+    --s-small: 15px;
+    --s-body: 17px;
+    --s-lead: 22px;
+    --s-head: clamp(32px, 3.2vw, 46px);
+    --s-display: clamp(44px, 4.6vw, 72px);
+    font-family: 'Inter Variable', Inter, system-ui, sans-serif;
+    font-size: var(--s-body);
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--bg);
+    font-feature-settings: 'cv11', 'ss01';
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  .pf *, .pf *::before, .pf *::after { box-sizing: border-box; }
+  :where(.pf) :where(p, h1, h2, dl, dd, blockquote, ul) { margin: 0; padding: 0; }
+  :where(.pf) a { color: inherit; }
+  .pf h1, .pf h2 { font-weight: 540; letter-spacing: -0.022em; line-height: 1.05; }
+  .pf :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  /* Buttons and links: one shape, one radius */
+  .pf-btn {
+    display: inline-flex; align-items: center; min-height: 46px; padding: 0 20px;
+    background: var(--ink); color: var(--bg) !important; border-radius: var(--r);
+    font-size: var(--s-small); font-weight: 560; text-decoration: none;
+    transition: background-color 160ms ease, transform 120ms ease;
+  }
+  .pf-btn:hover { background: #FFFFFF; }
+  .pf-btn:active { transform: scale(0.97); }
+  .pf-btn-small { min-height: 36px; padding: 0 14px; }
+  .pf-link { font-size: var(--s-small); color: var(--muted) !important; text-decoration: underline; text-underline-offset: 4px; transition: color 160ms ease; }
+  .pf-link:hover { color: var(--ink) !important; }
+
+  /* Nav */
+  .pf-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 24px var(--m); position: relative; z-index: 3;
+  }
+  .pf-word { font-weight: 560; font-size: var(--s-body); letter-spacing: -0.02em; text-decoration: none; }
+  .pf-nav nav { display: flex; align-items: center; gap: 28px; font-size: var(--s-small); }
+  .pf-nav nav a:not(.pf-btn) { color: var(--muted); text-decoration: none; transition: color 160ms ease; }
+  .pf-nav nav a:not(.pf-btn):hover { color: var(--ink); }
+
+  /* Hero */
+  .pf-hero { position: relative; min-height: calc(100svh - 120px); min-height: max(640px, calc(100svh - 120px)); }
+  .pf-hero-text { position: relative; z-index: 2; padding: 72px var(--m) 0; max-width: calc(var(--m) + 5 * (100vw - 2 * var(--m)) / 12); }
+  .pf-hero h1 { font-size: var(--s-display); margin-bottom: 28px; }
+  .pf-hero h1 span { white-space: nowrap; display: inline-block; }
+  .pf-support { font-size: var(--s-body); color: var(--ink); max-width: 40ch; margin-bottom: 32px; }
+  .pf-actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+
+  .pf-stage {
+    position: absolute; left: calc(var(--m) + 5 * (100vw - 2 * var(--m)) / 12 + 24px); right: 0; top: 34%; bottom: 0;
+    background: var(--accent); overflow: hidden;
+    clip-path: polygon(0 28px, 180px 28px, 204px 0, 100% 0, 100% 100%, 0 100%);
+  }
+  .pf-app { position: absolute; left: 56px; right: 40px; top: 84px; height: 620px; }
+
+  /* Interface fragments: Linear-style. Inside [data-ui] the product's own lines are allowed. */
+  .pf [data-ui] { font-size: var(--s-ui); line-height: 1.45; color: var(--ink); }
+  .pf .pf-app[data-ui] { background: var(--panel); border-radius: 10px 10px 0 0; border: 1px solid #2A2C31; display: flex; flex-direction: column; }
+  .pf [data-ui] .ui-top { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid #23252A; }
+  .pf [data-ui] .ui-crumb { font-weight: 500; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pf [data-ui] .ui-dim { color: var(--soft); }
+  .pf [data-ui] .ui-pill { padding: 2px 8px; border-radius: 999px; border: 1px solid #34363C; color: var(--muted); font-size: 13px; }
+  .pf [data-ui] .ui-avatar { width: 24px; height: 24px; border-radius: 50%; background: #2B4E63; color: #DDF1FB; display: inline-grid; place-items: center; font-size: 13px; font-weight: 600; letter-spacing: 0; }
+  .pf [data-ui] .ui-avatar-sm { width: 20px; height: 20px; font-size: 13px; transform: scale(0.85); }
+  .pf [data-ui] .ui-split { display: grid; grid-template-columns: minmax(360px, 54%) 1fr; flex: 1; min-height: 0; }
+  .pf [data-ui] .ui-list { border-right: 1px solid #23252A; overflow: hidden; }
+  .pf [data-ui] .ui-ghead { display: flex; align-items: center; gap: 8px; padding: 10px 16px; background: #131416; color: var(--muted); font-weight: 500; border-bottom: 1px solid #1C1D21; }
+  .pf [data-ui] .ui-count { color: var(--soft); font-variant-numeric: tabular-nums; }
+  .pf [data-ui] .ui-row {
+    all: unset; box-sizing: border-box; display: grid; grid-template-columns: 14px 92px 1fr 52px; gap: 12px; align-items: center;
+    width: 100%; padding: 9px 16px; border-bottom: 1px solid #191A1E; cursor: pointer; transition: background-color 120ms ease;
+  }
+  .pf [data-ui] .ui-row:hover { background: #17181B; }
+  .pf [data-ui] .ui-row.is-sel { background: #1B2730; }
+  .pf [data-ui] .ui-row:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .pf [data-ui] .ui-who { font-weight: 500; }
+  .pf [data-ui] .ui-now { color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .pf [data-ui] .ui-when { color: var(--soft); text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .pf [data-ui] .ui-more { padding: 8px 16px 8px 42px; color: var(--soft); border-bottom: 1px solid #191A1E; }
+  .pf [data-ui] .ui-panel { padding: 18px 20px; position: relative; }
+  .pf [data-ui] .ui-note { animation: ui-in 260ms ease both; }
+  .pf [data-ui] .ui-note-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 4px; }
+  .pf [data-ui] .ui-note-title { font-size: var(--s-small); font-weight: 560; letter-spacing: -0.01em; }
+  .pf [data-ui] .ui-status { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); }
+  .pf [data-ui] .ui-note-meta { color: var(--soft); margin-bottom: 14px; }
+  .pf [data-ui] .ui-kv { display: grid; grid-template-columns: 92px 1fr; gap: 10px; padding: 8px 0; border-top: 1px solid #1E2024; }
+  .pf [data-ui] .ui-kv dt { color: var(--soft); }
+  .pf [data-ui] .ui-kv dd { color: var(--ink); }
+  .pf [data-ui] .ui-note-foot { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .pf [data-ui] .ui-chip { padding: 3px 8px; border-radius: 4px; background: #1A1B1F; border: 1px solid #2A2C31; color: var(--muted); }
+  @keyframes ui-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+  /* Status glyphs, in the Visualize Value grammar: dashed = mapped, hollow = approached, half = spoken to, full = shortlisted */
+  .pf .ui-dot { width: 14px; height: 14px; flex: none; }
+  .pf .ui-dot circle { fill: none; stroke: var(--muted); stroke-width: 1.5; }
+  .pf .ui-dot path { fill: none; }
+  .pf .ui-dot-mapped circle, .pf .ui-dot-draft circle { stroke-dasharray: 2 2.2; }
+  .pf .ui-dot-spoken path { fill: var(--muted); }
+  .pf .ui-dot-short circle { stroke: var(--accent); }
+  .pf .ui-dot-short path { fill: var(--accent); }
+  .pf .ui-dot-placed circle { stroke: #3FB27F; fill: #3FB27F; }
+
+  /* How it works: four fields */
+  .pf-strip { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .pf-field { position: relative; min-height: 84svh; min-height: max(640px, 84svh); padding: 40px 28px 28px; display: flex; flex-direction: column; }
+  .pf-field-1 { background: var(--panel); }
+  .pf-field-2 { background: var(--raised); }
+  .pf-field-3 { background: var(--raised-2); }
+  .pf-field-4 { background: var(--ink); color: var(--bg); }
+  .pf-strip-h { font-size: var(--s-head); font-weight: 600; max-width: 9ch; }
+  .pf-vv { width: 100%; max-width: 220px; height: auto; margin-top: auto; margin-bottom: 28px; overflow: visible; }
+  .pf-field-1 .pf-vv { margin-top: 48px; }
+  .pf .vv-o, .pf .vv-l, .pf .vv-d { fill: none; stroke: currentColor; stroke-width: 1.5; }
+  .pf .vv-d { stroke-dasharray: 4 5; }
+  .pf .vv-f { fill: currentColor; }
+  .pf-field-1 .pf-vv, .pf-field-2 .pf-vv, .pf-field-3 .pf-vv { color: var(--ink); }
+
+  .pf .pf-card[data-ui] {
+    width: 100%; max-width: 340px; min-width: 300px; min-height: 210px; background: #0B0C0D; border: 1px solid #2A2C31; border-radius: 8px; padding: 16px;
+    transition: transform 150ms ease; margin-bottom: auto;
+  }
+  .pf .pf-field-4 .pf-card[data-ui] { background: #FFFFFF; border-color: #DADCE0; color: #111214; }
+  .pf .pf-card[data-ui]:hover { transform: translateY(-6px); }
+  .pf [data-ui] .ui-card-top { display: flex; align-items: center; gap: 8px; color: var(--muted); margin-bottom: 10px; }
+  .pf [data-ui] .ui-card-stage { flex: 1; }
+  .pf [data-ui] .ui-card-title { font-size: var(--s-small); font-weight: 560; margin-bottom: 6px; }
+  .pf [data-ui] .ui-card-field { color: var(--ink); }
+  .pf .pf-field-4 [data-ui] .ui-card-field, .pf .pf-field-4 [data-ui] .ui-card-title { color: #111214; }
+  .pf [data-ui] .ui-card-meta { color: var(--soft); margin-top: 4px; }
+  .pf .pf-field-4 [data-ui] .ui-card-meta, .pf .pf-field-4 [data-ui] .ui-card-top { color: #5E6168; }
+  .pf [data-ui] .ui-check { list-style: none; margin-top: 10px; display: grid; gap: 6px; }
+  .pf [data-ui] .ui-check li { display: flex; align-items: center; gap: 8px; color: var(--muted); }
+  .pf [data-ui] .ui-check li.is-done { color: var(--ink); }
+  .pf [data-ui] .ui-check svg { width: 14px; height: 14px; }
+  .pf [data-ui] .ui-check rect { fill: none; stroke: #4A4D55; stroke-width: 1.3; }
+  .pf [data-ui] .ui-check .is-done rect { fill: var(--accent); stroke: var(--accent); }
+  .pf [data-ui] .ui-check path { fill: none; stroke: var(--accent-ink); stroke-width: 1.6; }
+
+  .pf-clause { font-size: var(--s-lead); line-height: 1.25; font-weight: 520; letter-spacing: -0.012em; max-width: 15ch; margin-top: 32px; }
+  .pf-field-1 .pf-clause, .pf-field-2 .pf-clause, .pf-field-3 .pf-clause { color: var(--ink); }
+
+  /* Proof tiles */
+  .pf-proof { padding: 160px var(--m) 120px; }
+  .pf-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .pf-tile { background: var(--panel); border-radius: var(--r); padding: 24px; min-height: 200px; display: flex; flex-direction: column; justify-content: flex-start; }
+  .pf-tile-head { justify-content: space-between; }
+  .pf-tile-head { grid-column: span 2; background: var(--accent); color: var(--accent-ink); }
+  .pf-tile-head h2 { font-size: var(--s-head); font-weight: 600; }
+  .pf-tile-head p { font-size: var(--s-small); max-width: 34ch; color: var(--accent-ink); }
+  .pf-tile-big { font-size: var(--s-lead); font-weight: 600; letter-spacing: -0.015em; line-height: 1.2; margin-bottom: 10px; }
+  .pf-tile-fact .pf-tile-big { font-size: var(--s-head); font-weight: 560; }
+  .pf-tile-small { font-size: var(--s-small); color: var(--muted); }
+  .pf-roles { margin-top: 56px; font-size: var(--s-lead); line-height: 1.45; color: var(--ink); max-width: 56ch; }
+  .pf-roles span { font-weight: 600; }
+
+  /* References as a letter */
+  .pf-letter { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 24px; padding: 140px var(--m); background: var(--panel); }
+  .pf-letter h2 { grid-column: 1 / 4; font-size: var(--s-head); }
+  .pf-letter-body { grid-column: 5 / 11; max-width: 38ch; }
+  .pf-letter-open p { font-size: var(--s-lead); line-height: 1.35; font-weight: 520; letter-spacing: -0.015em; margin-bottom: 10px; }
+  .pf-letter blockquote footer { font-size: var(--s-small); color: var(--muted); }
+  .pf-letter-open { margin-bottom: 40px; }
+  .pf-letter-para { margin-bottom: 28px; }
+  .pf-letter-para p { font-size: var(--s-body); color: var(--ink); margin-bottom: 4px; }
+  .pf-letter-sign { margin-top: 40px; font-size: var(--s-small); color: var(--ink); }
+  .pf-letter-sign a { color: var(--ink); text-underline-offset: 4px; }
+
+  /* About: founder's note */
+  .pf-about { padding: 160px var(--m); }
+  .pf-about-col { max-width: 560px; margin: 0 auto; }
+  .pf-about img { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.05); margin-bottom: 24px; }
+  .pf-about h2 { font-size: var(--s-head); margin-bottom: 24px; }
+  .pf-about p { margin-bottom: 18px; color: var(--ink); }
+  .pf-about mark { background: #0D3A52; color: var(--ink); padding: 0 3px; border-radius: 3px; }
+  .pf-sign { display: flex; flex-direction: column; margin-top: 28px; }
+  .pf-sign em { font-size: var(--s-lead); font-style: italic; font-weight: 480; }
+  .pf-sign span { font-size: var(--s-small); color: var(--muted); }
+
+  /* Contact */
+  .pf-contact { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 24px; padding: 160px var(--m); background: var(--panel); }
+  .pf-contact-main { grid-column: 1 / 8; }
+  .pf-contact-side { grid-column: 9 / 13; display: flex; flex-direction: column; gap: 40px; }
+  .pf-prompt { font-size: var(--s-head); max-width: 20ch; margin-bottom: 40px; }
+    .pf-next { margin-top: 20px; font-size: var(--s-small); color: var(--ink); max-width: 52ch; }
+
+  .pf .bb-sentence { font-size: var(--s-lead); line-height: 1.9; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); }
+  .pf .bb-slot input {
+    background: var(--ink); color: var(--bg); border: 0; border-radius: var(--r); padding: 4px 10px; margin: 0 4px;
+    font-weight: 500; min-width: 8ch; transition: outline-color 120ms ease;
+  }
+  .pf .bb-slot input::placeholder { color: #6E727A; }
+  .pf .bb-slot input:focus { outline: none; outline: 2px solid var(--accent); outline-offset: -2px; }
+  .pf .bb-slot input[aria-invalid] { outline: 2px solid #F2994A; outline-offset: -2px; }
+  .pf .bb-who { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 32px; }
+  .pf .bb-field { display: flex; flex-direction: column; gap: 6px; font-size: var(--s-small); color: var(--muted); }
+  .pf .bb-field input {
+    font: inherit; font-size: var(--s-body); color: var(--ink); background: var(--raised-2); border: 0; border-radius: var(--r);
+    padding: 0 14px; min-height: 48px; transition: background-color 120ms ease;
+  }
+  .pf .bb-field input:hover { background: var(--raised-2); }
+  .pf .bb-field input:focus { outline: none; outline: 2px solid var(--accent); outline-offset: -2px; }
+  .pf .bb-field input[aria-invalid] { outline: 2px solid #F2994A; outline-offset: -2px; }
+  .pf .bb-actions { display: flex; align-items: center; gap: 20px; margin-top: 24px; flex-wrap: wrap; }
+  .pf .bb-send {
+    font: inherit; font-size: var(--s-small); font-weight: 560; min-height: 48px; padding: 0 22px; border: 0; border-radius: var(--r);
+    background: var(--accent); color: var(--accent-ink); cursor: pointer; transition: background-color 160ms ease, transform 120ms ease;
+  }
+  .pf .bb-send:hover { background: #2DB4F0; }
+  .pf .bb-send:active { transform: scale(0.97); }
+  .pf .bb-send:disabled { opacity: 0.6; cursor: progress; }
+  .pf .bb-status { font-size: var(--s-small); color: #F2994A; }
+  .pf .bb-done { font-size: var(--s-body); color: var(--muted); }
+  .pf .bb-done-title { font-size: var(--s-lead); color: var(--ink); margin-bottom: 8px; }
+
+  .pf .pf-briefcard[data-ui] { background: #0B0C0D; border: 1px solid #2A2C31; border-radius: 8px; padding: 16px; }
+  .pf .pf-briefcard[data-ui] .ui-card-title { font-size: var(--s-small); margin-bottom: 10px; }
+  .pf .pf-briefcard[data-ui] [data-mirror].is-empty { color: var(--soft); }
+  .pf-reach { display: grid; gap: 14px; font-size: var(--s-small); }
+  .pf-reach div { display: grid; grid-template-columns: 90px 1fr; gap: 12px; }
+  .pf-reach dt { color: var(--muted); }
+  .pf-reach a { text-underline-offset: 4px; }
+
+  /* Footer board */
+  .pf-foot { display: grid; grid-template-columns: repeat(12, 1fr); gap: 8px; padding: 8px; background: var(--bg); }
+  .pf-ft { background: var(--panel); border-radius: var(--r); padding: 24px; min-height: 220px; text-decoration: none; }
+  .pf-ft-statement { grid-column: 1 / 5; display: flex; flex-direction: column; justify-content: space-between; }
+  .pf-ft-statement p:first-child { font-size: var(--s-lead); line-height: 1.3; max-width: 22ch; }
+  .pf-legal { font-size: 13px; color: var(--soft); }
+  .pf-ft-nav { grid-column: 5 / 8; display: flex; flex-direction: column; gap: 8px; font-size: var(--s-small); }
+  .pf-ft-nav a { color: var(--muted); text-decoration: none; transition: color 160ms ease; }
+  .pf-ft-nav a:hover { color: var(--ink); }
+  .pf-ft-time { grid-column: 8 / 10; display: flex; flex-direction: column; justify-content: space-between; font-size: var(--s-small); color: var(--muted); }
+  .pf-clock { font-size: var(--s-lead); color: var(--ink); font-variant-numeric: tabular-nums; }
+  .pf-ft-mail { grid-column: 10 / 13; display: flex; align-items: flex-end; font-size: var(--s-lead); }
+  .pf-ft-mail a { text-underline-offset: 5px; }
+  .pf-ft-word { grid-column: 1 / 9; min-height: 320px; background: var(--ink); color: var(--bg); display: grid; place-items: center; overflow: hidden; }
+  .pf-ft-word span { font-size: 9vw; font-weight: 600; letter-spacing: -0.04em; line-height: 1; white-space: nowrap; }
+  .pf .pf-ft-cta { grid-column: 9 / 13; min-height: 320px; background: var(--accent); color: var(--accent-ink); display: flex; flex-direction: column; justify-content: space-between; transition: background-color 160ms ease; }
+  .pf .pf-ft-cta:hover { background: #2DB4F0; }
+  .pf-ft-cta span { font-size: var(--s-head); font-weight: 560; letter-spacing: -0.015em; }
+  .pf-ft-cta svg { width: 56px; height: 56px; align-self: flex-end; fill: none; stroke: currentColor; stroke-width: 4; transition: transform 200ms var(--ease); }
+  .pf-ft-cta:hover svg { transform: translate(4px, -4px); }
+
+  /* Motion: the shutter on the stage, rises on load and on scroll. Content stays visible without script. */
+  @media (prefers-reduced-motion: no-preference) {
+    .pf-stage { animation: pf-shutter 1100ms cubic-bezier(.65, 0, .35, 1) 150ms both; }
+    .pf-app { animation: pf-settle 1500ms var(--ease) 100ms both; }
+    .pf [data-load] { animation: pf-rise 600ms var(--ease) var(--d) both; }
+    .pf.pf-js [data-rise] { opacity: 0.18; transform: translateY(28px); transition: opacity 600ms var(--ease) var(--d), transform 900ms var(--ease) var(--d); }
+    .pf.pf-js [data-rise].is-in { opacity: 1; transform: none; }
+    .pf.pf-js .pf-card[data-rise].is-in:hover { transform: translateY(-6px); transition-delay: 0ms; }
+  }
+  @keyframes pf-shutter { from { clip-path: polygon(0 100%, 180px 100%, 204px 100%, 100% 100%, 100% 100%, 0 100%); } to { clip-path: polygon(0 28px, 180px 28px, 204px 0, 100% 0, 100% 100%, 0 100%); } }
+  @keyframes pf-settle { from { transform: translateY(40px) scale(1.04); opacity: 0.4; } to { transform: none; opacity: 1; } }
+  @keyframes pf-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+  /* Tablet */
+  @media (max-width: 1100px) {
+    .pf-strip { grid-template-columns: repeat(2, 1fr); }
+    .pf-field { min-height: 72svh; min-height: max(560px, 72svh); }
+    .pf-tiles { grid-template-columns: repeat(2, 1fr); }
+    .pf-letter-body { grid-column: 4 / 13; }
+    .pf-contact-main { grid-column: 1 / 13; }
+    .pf-contact-side { grid-column: 1 / 13; margin-top: 56px; flex-direction: row; flex-wrap: wrap; }
+    .pf-contact-side > * { flex: 1 1 300px; }
+    .pf-ft-statement { grid-column: 1 / 7; }
+    .pf-ft-nav { grid-column: 7 / 13; }
+    .pf-ft-time { grid-column: 1 / 7; }
+    .pf-ft-mail { grid-column: 7 / 13; }
+    .pf-ft-word { grid-column: 1 / 13; min-height: 220px; }
+    .pf-ft-word span { font-size: 13vw; }
+    .pf .pf-ft-cta { grid-column: 1 / 13; min-height: 200px; }
+  }
+  @media (max-width: 900px) {
+    .pf-hero-text { max-width: none; padding-top: 48px; }
+    .pf-hero { min-height: 0; padding-bottom: 0; }
+    .pf-stage { position: relative; left: auto; top: auto; margin-top: 48px; height: 560px; clip-path: polygon(0 24px, 120px 24px, 144px 0, 100% 0, 100% 100%, 0 100%); }
+    .pf-app { left: var(--m); top: 64px; }
+  }
+
+  /* Phone */
+  @media (max-width: 640px) {
+    .pf { --m: 20px; }
+    .pf-nav nav a:not(.pf-btn) { display: none; }
+    .pf-hero h1 { font-size: 10.6vw; }
+    .pf-support { font-size: var(--s-body); }
+    .pf-stage { height: 480px; }
+    .pf-app { right: auto; width: 520px; height: 440px; }
+    .pf [data-ui] .ui-split { grid-template-columns: 1fr; }
+    .pf [data-ui] .ui-panel { display: none; }
+    .pf [data-ui] .ui-row { grid-template-columns: 14px 90px 1fr 48px; }
+    .pf-strip { grid-template-columns: 1fr; }
+    .pf-field { min-height: 64svh; min-height: max(520px, 64svh); padding: 32px 20px; }
+    .pf-proof { padding: 96px var(--m) 80px; }
+    .pf-tiles { grid-template-columns: 1fr 1fr; gap: 6px; }
+    .pf-tile { min-height: 150px; padding: 16px; }
+    .pf-tile-head { grid-column: span 2; min-height: 120px; }
+    .pf-tile-big { font-size: var(--s-body); }
+    .pf-roles { font-size: var(--s-body); margin-top: 40px; }
+    .pf-letter { padding: 96px var(--m); }
+    .pf-letter h2, .pf-letter-body { grid-column: 1 / 13; }
+    .pf-letter h2 { margin-bottom: 32px; }
+    .pf-about { padding: 96px var(--m); }
+    .pf-contact { padding: 96px var(--m); }
+    .pf .bb-who { grid-template-columns: 1fr; }
+    .pf .bb-sentence { font-size: var(--s-lead); }
+    .pf-foot { gap: 6px; padding: 6px; }
+    .pf-ft { min-height: 140px; padding: 20px; }
+    .pf-ft-statement, .pf-ft-nav, .pf-ft-time, .pf-ft-mail { grid-column: 1 / 13; }
+    .pf-ft-word { min-height: 160px; }
+    .pf .pf-ft-cta { min-height: 160px; }
+  }
+</style>
+
+<script>
+  const root = document.getElementById('pf-root');
+  if (root) {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Section entrances: hidden state only applies once this script has run.
+    if (!reduce && 'IntersectionObserver' in window) {
+      root.classList.add('pf-js');
+      const io = new IntersectionObserver(
+        (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }),
+        { rootMargin: '0px 0px 6% 0px' },
+      );
+      root.querySelectorAll('[data-rise]').forEach((el) => io.observe(el));
+      // Anything already on screen at load
+      requestAnimationFrame(() => root.querySelectorAll('[data-rise]').forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.top < innerHeight && r.bottom > 0) el.classList.add('is-in');
+      }));
+    }
+
+    // The hero fragment works: choose a candidate to open their note.
+    const rows = Array.from(root.querySelectorAll<HTMLButtonElement>('.ui-row'));
+    const notes = Array.from(root.querySelectorAll<HTMLElement>('[data-note]'));
+    const ids = notes.map((n) => n.dataset.note as string);
+    let cycle: number | undefined;
+    const show = (id: string) => {
+      if (!ids.includes(id)) return;
+      notes.forEach((n) => (n.hidden = n.dataset.note !== id));
+      rows.forEach((r) => {
+        const on = r.dataset.id === id;
+        r.classList.toggle('is-sel', on);
+        r.setAttribute('aria-selected', String(on));
+      });
+    };
+    rows.forEach((r) =>
+      r.addEventListener('click', () => {
+        if (cycle) { clearInterval(cycle); cycle = undefined; }
+        show(r.dataset.id as string);
+      }),
+    );
+    // The one moving picture: the note cycles through the shortlist until someone takes over.
+    if (!reduce) {
+      let i = 0;
+      cycle = window.setInterval(() => { i = (i + 1) % ids.length; show(ids[i]); }, 4200);
+      root.querySelector('.pf-app')?.addEventListener('pointerenter', () => { if (cycle) { clearInterval(cycle); cycle = undefined; } });
+    }
+
+    // The brief card fills in as the visitor writes the sentence.
+    const form = root.querySelector<HTMLFormElement>('#brief-form');
+    const mirrors = root.querySelectorAll<HTMLElement>('[data-mirror]');
+    const defaults = new Map<HTMLElement, string>();
+    mirrors.forEach((m) => { defaults.set(m, m.textContent || ''); m.classList.add('is-empty'); });
+    form?.addEventListener('input', () => {
+      mirrors.forEach((m) => {
+        const field = form.elements.namedItem(m.dataset.mirror as string) as HTMLInputElement | null;
+        const v = field?.value.trim() || '';
+        m.textContent = v || defaults.get(m) || '';
+        m.classList.toggle('is-empty', !v);
+      });
+    });
+
+    // UK time in the footer.
+    const clock = root.querySelector('#pf-clock');
+    const tick = () => {
+      if (clock) clock.textContent = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', hour: '2-digit', minute: '2-digit' }).format(new Date());
+    };
+    tick();
+    setInterval(tick, 30000);
+  }
+</script>
