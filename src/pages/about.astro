@@ -22,7 +22,7 @@ const description = 'Alex Lockey has recruited since 2007 and founded Bolt Searc
       <h2 id="bs-story-h" class="bs-h2 bs-about-h" data-reveal>The short version</h2>
       <div class="bs-about-text" data-reveal>
         <div class="bs-para">
-          Alex has recruited since <mark class="hl-a">2007</mark> and founded Bolt Search in <mark class="hl-a">2016</mark>. Over that time he has made <mark class="hl-b">more than fifty placements</mark>, from specialists and heads of function to <mark class="hl-b">fractional CROs</mark> and board members.
+          Alex has recruited since <mark class="hl-a">2007</mark> and founded Bolt Search in <mark class="hl-a">2016</mark>. Across his career he has made <mark class="hl-b">more than 1,000 placements</mark>, from specialists and heads of function to <mark class="hl-b">fractional CROs</mark> and board members.
         </div>
         <div class="bs-para">
           He trained as an <mark class="hl-b">engineer</mark>, with a BEng in Aeronautical Engineering from the <mark class="hl-c">University of Bristol</mark>, which helps when a hire has to hold a technical conversation with a buyer as well as a commercial one. He works from the UK with companies in the <mark class="hl-a">UK and the US</mark>. <a href="/#brief" class="hl-go">Tell him about your role.</a>
@@ -38,7 +38,7 @@ const description = 'Alex Lockey has recruited since 2007 and founded Bolt Searc
         <li class="bs-principle">
           <p class="bs-two-tone" data-reveal>{principles[0].lead} <span>{principles[0].rest}</span></p>
           <div class="bs-app bs-mini" data-ui data-reveal style="--d:1">
-            <div class="bs-app-bar"><span class="bs-app-title">Open searches</span><span class="bs-app-tag">Example</span></div>
+            <div class="bs-app-bar"><span class="bs-app-title">Open searches</span></div>
             <ul class="bs-track-list">
               {openSearches.map((o) => (
                 <li>
@@ -58,7 +58,7 @@ const description = 'Alex Lockey has recruited since 2007 and founded Bolt Searc
         <li class="bs-principle">
           <p class="bs-two-tone" data-reveal>{principles[1].lead} <span>{principles[1].rest}</span></p>
           <div class="bs-app bs-mini" data-ui data-reveal style="--d:1">
-            <div class="bs-app-bar"><span class="bs-app-title">{straightUpdate.title}</span><span class="bs-app-tag">Example</span></div>
+            <div class="bs-app-bar"><span class="bs-app-title">{straightUpdate.title}</span></div>
             <dl class="bs-app-note bs-mini-note bs-mini-meta">
               {straightUpdate.meta.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
             </dl>
@@ -72,7 +72,7 @@ const description = 'Alex Lockey has recruited since 2007 and founded Bolt Searc
         <li class="bs-principle">
           <p class="bs-two-tone" data-reveal>{principles[2].lead} <span>{principles[2].rest}</span></p>
           <div class="bs-app bs-mini" data-ui data-reveal style="--d:1">
-            <div class="bs-app-bar"><span class="bs-app-title">Search · Replacement hire</span><span class="bs-app-tag">Confidential, example</span></div>
+            <div class="bs-app-bar"><span class="bs-app-title">Search · Replacement hire</span><span class="bs-app-tag">Confidential</span></div>
             <dl class="bs-app-note bs-mini-note">
               {confidentialSearch.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
             </dl>
@@ -91,7 +91,7 @@ const description = 'Alex Lockey has recruited since 2007 and founded Bolt Searc
         </dl>
       </div>
       <div class="bs-log" data-ui data-reveal style="--d:1">
-        <div class="bs-app-bar"><span class="bs-app-title">Placement log</span><span class="bs-app-tag">Roles only, no names</span></div>
+        <div class="bs-app-bar"><span class="bs-app-title">Example appointments</span></div>
         <ul>
           {placements.map((p, k) => (
             <li style={`--k:${k}`}>
@@ -118,7 +118,6 @@ const description = 'Alex Lockey has recruited since 2007 and founded Bolt Searc
             <footer>{q.who}</footer>
           </blockquote>
         ))}
-        <p class="bs-letter-sign">Paraphrased from fifteen LinkedIn recommendations. <a href={hero.second.href}>Ask to speak to a reference</a>.</p>
       </div>
     </div>
   </section>

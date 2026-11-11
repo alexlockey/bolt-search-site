@@ -6,7 +6,7 @@ import Narrowing from '../components/Narrowing.astro';
 import Timeline from '../components/Timeline.astro';
 import BriefBuilder from '../components/BriefBuilder.astro';
 import Shortlist from '../components/Shortlist.astro';
-import { hero, narrowing, steps, notePitch, facts, placements, quotes, contact } from '../data/site';
+import { hero, heroFacts, founderLine, narrowing, steps, notePitch, facts, placements, quotes, contact } from '../data/site';
 
 const title = 'Commercial and technical hires for growth companies';
 const description = 'Bolt Search finds the commercial and technical people growth companies depend on. One recruiter runs every search, with a full briefing on every name.';
@@ -17,13 +17,15 @@ const description = 'Bolt Search finds the commercial and technical people growt
     <div class="bs-wrap bs-hero-in">
       <h1 id="bs-title" class="bs-h1 bs-lines">
         <span class="bs-line"><span data-line style="--i:0">Hires that carry</span></span>
-        <span class="bs-line"><span data-line style="--i:1">the number.</span></span>
+        <span class="bs-line"><span data-line style="--i:1">a number.</span></span>
       </h1>
       <p class="bs-hero-support" data-after>{hero.support}</p>
       <div class="bs-hero-actions" data-after>
         <a href="#brief" class="bs-btn bs-btn-ink">{hero.action.label}</a>
-        <a href={hero.second.href} class="bs-hero-link">{hero.second.label}</a>
       </div>
+      <ul class="bs-hero-facts" data-after>
+        {heroFacts.map(([a, b]) => <li><strong>{a}</strong>{b}</li>)}
+      </ul>
     </div>
   </section>
 
@@ -61,7 +63,7 @@ const description = 'Bolt Search finds the commercial and technical people growt
         </dl>
       </div>
       <div class="bs-log" data-ui data-reveal style="--d:1">
-        <div class="bs-app-bar"><span class="bs-app-title">Placement log</span><span class="bs-app-tag">Roles only, no names</span></div>
+        <div class="bs-app-bar"><span class="bs-app-title">Example appointments</span></div>
         <ul>
           {placements.map((p, k) => (
             <li style={`--k:${k}`}>
@@ -89,7 +91,6 @@ const description = 'Bolt Search finds the commercial and technical people growt
           </blockquote>
         ))}
       </div>
-      <p class="bs-letter-sign" data-reveal>From fifteen LinkedIn recommendations. <a href={hero.second.href}>Ask to speak to a reference</a>.</p>
     </div>
   </section>
 
@@ -98,7 +99,8 @@ const description = 'Bolt Search finds the commercial and technical people growt
       <img src="/images/alex-headshot-600.webp" alt="Alex Lockey" width="600" height="804" loading="lazy" />
       <div>
         <h2 id="bs-alex-h" class="bs-h2">Alex Lockey</h2>
-        <p class="bs-two-tone">Recruiting since 2007, founder since 2016. <span>Trained as an engineer, and still runs every search himself.</span></p>
+        <blockquote class="bs-alex-quote">“{founderLine}”</blockquote>
+        <p class="bs-two-tone bs-alex-sub"><span>Recruiting since 2007, founder since 2016, trained as an engineer.</span></p>
         <a href="/about/" class="bs-hero-link bs-alex-link">More about Alex</a>
       </div>
     </div>

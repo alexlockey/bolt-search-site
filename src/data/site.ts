@@ -12,11 +12,10 @@ export const name = 'Bolt Search';
 
 export const hero = {
   // Two-line budget: about 32 characters.
-  title: 'Hires that carry the number',
+  title: 'Hires that carry a number.',
   sentence: ['We find the person', 'your plan rests on'],
   support: 'Commercial and technical hires for growth companies. One recruiter runs every search, start to finish.',
   action: { label: 'Tell us about the role', href: '/#brief' },
-  second: { label: 'Ask for references', href: '/contact/?about=references' },
 };
 
 export const navLinks = [
@@ -81,9 +80,8 @@ export const shortlistNote = {
 };
 
 export const facts = [
+  { figure: '1,000+', label: 'Placements across Alex’s career.' },
   { figure: '2007', label: 'Recruiting since. Bolt Search founded 2016.' },
-  { figure: '50+', label: 'Placements on record by 2023.' },
-  { figure: '15', label: 'Recommendations from clients and placed candidates.' },
   { figure: '1', label: 'Person runs your search, start to finish.' },
 ];
 
@@ -96,7 +94,6 @@ export const placements: { role: string; company: string; year: string }[] = [
   { role: 'Head of Delivery and Performance', company: 'Large national group', year: '2024' },
   { role: 'Head of Compliance and Funding', company: 'Mid-sized provider', year: '2024' },
   { role: 'Three board members', company: 'Founder-led company, from eleven introductions', year: '2021' },
-  { role: 'Freelance technical instructor', company: 'Technology training company', year: '2020' },
 ];
 
 export const roles = [
@@ -152,7 +149,6 @@ export const brief = {
   lead: 'Fill in the sentence. It becomes your brief, and Alex replies personally.',
   sentence: ['We’re hiring a', 'in', 'who can', '.'],
   placeholders: { role: 'founding account executive', where: 'London', outcome: 'open the UK market in year one' },
-  after: 'References from past clients and placed candidates are available on request.',
 };
 
 export const contact = {
@@ -167,7 +163,6 @@ export const narrowing = {
   heading: 'Every search narrows to one person',
   lead: 'It starts with the whole market.',
   rest: 'Research tools, including AI, map it fast. The judgement and every call are Alex’s.',
-  caption: 'An illustrative search. The numbers change with every role; the shape does not.',
   stages: [
     { name: 'Mapped', count: 214, note: 'people at comparable companies' },
     { name: 'Matched', count: 61, note: 'on deal size, buyer and stage' },
@@ -195,7 +190,7 @@ export const slip = {
 export const notePitch = {
   heading: 'A briefing on every name',
   lead: 'You never get a CV and a phone call.',
-  rest: 'Every name arrives with a full briefing. Pick one.',
+  rest: 'Every name arrives with a full briefing, and a straight answer on who Alex would hire. Here is what one looks like.',
   others: [
     { id: 'Candidate A', line: 'Mid-market AE, payments scale-up, Manchester', state: 'Interviewing' },
     { id: 'Candidate C', line: 'Founding AE, seed-stage analytics company, remote UK', state: 'Interviewing' },
@@ -276,7 +271,7 @@ export type Briefing = {
 
 export const briefingSearch = {
   title: 'Shortlist · Founding AE, UK',
-  tag: 'Example search, no real candidates',
+  tag: '',
   brief: 'Founding Account Executive, UK. Year one: the first ten UK customers and a repeatable mid-market motion. Reports to the VP Sales in the US.',
 };
 
@@ -401,3 +396,12 @@ export const steps = {
     { verb: 'Close', line: 'Offer, notice, start date, then a check-in.' },
   ],
 };
+
+// Above the fold, straight under the hero (proof first).
+export const heroFacts = [
+  ['Since 2007', 'recruiting'],
+  ['1,000+', 'placements'],
+  ['1 person', 'runs every search'],
+];
+
+export const founderLine = 'No stack of CVs. A few people, a full briefing on each, and a straight answer on who I would hire.';

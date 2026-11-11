@@ -19,6 +19,7 @@ import '@fontsource-variable/inter';
 import '../styles/global.css';
 import '../styles/site.css';
 import { navLinks, contact } from '../data/site';
+import Logo from '../components/Logo.astro';
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const currentPath = Astro.url.pathname;
@@ -46,7 +47,8 @@ const year = new Date().getFullYear();
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={new URL(image, Astro.site)} />
 
-  <link rel="icon" type="image/png" href="/bolt-favicon.png" />
+  <link rel="icon" type="image/svg+xml" href="/brand/icon.svg" />
+  <link rel="alternate icon" type="image/png" href="/bolt-favicon.png" />
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DH9Y7K83RM"></script>
@@ -74,7 +76,7 @@ const year = new Date().getFullYear();
 </head>
 <body class="bs">
   <header class="bs-nav">
-    <a href="/" class="bs-wordmark">Bolt Search</a>
+    <a href="/" class="bs-wordmark" aria-label="Bolt Search, home"><Logo /></a>
     <nav aria-label="Main" class="bs-links">
       {navLinks.map((l) => (
         <a href={l.href} aria-current={currentPath === l.href ? 'page' : undefined}>{l.label}</a>
@@ -94,8 +96,8 @@ const year = new Date().getFullYear();
       <div><p>Contact</p><p><a href={`mailto:${contact.email}`}>{contact.email}</a></p><p><a href={contact.linkedin} target="_blank" rel="noopener">LinkedIn</a></p></div>
       <div><p>Where</p><p>{contact.where}</p></div>
     </div>
-    <svg class="bs-foot-mark" viewBox="0 0 1000 176" aria-hidden="true" focusable="false"><text x="0" y="148" textLength="1000" lengthAdjust="spacingAndGlyphs">Bolt Search</text></svg>
-    <p class="bs-foot-legal">© {year} Bolt Search. Example documents on this site are illustrative.</p>
+    <div class="bs-foot-mark"><Logo size="foot" /></div>
+    <p class="bs-foot-legal">© {year} Bolt Search</p>
   </footer>
 
   <script>
