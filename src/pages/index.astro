@@ -1,243 +1,169 @@
 ---
+// Home. Idea: the market narrows to one person. Type carries the first screen, one diagram tells the
+// method, and the search's own working documents (slip, shortlist, log, the brief) are the pictures.
 import Layout from '../layouts/Layout.astro';
+import Narrowing from '../components/Narrowing.astro';
+import BriefBuilder from '../components/BriefBuilder.astro';
+import { hero, narrowing, slip, notePitch, shortlistNote, facts, placements, placedRoles, quotes, contact } from '../data/site';
 
-const title = "Commercial and technical hires for growth companies";
-const description = "Bolt Search recruits the sales, solutions and commercial people growth companies cannot afford to get wrong. Current focus: on-site power and data centre infrastructure, and first UK hires for US startups.";
-
-const focus = [
-  {
-    heading: "On-site power and data centre infrastructure",
-    body: "Grid connections at the main data centre hubs can take years, so developers are turning to on-site generation and batteries. The firms building that capacity need people who can sell it and price it.",
-    roles: "Business development managers, estimators, proposals and sales engineers from generation, BESS and grid backgrounds.",
-  },
-  {
-    heading: "First UK and EMEA hires for US startups",
-    body: "Your first hire outside the US sets the tone for the region. It needs someone who can work without a local team around them and has sold or delivered to UK and European buyers before.",
-    roles: "Founding account executives, solutions engineers and implementation leads.",
-  },
-];
-
-const roles = [
-  "Business development and account management",
-  "Account executives, including founding AEs",
-  "Solutions, sales and proposals engineers",
-  "Estimators and bid managers",
-  "Implementation and customer success leads",
-  "Heads of sales, CROs and CCOs",
-];
-
-const steps = [
-  {
-    heading: "A proper brief",
-    body: "A 30-minute call on what the person has to achieve in their first year, not only what the job description says.",
-  },
-  {
-    heading: "A mapped market",
-    body: "We map the companies and people who have done this work before. AI-assisted research means we cover a market quickly. Every approach is still made by a person.",
-  },
-  {
-    heading: "A short list you can act on",
-    body: "You meet a small number of people we have spoken to, each with a note on why they fit, what they earn and what would move them.",
-  },
-  {
-    heading: "Through to start date",
-    body: "We run interviews, feedback, offer and notice period, and stay in touch through the first months.",
-  },
-];
+const title = 'Commercial and technical hires for growth companies';
+const description = 'Bolt Search finds the commercial and technical people growth companies depend on. One recruiter runs every search, with a written note on every name.';
 ---
 
 <Layout title={title} description={description}>
-  <section class="hero">
-    <div class="container-wide">
-      <h1>The commercial and technical hires you can't afford to get wrong.</h1>
-      <p class="lede">
-        Bolt Search finds sales, solutions and commercial people for growth companies: the hires who carry a revenue number or win the technical sale.
-      </p>
-      <div class="hero-actions">
-        <a href="/contact/" class="btn btn-primary">Tell us about the role</a>
-        <a href="#how" class="btn btn-outline">How a search runs</a>
+  <section class="bs-hero" aria-labelledby="bs-title">
+    <div class="bs-hero-ink">
+      <h1 id="bs-title" class="bs-h1 bs-lines">
+        <span class="bs-line"><span data-line style="--i:0">Hires that carry</span></span>
+        <span class="bs-line"><span data-line style="--i:1">the number.</span></span>
+      </h1>
+    </div>
+    <div class="bs-hero-paper">
+      <p class="bs-hero-support" data-after>{hero.support}</p>
+      <div class="bs-hero-actions" data-after>
+        <a href="#brief" class="bs-btn bs-btn-dark">{hero.action.label}</a>
+        <a href={hero.second.href} class="bs-hero-link">{hero.second.label}</a>
       </div>
-
-      <ul class="proof" aria-label="Track record">
-        <li><strong>10+ years</strong> recruiting commercial and leadership roles</li>
-        <li><strong>CRO, CCO, account director and BD</strong> placements</li>
-        <li><strong>Founder-led</strong> every search run by Alex Lockey</li>
-      </ul>
     </div>
   </section>
 
-  <section class="section section-subtle">
-    <div class="container-wide">
-      <h2 class="section-heading">Where we are working now</h2>
-      <div class="grid-2">
-        {focus.map((f) => (
-          <article class="focus-card">
-            <h3>{f.heading}</h3>
-            <p>{f.body}</p>
-            <p class="focus-roles"><strong>Typical hires:</strong> {f.roles}</p>
-          </article>
+  <section class="bs-narrow" id="method" aria-labelledby="bs-narrow-h">
+    <div class="bs-wrap bs-split">
+      <h2 id="bs-narrow-h" class="bs-h2" data-reveal>{narrowing.heading}</h2>
+      <p class="bs-two-tone" data-reveal style="--d:1">{narrowing.lead} <span>{narrowing.rest}</span></p>
+    </div>
+    <Narrowing />
+  </section>
+
+  <section class="bs-runs" aria-labelledby="bs-runs-h">
+    <div class="bs-wrap bs-runs-grid">
+      <div class="bs-runs-copy" data-reveal>
+        <h2 id="bs-runs-h" class="bs-h2">How a search runs</h2>
+        <p class="bs-lead">{slip.lead}</p>
+        <p class="bs-body">Thirty minutes on what the first year has to achieve, what has not worked before, and who the person reports to. Then Alex does the rest himself.</p>
+      </div>
+      <div class="bs-slip" data-ui data-reveal style="--d:1">
+        <p class="bs-slip-title">{slip.title}</p>
+        {slip.groups.map((g, k) => (
+          <div class="bs-slip-group" style={`--k:${k}`}>
+            <p class="bs-slip-head">{g.group}</p>
+            {g.rows.map(([what, who]) => (
+              <p class="bs-slip-row"><span>{what}</span><span class="bs-leader" aria-hidden="true"></span><span>{who}</span></p>
+            ))}
+          </div>
         ))}
+        <p class="bs-slip-total"><span>{slip.total[0]}</span><span>{slip.total[1]}</span></p>
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container-wide roles-wrap">
-      <div>
-        <h2>The roles we fill</h2>
-        <p>Mid-level to leadership hires in sales, solutions and commercial teams, wherever the market is.</p>
+  <section class="bs-note" aria-labelledby="bs-note-h">
+    <div class="bs-wrap bs-note-grid">
+      <div class="bs-note-copy" data-reveal>
+        <h2 id="bs-note-h" class="bs-h2">{notePitch.heading}</h2>
+        <p class="bs-two-tone">{notePitch.lead} <span>{notePitch.rest}</span></p>
       </div>
-      <ul class="roles">
-        {roles.map((r) => <li>{r}</li>)}
-      </ul>
+      <div class="bs-app" data-ui data-reveal style="--d:1">
+        <div class="bs-app-bar">
+          <span class="bs-app-title">Shortlist · Founding AE, UK</span>
+          <span class="bs-app-tag">Example, no real candidates</span>
+        </div>
+        <ul class="bs-app-list">
+          {notePitch.others.slice(0, 1).map((c) => (
+            <li><span class="bs-app-dot"></span><span class="bs-app-id">{c.id}</span><span class="bs-app-line">{c.line}</span><span class="bs-app-state">{c.state}</span></li>
+          ))}
+          <li class="is-open"><span class="bs-app-dot is-blue"></span><span class="bs-app-id">Candidate B</span><span class="bs-app-line">{shortlistNote.rows[0][1]}</span><span class="bs-app-state">Note open</span></li>
+        </ul>
+        <dl class="bs-app-note">
+          {shortlistNote.rows.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+        </dl>
+        <ul class="bs-app-list">
+          {notePitch.others.slice(1).map((c) => (
+            <li><span class="bs-app-dot"></span><span class="bs-app-id">{c.id}</span><span class="bs-app-line">{c.line}</span><span class="bs-app-state">{c.state}</span></li>
+          ))}
+        </ul>
+      </div>
     </div>
   </section>
 
-  <section class="section section-subtle" id="how">
-    <div class="container-wide">
-      <h2 class="section-heading">How a search runs</h2>
-      <ol class="steps">
-        {steps.map((s) => (
-          <li>
-            <h3>{s.heading}</h3>
-            <p>{s.body}</p>
-          </li>
+  <section class="bs-record" id="record" aria-labelledby="bs-record-h">
+    <div class="bs-wrap">
+      <div class="bs-names" data-names>
+        <h2 id="bs-record-h" class="bs-names-h">Placed so far:</h2>
+        {placedRoles.map((n, i) => <span class={`bs-name${i === 0 ? ' is-lit' : ''}`}>{n}{i < placedRoles.length - 1 ? ', ' : '.'}</span>)}
+      </div>
+      <div class="bs-record-grid">
+        <dl class="bs-figures" data-reveal>
+          {facts.slice(0, 3).map((f) => <div><dt>{f.figure}</dt><dd>{f.label}</dd></div>)}
+        </dl>
+        <div class="bs-log" data-ui data-reveal style="--d:1">
+          <div class="bs-app-bar"><span class="bs-app-title">Placement log</span><span class="bs-app-tag">Roles only, no names</span></div>
+          <ul>
+            {placements.map((p, k) => (
+              <li style={`--k:${k}`}>
+                <span class="bs-log-check" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" width="16" height="16"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5" /><polyline points="5,8.2 7.2,10.3 11,6" fill="none" stroke="currentColor" stroke-width="1.5" /></svg>
+                </span>
+                <span class="bs-log-role">{p.role}</span>
+                <span class="bs-log-co">{p.company}</span>
+                <span class="bs-log-year">{p.year}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bs-letter" aria-labelledby="bs-letter-h">
+    <div class="bs-wrap bs-letter-grid">
+      <h2 id="bs-letter-h" class="bs-h2" data-reveal>In their words</h2>
+      <div class="bs-letter-body">
+        <blockquote class="bs-letter-open" data-reveal>
+          <p>{quotes[0].text}</p>
+          <footer>{quotes[0].who}</footer>
+        </blockquote>
+        {quotes.slice(1).map((q, i) => (
+          <blockquote data-reveal style={`--d:${i % 2}`}>
+            <p>{q.text}</p>
+            <footer>{q.who}</footer>
+          </blockquote>
         ))}
-      </ol>
+        <p class="bs-letter-sign">Paraphrased from fifteen LinkedIn recommendations. <a href={hero.second.href}>Ask to speak to a reference</a>.</p>
+      </div>
     </div>
   </section>
 
-  <section class="section section-dark">
-    <div class="container-wide closing">
-      <h2>Hiring for a role like this?</h2>
-      <p>Tell us what the role has to achieve. Alex reads and replies to every brief personally.</p>
-      <a href="/contact/" class="btn btn-white">Tell us about the role</a>
+  <section class="bs-about" id="alex" aria-labelledby="bs-about-h">
+    <div class="bs-wrap">
+      <h2 id="bs-about-h" class="bs-h2 bs-about-h" data-reveal>Alex Lockey</h2>
+      <div class="bs-about-text" data-reveal>
+        <div class="bs-para">
+          Alex has recruited since <mark class="hl-a">2007</mark> and founded Bolt Search in <mark class="hl-a">2016</mark>. He runs <mark class="hl-b">every search himself</mark>: the brief, the map, every call, the shortlist notes and the check-in after the start date.
+        </div>
+        <div class="bs-para">
+          He trained as an <mark class="hl-b">engineer</mark>, with a BEng in Aeronautical Engineering from the <mark class="hl-c">University of Bristol</mark>, which helps when a hire has to hold a technical conversation with a buyer as well as a commercial one. <a href="/about/" class="hl-go">More about Alex and how he works.</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bs-contact" id="brief" aria-labelledby="bs-contact-h">
+    <div class="bs-wrap bs-contact-grid">
+      <div class="bs-contact-copy" data-reveal>
+        <h2 id="bs-contact-h" class="bs-h2">Tell us about the role</h2>
+        <p class="bs-two-tone">Fill in the sentence. <span>It becomes your brief, and Alex replies personally.</span></p>
+        <p class="bs-body bs-contact-note">References from past clients and placed candidates are available on request.</p>
+      </div>
+      <div class="bs-composer" data-ui data-reveal style="--d:1">
+        <div class="bs-app-bar"><span class="bs-app-title">New brief</span><span class="bs-app-tag">To Alex Lockey</span></div>
+        <BriefBuilder />
+      </div>
+    </div>
+    <div class="bs-rows">
+      <a class="bs-row" href={`mailto:${contact.email}`}><span>{contact.email}</span></a>
+      <a class="bs-row" href={contact.linkedin} target="_blank" rel="noopener"><span>LinkedIn</span></a>
+      <p class="bs-row"><span>UK-based, UK and US clients</span></p>
     </div>
   </section>
 </Layout>
-
-<style>
-  .hero {
-    padding: var(--space-4xl) 0 var(--space-3xl);
-  }
-
-  .hero h1 {
-    max-width: 18ch;
-    margin-bottom: var(--space-lg);
-  }
-
-  .hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
-    margin-top: var(--space-xl);
-  }
-
-  .proof {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-lg);
-    margin-top: var(--space-3xl);
-  }
-
-  .proof li {
-    background: var(--color-bg-subtle);
-    border-radius: 10px;
-    padding: var(--space-lg);
-    color: var(--color-fg-muted);
-    font-size: 0.9375rem;
-    line-height: 1.5;
-  }
-
-  .proof strong {
-    display: block;
-    color: var(--color-fg);
-    font-family: var(--font-display);
-    font-size: 1.125rem;
-    margin-bottom: 0.25rem;
-  }
-
-  .section-heading {
-    margin-bottom: var(--space-2xl);
-  }
-
-  .focus-card {
-    background: var(--color-white);
-    border-radius: 12px;
-    padding: var(--space-xl);
-  }
-
-  .focus-card h3 {
-    margin-bottom: var(--space-md);
-  }
-
-  .focus-roles {
-    margin-bottom: 0;
-    color: var(--color-fg);
-  }
-
-  .roles-wrap {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
-    gap: var(--space-2xl);
-    align-items: start;
-  }
-
-  .roles-wrap h2 {
-    margin-bottom: var(--space-md);
-  }
-
-  .roles {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-sm);
-  }
-
-  .roles li {
-    background: var(--color-accent-light);
-    color: var(--color-navy);
-    border-radius: 8px;
-    padding: var(--space-md) var(--space-lg);
-    font-weight: 500;
-    font-size: 0.9375rem;
-  }
-
-  .steps {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: var(--space-xl);
-  }
-
-  .steps h3 {
-    margin-bottom: var(--space-sm);
-  }
-
-  .steps p {
-    margin-bottom: 0;
-  }
-
-  .closing {
-    max-width: 44rem;
-  }
-
-  .closing h2 {
-    margin-bottom: var(--space-md);
-  }
-
-  .closing p {
-    margin-bottom: var(--space-xl);
-  }
-
-  @media (max-width: 900px) {
-    .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .roles-wrap { grid-template-columns: 1fr; }
-  }
-
-  @media (max-width: 640px) {
-    .hero { padding: var(--space-3xl) 0 var(--space-2xl); }
-    .proof, .roles, .steps { grid-template-columns: 1fr; }
-  }
-</style>

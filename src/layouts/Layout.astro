@@ -5,62 +5,48 @@ export interface Props {
   image?: string;
   article?: boolean;
   noindex?: boolean;
-  concept?: 'a' | 'b' | 'c';
 }
 
 const {
   title,
-  description = "Bolt Search recruits mid-level commercial and technical people for growth companies: sales, solutions and estimating hires, and first UK and EMEA hires for US startups.",
-  image = "/og-image.png",
+  description = 'Commercial and technical hires for growth companies, found by one recruiter who runs every search himself.',
+  image = '/og-image.png',
   article = false,
   noindex = false,
-  concept = 'a'
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const currentYear = new Date().getFullYear();
-const currentPath = Astro.url.pathname;
-
-import '@fontsource/newsreader/latin-400.css';
-import '@fontsource/newsreader/latin-500.css';
-import '@fontsource/newsreader/latin-400-italic.css';
-import '@fontsource/ibm-plex-sans/latin-400.css';
-import '@fontsource/ibm-plex-sans/latin-500.css';
-import '@fontsource/ibm-plex-sans/latin-600.css';
-import '@fontsource/ibm-plex-mono/latin-400.css';
-import '@fontsource/ibm-plex-mono/latin-500.css';
+import '@fontsource-variable/inter';
 import '../styles/global.css';
+import '../styles/site.css';
+import { navLinks, contact } from '../data/site';
 
-const navLinks = [
-  { href: '/#how', label: 'How it works' },
-  { href: '/about/', label: 'About' },
-  { href: '/contact/', label: 'Contact', cta: true },
-];
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const currentPath = Astro.url.pathname;
+const year = new Date().getFullYear();
 ---
 
 <!DOCTYPE html>
-<html lang="en-GB" data-concept={concept}>
+<html lang="en-GB">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title} | Bolt Search</title>
-  <meta name="description" content={description}>
-  {noindex && <meta name="robots" content="noindex, nofollow">}
-  <link rel="canonical" href={canonicalURL}>
+  <meta name="description" content={description} />
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
+  <link rel="canonical" href={canonicalURL} />
+  <meta name="theme-color" content="#08090A" />
 
-  <meta property="og:type" content={article ? "article" : "website"}>
-  <meta property="og:url" content={canonicalURL}>
-  <meta property="og:title" content={`${title} | Bolt Search`}>
-  <meta property="og:description" content={description}>
-  <meta property="og:image" content={new URL(image, Astro.site)}>
+  <meta property="og:type" content={article ? 'article' : 'website'} />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content={`${title} | Bolt Search`} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={new URL(image, Astro.site)} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={`${title} | Bolt Search`} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={new URL(image, Astro.site)} />
 
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content={`${title} | Bolt Search`}>
-  <meta name="twitter:description" content={description}>
-  <meta name="twitter:image" content={new URL(image, Astro.site)}>
-
-  <link rel="icon" type="image/png" href="/bolt-favicon.png">
-
+  <link rel="icon" type="image/png" href="/bolt-favicon.png" />
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DH9Y7K83RM"></script>
@@ -75,216 +61,63 @@ const navLinks = [
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="iD4ebR6FRgq0JJoixaG7vw" async></script>
 
   <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": article ? "Article" : "Organization",
-    "name": "Bolt Search",
-    "url": "https://www.bolt-search.com",
-    "description": description,
-    "logo": "https://www.bolt-search.com/bolt-search-logo.png",
-    "sameAs": [
-      "https://www.linkedin.com/company/bolt-search"
-    ]
+    '@context': 'https://schema.org',
+    '@type': article ? 'Article' : 'Organization',
+    name: 'Bolt Search',
+    url: 'https://www.bolt-search.com',
+    description,
+    logo: 'https://www.bolt-search.com/bolt-search-logo.png',
+    sameAs: ['https://www.linkedin.com/company/bolt-search'],
   })} />
 
-  <style>
-    .site-nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: var(--color-bg);
-    }
-
-    .nav-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: var(--space-md) 0;
-      position: relative;
-    }
-
-    .nav-logo-img {
-      height: 34px;
-      width: auto;
-    }
-
-    [data-concept="b"] .nav-logo-img {
-      filter: brightness(0) invert(1);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: var(--space-xl);
-      list-style: none;
-      align-items: center;
-    }
-
-    .nav-links a {
-      color: var(--color-fg-muted);
-      font-size: 0.9375rem;
-      font-weight: 500;
-    }
-
-    .nav-links a:hover,
-    .nav-links a[aria-current="page"] {
-      color: var(--color-fg);
-    }
-
-    .nav-links a.nav-cta {
-      padding: 0.5rem 1.125rem;
-      background: var(--color-btn-bg);
-      color: var(--color-btn-fg);
-      border-radius: 6px;
-    }
-
-    .nav-links a.nav-cta:hover {
-      background: var(--color-btn-hover);
-      color: var(--color-btn-fg);
-    }
-
-    .menu-toggle {
-      display: none;
-      background: none;
-      border: 0;
-      cursor: pointer;
-      padding: 0.5rem;
-      color: var(--color-fg);
-    }
-
-    @media (max-width: 720px) {
-      .menu-toggle { display: block; }
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: calc(-1 * var(--space-lg));
-        right: calc(-1 * var(--space-lg));
-        background: var(--color-bg);
-        flex-direction: column;
-        align-items: flex-start;
-        padding: var(--space-md) var(--space-lg) var(--space-xl);
-        gap: var(--space-lg);
-      }
-      .nav-links.open { display: flex; }
-    }
-
-    .site-footer {
-      background: var(--color-footer);
-      color: rgba(255, 255, 255, 0.78);
-      padding: var(--space-3xl) 0 var(--space-xl);
-    }
-
-    .footer-top {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: var(--space-xl);
-      margin-bottom: var(--space-2xl);
-    }
-
-    .footer-brand p {
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 0.9375rem;
-      max-width: 26rem;
-      margin-top: var(--space-md);
-    }
-
-    .footer-logo {
-      height: 28px;
-      width: auto;
-      filter: brightness(0) invert(1);
-    }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-lg);
-      list-style: none;
-    }
-
-    .footer-links a {
-      color: rgba(255, 255, 255, 0.78);
-      font-size: 0.9375rem;
-    }
-
-    .footer-links a:hover { color: var(--color-white); }
-
-    .footer-bottom {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: var(--space-sm);
-      font-size: 0.8125rem;
-      color: rgba(255, 255, 255, 0.6);
-    }
-  </style>
+  <script is:inline>document.documentElement.classList.add('bs-js');</script>
 </head>
-<body>
-  <nav class="site-nav" aria-label="Main">
-    <div class="container-wide">
-      <div class="nav-inner">
-        <a href="/" class="nav-logo">
-          <img src="/bolt-search-logo.png" alt="Bolt Search" class="nav-logo-img" width="153" height="34" />
-        </a>
-
-        <button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <line x1="3" y1="6" x2="21" y2="6"/>
-            <line x1="3" y1="12" x2="21" y2="12"/>
-            <line x1="3" y1="18" x2="21" y2="18"/>
-          </svg>
-        </button>
-
-        <ul class="nav-links" id="nav-links">
-          {navLinks.map(link => (
-            <li>
-              <a
-                href={link.href}
-                aria-current={currentPath === link.href ? 'page' : undefined}
-                class={link.cta ? 'nav-cta' : undefined}
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  </nav>
+<body class="bs">
+  <header class="bs-nav">
+    <a href="/" class="bs-wordmark">Bolt Search</a>
+    <nav aria-label="Main" class="bs-links">
+      {navLinks.map((l) => (
+        <a href={l.href} aria-current={currentPath === l.href ? 'page' : undefined}>{l.label}</a>
+      ))}
+    </nav>
+    <a href="/#brief" class="bs-btn bs-btn-accent bs-nav-action">Send a brief</a>
+  </header>
 
   <main>
     <slot />
   </main>
 
-  <footer class="site-footer">
-    <div class="container-wide">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <a href="/"><img src="/bolt-search-logo.png" alt="Bolt Search" class="footer-logo" width="126" height="28" /></a>
-          <p>Commercial and technical hires for growth companies.</p>
-        </div>
-        <ul class="footer-links">
-          <li><a href="/#how">How it works</a></li>
-          <li><a href="/about/">About</a></li>
-          <li><a href="/contact/">Contact</a></li>
-          <li><a href="https://www.linkedin.com/company/bolt-search" target="_blank" rel="noopener">LinkedIn</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-bottom">
-        <span>&copy; {currentYear} Bolt Search</span>
-        <span>UK-based. Working with UK and US companies.</span>
-      </div>
+  <footer class="bs-foot">
+    <div class="bs-foot-cols">
+      <div><p>Bolt Search</p><p>Commercial and technical hires for growth companies.</p></div>
+      <div><p>Pages</p>{navLinks.map((l) => <p><a href={l.href}>{l.label}</a></p>)}<p><a href="/contact/">Contact</a></p></div>
+      <div><p>Contact</p><p><a href={`mailto:${contact.email}`}>{contact.email}</a></p><p><a href={contact.linkedin} target="_blank" rel="noopener">LinkedIn</a></p></div>
+      <div><p>Where</p><p>{contact.where}</p></div>
     </div>
+    <svg class="bs-foot-mark" viewBox="0 0 1000 176" aria-hidden="true" focusable="false"><text x="0" y="148" textLength="1000" lengthAdjust="spacingAndGlyphs">Bolt Search</text></svg>
+    <p class="bs-foot-legal">© {year} Bolt Search. Example documents on this site are illustrative.</p>
   </footer>
 
   <script>
-    const menuToggle = document.getElementById('menu-toggle');
-    const navLinks = document.getElementById('nav-links');
-    menuToggle?.addEventListener('click', () => {
-      const open = navLinks?.classList.toggle('open') ?? false;
-      menuToggle.setAttribute('aria-expanded', String(open));
-      menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-    });
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+      },
+      { rootMargin: '0px 0px -10% 0px', threshold: 0.12 }
+    );
+    document.querySelectorAll('[data-reveal], [data-diagram], .bs-log, .bs-slip').forEach((el) => io.observe(el));
+
+    // The lit name moves through the placed roles every two seconds.
+    const names = Array.from(document.querySelectorAll('[data-names] .bs-name'));
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (names.length && !still) {
+      let i = 0;
+      setInterval(() => {
+        names[i].classList.remove('is-lit');
+        i = (i + 1) % names.length;
+        names[i].classList.add('is-lit');
+      }, 2000);
+    }
   </script>
 </body>
 </html>

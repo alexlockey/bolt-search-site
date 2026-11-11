@@ -16,14 +16,14 @@ export const hero = {
   sentence: ['We find the person', 'your plan rests on'],
   support:
     'Commercial and technical hires for growth companies, found by one recruiter who runs every search himself.',
-  action: { label: 'Tell us about the role', href: '#brief' },
+  action: { label: 'Tell us about the role', href: '/#brief' },
   second: { label: 'Ask for references', href: '/contact/?about=references' },
 };
 
 export const navLinks = [
-  { href: '#method', label: 'How it works' },
-  { href: '#record', label: 'Track record' },
-  { href: '#alex', label: 'About' },
+  { href: '/#method', label: 'How it works' },
+  { href: '/#record', label: 'Track record' },
+  { href: '/about/', label: 'About' },
 ];
 
 export const method = {
@@ -161,4 +161,99 @@ export const contact = {
   linkedin: 'https://www.linkedin.com/in/alexlockey1/',
   where: 'UK-based. Working with UK and US companies.',
   reply: 'Every brief gets a personal reply from Alex.',
+};
+
+// The narrowing: an illustrative search, shown as a Visualize Value diagram.
+export const narrowing = {
+  heading: 'Every search narrows to one person',
+  lead: 'It starts with the whole market.',
+  rest: 'Research tools, including AI, map it fast. Every judgement and conversation is Alex’s.',
+  caption: 'An illustrative search. The numbers change with every role; the shape does not.',
+  stages: [
+    { name: 'Mapped', count: 214, note: 'people at comparable companies' },
+    { name: 'Matched', count: 61, note: 'on deal size, buyer and stage' },
+    { name: 'Approached', count: 27, note: 'by Alex, most not looking' },
+    { name: 'Spoken to', count: 12, note: 'against the brief' },
+    { name: 'Shortlisted', count: 4, note: 'each with a written note' },
+    { name: 'Hired', count: 1, note: 'the person the plan rests on' },
+  ],
+};
+
+// The method as a slip: what happens, and who does it.
+export const slip = {
+  title: 'Search for a founding AE, UK',
+  lead: 'One person runs every stage. You know what happens next, and who is doing it.',
+  groups: [
+    { group: 'Brief', rows: [['What the first year must deliver', '30 minutes'], ['What has not worked before', 'with you'], ['Who the hire reports to', 'with you']] },
+    { group: 'Map', rows: [['Companies that have done this work', 'researched'], ['People filtered on what predicts success', 'researched']] },
+    { group: 'Approach', rows: [['Every call, including people not looking', 'Alex']] },
+    { group: 'Shortlist', rows: [['A few people, each with a written note', 'in writing']] },
+    { group: 'Close', rows: [['Interviews, feedback and offer', 'Alex'], ['Notice period and start date', 'Alex'], ['A check-in once they have started', 'Alex']] },
+  ],
+  total: ['You hold', 'a hire who is in the seat'],
+};
+
+export const notePitch = {
+  heading: 'A note with every name',
+  lead: 'You never get a CV and a phone call.',
+  rest: 'Each person on a shortlist arrives with a written note: why they fit, what they earn, what would move them, and the risk.',
+  others: [
+    { id: 'Candidate A', line: 'Mid-market AE, payments scale-up, Manchester', state: 'Interviewing' },
+    { id: 'Candidate C', line: 'Founding AE, seed-stage analytics company, remote UK', state: 'Interviewing' },
+    { id: 'Candidate D', line: 'Account executive, US software firm, London office', state: 'Second look' },
+  ],
+};
+
+// Verified placements, as one running sentence on the homepage.
+export const placedRoles = [
+  'a fractional Chief Revenue Officer',
+  'a fractional CRO and business development lead',
+  'a head of delivery and performance',
+  'a head of compliance and funding',
+  'three board members',
+];
+
+export const principles = [
+  { lead: 'Few searches at once.', rest: 'Each role gets real attention, not a database search and a pile of CVs.' },
+  { lead: 'Straight answers.', rest: 'If a candidate is not right, you hear it. If the market cannot give you what the brief asks for, you hear that in week one, not week six.' },
+  { lead: 'Discretion.', rest: 'Replacement hires and market entries are often confidential, so they run quietly.' },
+];
+
+// Example documents for the About principles and the Contact page. Illustrative, labelled on the page.
+export const searchStages = ['Brief', 'Map', 'Approach', 'Shortlist', 'Close'];
+export const openSearches = [
+  { role: 'Founding AE, UK', stage: 3, week: 'Week 4' },
+  { role: 'Solutions engineer, EMEA', stage: 2, week: 'Week 2' },
+  { role: 'Head of sales, UK', stage: 0, week: 'Week 1' },
+];
+
+export const straightUpdate = {
+  title: 'Update · Head of sales, UK',
+  meta: [['From', 'Alex Lockey'], ['Week', 'One']],
+  body: 'The range in the brief sits about a fifth under what the people who fit are earning. Two ways forward:',
+  options: ['Widen the range to match the market', 'Open the brief to people a step earlier in their careers'],
+  close: 'My view is the second. Happy to talk it through.',
+};
+
+export const confidentialSearch = [
+  ['Client name', 'Withheld until the second call'],
+  ['Role advertised', 'No'],
+  ['Approaches', 'By phone, one to one'],
+  ['Candidate names', 'Shared with their consent only'],
+  ['Shortlist', 'Sent to one named contact'],
+];
+
+export const nextSteps = [
+  ['Now', 'Your brief reaches Alex'],
+  ['Next', 'A personal reply, with any questions'],
+  ['Then', 'A 30-minute call on what the hire must deliver'],
+  ['After that', 'The market map and the first approaches'],
+  ['Later', 'A shortlist, each name with a written note'],
+];
+
+export const exampleReply = {
+  title: 'Re: Founding AE, UK',
+  meta: [['From', 'Alex Lockey'], ['To', 'You'], ['Subject', 'Re: Founding AE, UK']],
+  body: 'Thanks for this. Two questions before we talk: who will this person sell alongside in the first six months, and what has the US team tried in the UK so far? Could you do thirty minutes this week?',
+  from: 'Alex',
 };

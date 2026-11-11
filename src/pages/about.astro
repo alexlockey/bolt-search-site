@@ -1,145 +1,135 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { principles, facts, placements, quotes, hero, openSearches, searchStages, straightUpdate, confidentialSearch } from '../data/site';
 
-const title = "About Bolt Search";
-const description = "Bolt Search is a founder-led recruitment firm run by Alex Lockey. Over 10 years of commercial and leadership placements, including CRO, CCO, account director and business development hires.";
-
-const principles = [
-  {
-    heading: "Few searches at once",
-    body: "We take on a small number of roles at a time, so each one gets real attention rather than a database search and a pile of CVs.",
-  },
-  {
-    heading: "Straight answers",
-    body: "If a candidate is not right, we say so. If the market cannot give you what the brief asks for, you hear that in week one, not week six.",
-  },
-  {
-    heading: "Discretion",
-    body: "Replacement hires and new market entries are often confidential. We run them quietly, for clients and candidates alike.",
-  },
-];
+const title = 'Alex Lockey, founder of Bolt Search';
+const description = 'Alex Lockey has recruited since 2007 and founded Bolt Search in 2016. He runs every search himself, with a written note on every name.';
 ---
 
 <Layout title={title} description={description}>
-  <section class="about-hero">
-    <div class="container-wide about-grid">
+  <section class="bs-page-head">
+    <div class="bs-wrap bs-page-grid">
       <div>
-        <h1>A small search firm. Every brief run by the founder.</h1>
-        <p class="lede">
-          Bolt Search has recruited commercial and leadership people for more than 10 years. Placements include CROs, CCOs, account directors and business development hires for growing companies in the UK and abroad.
-        </p>
+        <h1 class="bs-page-h1" data-reveal>Alex Lockey</h1>
+        <p class="bs-two-tone" data-reveal style="--d:1">Founder of Bolt Search. <span>Recruiting since 2007, and still running every search himself.</span></p>
       </div>
-      <figure class="portrait">
-        <img src="/alex-lockey.jpg" alt="Alex Lockey" width="360" height="360" loading="eager" />
-        <figcaption>
-          <strong>Alex Lockey</strong>
-          Founder and Managing Partner
-        </figcaption>
-      </figure>
+      <img class="bs-portrait" src="/images/alex-headshot-600.webp" alt="Alex Lockey" width="600" height="804" loading="eager" data-reveal style="--d:2" />
     </div>
   </section>
 
-  <section class="section section-subtle">
-    <div class="container about-copy">
-      <h2>Alex Lockey</h2>
-      <p>
-        Alex founded Bolt Search and runs every search himself, from the first call to the start date. He has spent his career around commercial teams: hiring them, building them and working alongside the people who lead them.
-      </p>
-      <p>
-        He trained as an engineer (BEng Aeronautical Engineering, University of Bristol), which helps when a hire has to hold a technical conversation with a buyer, not only a commercial one.
-      </p>
-      <p>
-        <a href="https://www.linkedin.com/in/alexlockey1/" target="_blank" rel="noopener">Alex on LinkedIn</a>
-      </p>
+  <section class="bs-about" aria-labelledby="bs-story-h">
+    <div class="bs-wrap">
+      <h2 id="bs-story-h" class="bs-h2 bs-about-h" data-reveal>The short version</h2>
+      <div class="bs-about-text" data-reveal>
+        <div class="bs-para">
+          Alex has recruited since <mark class="hl-a">2007</mark> and founded Bolt Search in <mark class="hl-a">2016</mark>. Over that time he has made <mark class="hl-b">more than fifty placements</mark>, from specialists and heads of function to <mark class="hl-b">fractional CROs</mark> and board members.
+        </div>
+        <div class="bs-para">
+          He trained as an <mark class="hl-b">engineer</mark>, with a BEng in Aeronautical Engineering from the <mark class="hl-c">University of Bristol</mark>, which helps when a hire has to hold a technical conversation with a buyer as well as a commercial one. He works from the UK with companies in the <mark class="hl-a">UK and the US</mark>. <a href="/#brief" class="hl-go">Tell him about your role.</a>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container-wide">
-      <h2 class="section-heading">How we work</h2>
-      <div class="grid-3">
-        {principles.map((p) => (
-          <div class="card">
-            <h3>{p.heading}</h3>
-            <p>{p.body}</p>
+  <section class="bs-principles-wrap" aria-labelledby="bs-how-h">
+    <div class="bs-wrap">
+      <h2 id="bs-how-h" class="bs-h2 bs-principles-h" data-reveal>How he works</h2>
+      <ul class="bs-principles">
+        <li class="bs-principle">
+          <p class="bs-two-tone" data-reveal>{principles[0].lead} <span>{principles[0].rest}</span></p>
+          <div class="bs-app bs-mini" data-ui data-reveal style="--d:1">
+            <div class="bs-app-bar"><span class="bs-app-title">Open searches</span><span class="bs-app-tag">Example</span></div>
+            <ul class="bs-track-list">
+              {openSearches.map((o) => (
+                <li>
+                  <span class="bs-app-id">{o.role}</span>
+                  <span class="bs-app-state">{searchStages[o.stage]} · {o.week}</span>
+                  <svg class="bs-track" viewBox="0 0 200 12" aria-label={`Stage ${o.stage + 1} of ${searchStages.length}: ${searchStages[o.stage]}`} role="img">
+                    <line x1="6" y1="6" x2="194" y2="6" class="bs-track-line" />
+                    {searchStages.map((_, i) => (
+                      <circle cx={6 + i * 47} cy="6" r="5" class={i < o.stage ? 'is-done' : i === o.stage ? 'is-now' : 'is-next'} />
+                    ))}
+                  </svg>
+                </li>
+              ))}
+            </ul>
           </div>
-        ))}
+        </li>
+        <li class="bs-principle">
+          <p class="bs-two-tone" data-reveal>{principles[1].lead} <span>{principles[1].rest}</span></p>
+          <div class="bs-app bs-mini" data-ui data-reveal style="--d:1">
+            <div class="bs-app-bar"><span class="bs-app-title">{straightUpdate.title}</span><span class="bs-app-tag">Example</span></div>
+            <dl class="bs-app-note bs-mini-note bs-mini-meta">
+              {straightUpdate.meta.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+            </dl>
+            <div class="bs-mini-body">
+              <p>{straightUpdate.body}</p>
+              <ul class="bs-options">{straightUpdate.options.map((o, i) => <li class={i === 1 ? 'is-pick' : undefined}>{o}</li>)}</ul>
+              <p>{straightUpdate.close}</p>
+            </div>
+          </div>
+        </li>
+        <li class="bs-principle">
+          <p class="bs-two-tone" data-reveal>{principles[2].lead} <span>{principles[2].rest}</span></p>
+          <div class="bs-app bs-mini" data-ui data-reveal style="--d:1">
+            <div class="bs-app-bar"><span class="bs-app-title">Search · Replacement hire</span><span class="bs-app-tag">Confidential, example</span></div>
+            <dl class="bs-app-note bs-mini-note">
+              {confidentialSearch.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+            </dl>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="bs-record" aria-labelledby="bs-log-h">
+    <div class="bs-wrap bs-record-grid bs-record-grid-flush">
+      <div>
+        <h2 id="bs-log-h" class="bs-h2" data-reveal>Track record</h2>
+        <dl class="bs-figures bs-figures-gap" data-reveal>
+          {facts.slice(0, 3).map((f) => <div><dt>{f.figure}</dt><dd>{f.label}</dd></div>)}
+        </dl>
+      </div>
+      <div class="bs-log" data-ui data-reveal style="--d:1">
+        <div class="bs-app-bar"><span class="bs-app-title">Placement log</span><span class="bs-app-tag">Roles only, no names</span></div>
+        <ul>
+          {placements.map((p, k) => (
+            <li style={`--k:${k}`}>
+              <span class="bs-log-check" aria-hidden="true">
+                <svg viewBox="0 0 16 16" width="16" height="16"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5" /><polyline points="5,8.2 7.2,10.3 11,6" fill="none" stroke="currentColor" stroke-width="1.5" /></svg>
+              </span>
+              <span class="bs-log-role">{p.role}</span>
+              <span class="bs-log-co">{p.company}</span>
+              <span class="bs-log-year">{p.year}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   </section>
 
-  <section class="section section-dark">
-    <div class="container-wide closing">
-      <h2>Have a role in mind?</h2>
-      <p>Send a short note on the role and what it has to achieve. Alex will reply personally.</p>
-      <a href="/contact/" class="btn btn-white">Tell us about the role</a>
+  <section class="bs-letter" aria-labelledby="bs-words-h">
+    <div class="bs-wrap bs-letter-grid">
+      <h2 id="bs-words-h" class="bs-h2" data-reveal>In their words</h2>
+      <div class="bs-letter-body">
+        {quotes.map((q, i) => (
+          <blockquote class={i === 0 ? 'bs-letter-open' : undefined} data-reveal style={`--d:${i % 2}`}>
+            <p>{q.text}</p>
+            <footer>{q.who}</footer>
+          </blockquote>
+        ))}
+        <p class="bs-letter-sign">Paraphrased from fifteen LinkedIn recommendations. <a href={hero.second.href}>Ask to speak to a reference</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bs-cta">
+    <div class="bs-wrap bs-cta-grid">
+      <h2 class="bs-h2" data-reveal>Have a role in mind?</h2>
+      <div data-reveal style="--d:1">
+        <p class="bs-two-tone">Send a few lines on what the hire must achieve. <span>Alex replies personally.</span></p>
+        <a href="/#brief" class="bs-btn bs-btn-accent bs-cta-btn">Tell us about the role</a>
+      </div>
     </div>
   </section>
 </Layout>
-
-<style>
-  .about-hero {
-    padding: var(--space-4xl) 0 var(--space-3xl);
-  }
-
-  .about-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
-    gap: var(--space-3xl);
-    align-items: center;
-  }
-
-  .about-grid h1 {
-    margin-bottom: var(--space-lg);
-  }
-
-  .portrait img {
-    border-radius: 12px;
-    width: 100%;
-    max-width: 360px;
-  }
-
-  .portrait figcaption {
-    margin-top: var(--space-md);
-    color: var(--color-fg-subtle);
-    font-size: 0.9375rem;
-  }
-
-  .portrait strong {
-    display: block;
-    color: var(--color-fg);
-  }
-
-  .about-copy h2 {
-    margin-bottom: var(--space-lg);
-  }
-
-  .section-heading {
-    margin-bottom: var(--space-2xl);
-  }
-
-  .card h3 {
-    margin-bottom: var(--space-sm);
-  }
-
-  .card p {
-    margin-bottom: 0;
-  }
-
-  .closing {
-    max-width: 44rem;
-  }
-
-  .closing h2 {
-    margin-bottom: var(--space-md);
-  }
-
-  .closing p {
-    margin-bottom: var(--space-xl);
-  }
-
-  @media (max-width: 768px) {
-    .about-hero { padding: var(--space-3xl) 0 var(--space-2xl); }
-    .about-grid { grid-template-columns: 1fr; gap: var(--space-xl); }
-  }
-</style>

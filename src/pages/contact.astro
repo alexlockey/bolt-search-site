@@ -1,271 +1,126 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { contact, nextSteps, exampleReply, shortlistNote } from '../data/site';
 
-const title = "Tell us about the role";
-const description = "Send Bolt Search a short brief on the role you are hiring for. Alex Lockey reads and replies to every enquiry personally.";
+const title = 'Tell us about the role';
+const description = 'Send Bolt Search a short brief on the role you are hiring for. Alex Lockey reads and replies to every enquiry personally.';
 ---
 
 <Layout title={title} description={description}>
-  <section class="contact">
-    <div class="container-wide contact-grid">
-      <div class="contact-intro">
-        <h1>Tell us about the role.</h1>
-        <p class="lede">
-          A few lines is enough: the role, where it sits, and what the person has to achieve in their first year. Alex reads every enquiry and replies personally.
-        </p>
-        <p class="contact-alt">
-          Prefer email? <a href="mailto:alex@bolt-search.com">alex@bolt-search.com</a>
-        </p>
+  <section class="bs-page-head">
+    <div class="bs-wrap bs-contact-grid">
+      <div class="bs-contact-copy">
+        <h1 class="bs-page-h1" data-reveal>Tell us about the role</h1>
+        <p class="bs-two-tone" data-reveal style="--d:1">A few lines is enough. <span>The role, where it sits, and what the person has to achieve in their first year. Alex reads every enquiry and replies personally.</span></p>
+        <p class="bs-body bs-contact-note" data-reveal style="--d:2">References from past clients and placed candidates are available on request.</p>
       </div>
 
-      <div class="form-panel">
-        <form class="contact-form" novalidate>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="name">Name</label>
-              <input type="text" id="name" name="name" required autocomplete="name" maxlength="120" />
-            </div>
-            <div class="form-group">
-              <label for="email">Work email</label>
-              <input type="email" id="email" name="email" required autocomplete="email" maxlength="200" />
-            </div>
+      <div class="bs-composer" data-ui data-reveal style="--d:1">
+        <div class="bs-app-bar"><span class="bs-app-title">New enquiry</span><span class="bs-app-tag">To Alex Lockey</span></div>
+        <form class="bs-form" id="contact-form" novalidate>
+          <div class="bs-form-row">
+            <label class="bb-field"><span>Name</span><input id="name" name="name" required autocomplete="name" maxlength="120" /></label>
+            <label class="bb-field"><span>Work email</span><input id="email" name="email" type="email" required autocomplete="email" maxlength="200" /></label>
           </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="company">Company</label>
-              <input type="text" id="company" name="company" required autocomplete="organization" maxlength="160" />
-            </div>
-            <div class="form-group">
-              <label for="role">Role to hire</label>
-              <input type="text" id="role" name="role" required maxlength="160" placeholder="e.g. Founding AE, UK" />
-            </div>
+          <div class="bs-form-row">
+            <label class="bb-field"><span>Company</span><input id="company" name="company" required autocomplete="organization" maxlength="160" /></label>
+            <label class="bb-field"><span>Role to hire</span><input id="role" name="role" required maxlength="160" placeholder="e.g. Founding AE, UK" /></label>
           </div>
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" required maxlength="5000" rows="6" placeholder="Location, timing, salary range if you have one, and anything that makes this hire hard."></textarea>
+          <label class="bb-field"><span>Message</span><textarea id="message" name="message" required maxlength="5000" rows="6" placeholder="Location, timing, salary range if you have one, and anything that makes this hire hard."></textarea></label>
+          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;border:0;padding:0" />
+          <div class="bb-actions">
+            <button type="submit" class="bb-send">Send the brief</button>
+            <p class="bb-status" role="status" aria-live="polite"></p>
           </div>
-          <input type="text" name="website" class="hp-trap" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;border:0;padding:0" />
-          <button type="submit" class="btn btn-primary">Send the brief</button>
-          <p class="form-note">We use these details only to reply to your enquiry.</p>
-          <p class="form-status" role="status" aria-live="polite"></p>
         </form>
-
-        <div class="form-success" hidden>
-          <h2>Thanks, that's with Alex.</h2>
-          <p>You'll get a personal reply, usually within one working day.</p>
+        <div class="bb-done" id="contact-done" hidden tabindex="-1">
+          <p class="bb-done-title">Thanks, that’s with Alex.</p>
+          <p>You’ll get a personal reply.</p>
         </div>
       </div>
     </div>
   </section>
+
+  <section class="bs-next" aria-labelledby="bs-next-h">
+    <div class="bs-wrap bs-next-grid">
+      <div data-reveal>
+        <h2 id="bs-next-h" class="bs-h2">What happens next</h2>
+        <p class="bs-two-tone bs-next-lead">One person, start to finish. <span>The same person who reads your brief makes every approach and writes every note.</span></p>
+      </div>
+      <div class="bs-next-stack">
+        <div class="bs-app" data-ui data-reveal style="--d:1">
+          <div class="bs-app-bar"><span class="bs-app-title">After you send a brief</span><span class="bs-app-tag">Timeline</span></div>
+          <dl class="bs-app-note bs-mini-note">
+            {nextSteps.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+          </dl>
+        </div>
+        <div class="bs-app bs-mini" data-ui data-reveal style="--d:2">
+          <div class="bs-app-bar"><span class="bs-app-title">{exampleReply.title}</span><span class="bs-app-tag">Example reply</span></div>
+          <dl class="bs-app-note bs-mini-note bs-mini-meta">
+            {exampleReply.meta.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+          </dl>
+          <div class="bs-mini-body"><p>{exampleReply.body}</p><p class="bs-mini-from">{exampleReply.from}</p></div>
+        </div>
+        <div class="bs-app" data-ui data-reveal style="--d:3">
+          <div class="bs-app-bar"><span class="bs-app-title">{shortlistNote.candidate}</span><span class="bs-app-tag">Example shortlist note, no real person</span></div>
+          <dl class="bs-app-note bs-mini-note">
+            {shortlistNote.rows.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="bs-rows">
+      <a class="bs-row" href={`mailto:${contact.email}`}><span>{contact.email}</span></a>
+      <a class="bs-row" href={contact.linkedin} target="_blank" rel="noopener"><span>LinkedIn</span></a>
+    </div>
+  </section>
 </Layout>
 
-<style>
-  .contact {
-    padding: var(--space-4xl) 0;
-  }
-
-  .contact-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
-    gap: var(--space-3xl);
-    align-items: start;
-  }
-
-  .contact-intro h1 {
-    margin-bottom: var(--space-lg);
-  }
-
-  .contact-alt {
-    margin-top: var(--space-xl);
-  }
-
-  .form-panel {
-    background: var(--color-bg-subtle);
-    border-radius: 12px;
-    padding: var(--space-xl);
-  }
-
-  .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
-  }
-
-  .form-row {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-lg);
-  }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.375rem;
-  }
-
-  .form-group label {
-    font-weight: 500;
-    font-size: 0.9375rem;
-    color: var(--color-fg);
-  }
-
-  .form-group input,
-  .form-group textarea {
-    width: 100%;
-    padding: 0.8125rem 0.875rem;
-    border: 1px solid var(--color-border-strong);
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 1rem;
-    color: var(--color-fg);
-    background: var(--color-white);
-  }
-
-  .form-group input::placeholder,
-  .form-group textarea::placeholder {
-    color: var(--color-fg-subtle);
-  }
-
-  .form-group input:focus,
-  .form-group textarea:focus {
-    border-color: var(--color-accent);
-  }
-
-  .form-group textarea {
-    resize: vertical;
-    min-height: 9rem;
-  }
-
-  .form-group .input-error {
-    border-color: var(--color-error);
-  }
-
-  .form-error {
-    color: var(--color-error);
-    font-size: 0.875rem;
-    margin: 0;
-  }
-
-  .contact-form .btn {
-    align-self: flex-start;
-  }
-
-  .form-note,
-  .form-status {
-    font-size: 0.875rem;
-    color: var(--color-fg-subtle);
-    margin: 0;
-  }
-
-  .form-status:empty {
-    display: none;
-  }
-
-  .form-status.is-error {
-    color: var(--color-error);
-  }
-
-  .form-success h2 {
-    margin-bottom: var(--space-sm);
-  }
-
-  @media (max-width: 860px) {
-    .contact { padding: var(--space-3xl) 0; }
-    .contact-grid { grid-template-columns: 1fr; gap: var(--space-xl); }
-  }
-
-  @media (max-width: 560px) {
-    .form-row { grid-template-columns: 1fr; }
-    .form-panel { padding: var(--space-lg); }
-  }
-</style>
-
 <script>
-  const form = document.querySelector('.contact-form') as HTMLFormElement;
-  const success = document.querySelector('.form-success') as HTMLElement;
-  const status = form.querySelector('.form-status') as HTMLElement;
-  const fields = ['name', 'email', 'company', 'role', 'message'] as const;
-  const labels: Record<(typeof fields)[number], string> = {
-    name: 'Please add your name.',
-    email: 'Please add a valid email address.',
-    company: 'Please add your company.',
-    role: 'Please add the role you are hiring for.',
-    message: 'Please add a short message.',
-  };
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const done = document.getElementById('contact-done') as HTMLElement | null;
+  if (form && done) {
+    const status = form.querySelector('.bb-status') as HTMLElement;
+    const fields = ['name', 'email', 'company', 'role', 'message'];
+    const val = (n: string) => ((form.elements.namedItem(n) as HTMLInputElement)?.value || '').trim();
 
-  const params = new URLSearchParams(location.search);
-  if (params.get('about') === 'references') {
-    const msg = form.querySelector('#message') as HTMLTextAreaElement;
-    if (!msg.value) msg.value = 'I would like to speak to one or two references before we talk about a role.';
-  }
+    if (new URLSearchParams(location.search).get('about') === 'references') {
+      const msg = form.elements.namedItem('message') as HTMLTextAreaElement;
+      if (!msg.value) msg.value = 'I would like to speak to one or two references before we talk about a role.';
+    }
 
-  const field = (id: string) => form.querySelector(`#${id}`) as HTMLInputElement | HTMLTextAreaElement;
-
-  function clearErrors() {
-    form.querySelectorAll('.form-error').forEach((el) => el.remove());
-    form.querySelectorAll('.input-error').forEach((el) => {
-      el.classList.remove('input-error');
-      el.removeAttribute('aria-invalid');
-    });
-    status.textContent = '';
-    status.classList.remove('is-error');
-  }
-
-  function showError(el: HTMLElement, message: string) {
-    el.classList.add('input-error');
-    el.setAttribute('aria-invalid', 'true');
-    const err = document.createElement('p');
-    err.className = 'form-error';
-    err.textContent = message;
-    el.parentElement?.appendChild(err);
-  }
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    clearErrors();
-
-    const values = Object.fromEntries(fields.map((f) => [f, field(f).value.trim()])) as Record<(typeof fields)[number], string>;
-    let firstBad: HTMLElement | null = null;
-
-    for (const f of fields) {
-      const bad = !values[f] || (f === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values[f]));
-      if (bad) {
-        showError(field(f), labels[f]);
-        firstBad ??= field(f);
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.textContent = '';
+      form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
+      const missing = fields.filter((n) => !val(n) || (n === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val(n))));
+      if (missing.length) {
+        missing.forEach((n) => (form.elements.namedItem(n) as HTMLInputElement).setAttribute('aria-invalid', 'true'));
+        (form.elements.namedItem(missing[0]) as HTMLInputElement).focus();
+        status.textContent = 'Please fill in the highlighted fields.';
+        return;
       }
-    }
-    if (firstBad) {
-      firstBad.focus();
-      return;
-    }
-
-    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
-    btn.disabled = true;
-    btn.textContent = 'Sending';
-
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...values,
-          website: (form.querySelector('input[name="website"]') as HTMLInputElement | null)?.value || '',
-        }),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || !data.success) throw new Error(data.error || 'failed');
-
-      // @ts-ignore gtag is defined in the layout
-      if (typeof window.gtag === 'function') window.gtag('event', 'generate_lead', { from: 'contact_form' });
-      form.hidden = true;
-      success.hidden = false;
-      success.setAttribute('tabindex', '-1');
-      success.focus();
-    } catch {
-      btn.disabled = false;
-      btn.textContent = 'Send the brief';
-      status.classList.add('is-error');
-      status.textContent = 'That did not send. Please try again, or email alex@bolt-search.com.';
-    }
-  });
+      const btn = form.querySelector('.bb-send') as HTMLButtonElement;
+      btn.disabled = true;
+      btn.textContent = 'Sending';
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...Object.fromEntries(fields.map((f) => [f, val(f)])), website: val('website') }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.success) throw new Error('send');
+        // @ts-ignore gtag comes from the layout
+        if (typeof window.gtag === 'function') window.gtag('event', 'generate_lead', { from: 'contact_form' });
+        form.hidden = true;
+        done.hidden = false;
+        done.focus();
+      } catch {
+        btn.disabled = false;
+        btn.textContent = 'Send the brief';
+        status.textContent = 'That did not send. Please try again, or email alex@bolt-search.com.';
+      }
+    });
+  }
 </script>
