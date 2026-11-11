@@ -1,0 +1,31 @@
+---
+// How a search runs, as one line with five stops (Visualize Value grammar: hollow stops, the last one
+// filled blue, the hire). The line draws across as it scrolls in; still with reduced motion or no script.
+// Desktop: one horizontal line behind five columns. Phone: each stop draws its own segment down to the next.
+import { steps } from '../data/site';
+const n = steps.items.length;
+---
+
+<div class="bs-tl" data-diagram>
+  <svg class="bs-tl-h" aria-hidden="true" focusable="false">
+    <line x1={`${100 / (n * 2)}%`} y1="12" x2={`${100 - 100 / (n * 2)}%`} y2="12" pathLength="1" />
+  </svg>
+  <ol class="bs-tl-list">
+    {steps.items.map((s, i) => (
+      <li style={`--i:${i}`}>
+        {i < n - 1 && (
+          <svg class="bs-tl-v" aria-hidden="true" focusable="false">
+            <line x1="12" y1="0" x2="12" y2="100%" pathLength="1" />
+          </svg>
+        )}
+        <svg class="bs-tl-node" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="9" class={i === n - 1 ? 'is-hire' : undefined} />
+        </svg>
+        <div class="bs-tl-text">
+          <h3>{s.verb}</h3>
+          <p>{s.line}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
+</div>

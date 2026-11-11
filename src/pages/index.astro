@@ -1,9 +1,9 @@
 ---
 // Home. The market narrows to one person: a short centred hero, the narrowing straight under it,
-// the method as four drawn steps, a working shortlist, the record, three voices, the brief.
+// the method as one five-stop timeline, a working shortlist, the record, three voices, the brief.
 import Layout from '../layouts/Layout.astro';
 import Narrowing from '../components/Narrowing.astro';
-import LineFigure from '../components/LineFigure.astro';
+import Timeline from '../components/Timeline.astro';
 import BriefBuilder from '../components/BriefBuilder.astro';
 import Shortlist from '../components/Shortlist.astro';
 import { hero, narrowing, steps, notePitch, facts, placements, quotes, contact } from '../data/site';
@@ -28,25 +28,17 @@ const description = 'Bolt Search finds the commercial and technical people growt
   </section>
 
   <section class="bs-narrow" id="method" aria-labelledby="bs-narrow-h">
-    <Narrowing />
-    <div class="bs-wrap bs-narrow-foot">
+    <div class="bs-wrap bs-split bs-narrow-head">
       <h2 id="bs-narrow-h" class="bs-h2" data-reveal>{narrowing.heading}</h2>
       <p class="bs-two-tone" data-reveal style="--d:1">{narrowing.lead} <span>{narrowing.rest}</span></p>
     </div>
+    <Narrowing />
   </section>
 
   <section class="bs-steps" aria-labelledby="bs-steps-h">
     <div class="bs-wrap">
       <h2 id="bs-steps-h" class="bs-h2 bs-steps-h" data-reveal>{steps.heading}</h2>
-      <ol class="bs-step-list">
-        {steps.items.map((s, i) => (
-          <li data-reveal style={`--d:${i}`}>
-            <LineFigure kind={s.kind} label={s.figure} />
-            <h3>{s.verb}</h3>
-            <p>{s.line}</p>
-          </li>
-        ))}
-      </ol>
+      <Timeline />
     </div>
   </section>
 

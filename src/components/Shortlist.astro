@@ -47,15 +47,14 @@ const slug = (id: string) => id.toLowerCase().replace(/\s+/g, '-');
             <p class="bs-sl-summary">{b.summary}</p>
           </header>
 
-          <section class="bs-sl-sec">
-            <h4>At a glance</h4>
+          <details class="bs-sl-sec" open>
+            <summary><h4>At a glance</h4><svg class="bs-sl-chev" viewBox="0 0 16 16" aria-hidden="true"><polyline points="4,6 8,10 12,6" fill="none" stroke="currentColor" stroke-width="1.5" /></svg></summary>
             <dl class="bs-sl-kv">
               {b.glance.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
             </dl>
-          </section>
-
-          <section class="bs-sl-sec">
-            <h4>Against your brief</h4>
+          </details>
+          <details class="bs-sl-sec" open>
+            <summary><h4>Against your brief</h4><svg class="bs-sl-chev" viewBox="0 0 16 16" aria-hidden="true"><polyline points="4,6 8,10 12,6" fill="none" stroke="currentColor" stroke-width="1.5" /></svg></summary>
             <ul class="bs-sl-fit">
               {b.fit.map((f) => (
                 <li>
@@ -65,34 +64,29 @@ const slug = (id: string) => id.toLowerCase().replace(/\s+/g, '-');
                 </li>
               ))}
             </ul>
-          </section>
-
-          <section class="bs-sl-sec">
-            <h4>Track record</h4>
+          </details>
+          <details class="bs-sl-sec" open>
+            <summary><h4>Track record</h4><svg class="bs-sl-chev" viewBox="0 0 16 16" aria-hidden="true"><polyline points="4,6 8,10 12,6" fill="none" stroke="currentColor" stroke-width="1.5" /></svg></summary>
             <ul class="bs-sl-points">{b.record.map((r) => <li>{r}</li>)}</ul>
-          </section>
-
-          <section class="bs-sl-sec">
-            <h4>Why they would move</h4>
+          </details>
+          <details class="bs-sl-sec" open>
+            <summary><h4>Why they would move</h4><svg class="bs-sl-chev" viewBox="0 0 16 16" aria-hidden="true"><polyline points="4,6 8,10 12,6" fill="none" stroke="currentColor" stroke-width="1.5" /></svg></summary>
             <p>{b.move}</p>
-          </section>
-
-          <section class="bs-sl-sec">
-            <h4>Risks, and how to test them</h4>
+          </details>
+          <details class="bs-sl-sec" open>
+            <summary><h4>Risks, and how to test them</h4><svg class="bs-sl-chev" viewBox="0 0 16 16" aria-hidden="true"><polyline points="4,6 8,10 12,6" fill="none" stroke="currentColor" stroke-width="1.5" /></svg></summary>
             <ul class="bs-sl-risks">
               {b.risks.map((r) => <li><span>{r.risk}</span><span>{r.test}</span></li>)}
             </ul>
-          </section>
-
-          <section class="bs-sl-sec">
-            <h4>References</h4>
+          </details>
+          <details class="bs-sl-sec" open>
+            <summary><h4>References</h4><svg class="bs-sl-chev" viewBox="0 0 16 16" aria-hidden="true"><polyline points="4,6 8,10 12,6" fill="none" stroke="currentColor" stroke-width="1.5" /></svg></summary>
             <p>{b.references}</p>
-          </section>
-
-          <section class="bs-sl-sec bs-sl-view">
-            <h4>Alex’s view</h4>
+          </details>
+          <details class="bs-sl-sec bs-sl-view" open>
+            <summary><h4>Alex’s view</h4><svg class="bs-sl-chev" viewBox="0 0 16 16" aria-hidden="true"><polyline points="4,6 8,10 12,6" fill="none" stroke="currentColor" stroke-width="1.5" /></svg></summary>
             <p>{b.view}</p>
-          </section>
+          </details>
         </article>
       ))}
     </div>
@@ -100,6 +94,13 @@ const slug = (id: string) => id.toLowerCase().replace(/\s+/g, '-');
 </div>
 
 <script>
+  // On phones, keep the briefing short: open only the first and last sections.
+  if (window.matchMedia('(max-width: 880px)').matches) {
+    document.querySelectorAll<HTMLElement>('[data-shortlist] .bs-sl-panel').forEach((panel) => {
+      const secs = Array.from(panel.querySelectorAll<HTMLDetailsElement>('details.bs-sl-sec'));
+      secs.forEach((d, k) => { d.open = k === 0 || k === secs.length - 1; });
+    });
+  }
   document.querySelectorAll<HTMLElement>('[data-shortlist]').forEach((root) => {
     const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
     const panels = Array.from(root.querySelectorAll<HTMLElement>('[role="tabpanel"]'));

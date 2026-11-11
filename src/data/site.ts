@@ -390,13 +390,14 @@ export const briefings: Briefing[] = [
   },
 ];
 
-// How a search runs, after the map: four steps, each drawn.
+// How a search runs: five stops on one line.
 export const steps = {
   heading: 'How a search runs',
   items: [
-    { kind: 'brief' as const, verb: 'Brief', line: 'Thirty minutes on what the first year must deliver.', figure: 'You and Alex agree the brief, then a line runs to the year-one goal.' },
-    { kind: 'approach' as const, verb: 'Approach', line: 'Alex makes every call, mostly to people not looking.', figure: 'Alex at the centre reaching five people inside a dashed ring of people not looking.' },
-    { kind: 'shortlist' as const, verb: 'Shortlist', line: 'A few people, each with a full briefing.', figure: 'Twelve people narrowed to four, each with a written briefing.' },
-    { kind: 'close' as const, verb: 'Close', line: 'Offer, notice, start date, then a check-in.', figure: 'The hire moves into the seat and is ticked off.' },
+    { verb: 'Brief', line: 'Thirty minutes on what the first year must deliver.' },
+    { verb: 'Map', line: 'Everyone who has done the work, filtered on what predicts success.' },
+    { verb: 'Approach', line: 'Alex makes every call, mostly to people not looking.' },
+    { verb: 'Shortlist', line: 'A few people, each with a full briefing.' },
+    { verb: 'Close', line: 'Offer, notice, start date, then a check-in.' },
   ],
 };
