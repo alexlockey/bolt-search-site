@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import { principles, facts, placements, quotes, hero, openSearches, searchStages, straightUpdate, confidentialSearch } from '../data/site';
 
 const title = 'Alex Lockey, founder of Bolt Search';
-const description = 'Alex Lockey has recruited since 2007 and founded Bolt Search in 2016. He runs every search himself, with a written note on every name.';
+const description = 'Alex Lockey has recruited since 2007 and founded Bolt Search in 2016. He runs each search himself, with a full briefing on every shortlisted name.';
 ---
 
 <Layout title={title} description={description}>
@@ -11,7 +11,7 @@ const description = 'Alex Lockey has recruited since 2007 and founded Bolt Searc
     <div class="bs-wrap bs-page-grid">
       <div>
         <h1 class="bs-page-h1" data-reveal>Alex Lockey</h1>
-        <p class="bs-two-tone" data-reveal style="--d:1">Founder of Bolt Search. <span>Recruiting since 2007, and still running every search himself.</span></p>
+        <p class="bs-two-tone" data-reveal style="--d:1">Founder of Bolt Search. <span>Recruiting since 2007, and still runs each search himself.</span></p>
       </div>
       <img class="bs-portrait" src="/images/alex-headshot-600.webp" alt="Alex Lockey" width="600" height="804" loading="eager" data-reveal style="--d:2" />
     </div>
@@ -43,7 +43,7 @@ const description = 'Alex Lockey has recruited since 2007 and founded Bolt Searc
               {openSearches.map((o) => (
                 <li>
                   <span class="bs-app-id">{o.role}</span>
-                  <span class="bs-app-state">{searchStages[o.stage]} · {o.week}</span>
+                  <span class="bs-app-state">{searchStages[o.stage]}, {o.week.toLowerCase()}</span>
                   <svg class="bs-track" viewBox="0 0 200 12" aria-label={`Stage ${o.stage + 1} of ${searchStages.length}: ${searchStages[o.stage]}`} role="img">
                     <line x1="6" y1="6" x2="194" y2="6" class="bs-track-line" />
                     {searchStages.map((_, i) => (
@@ -72,7 +72,7 @@ const description = 'Alex Lockey has recruited since 2007 and founded Bolt Searc
         <li class="bs-principle">
           <p class="bs-two-tone" data-reveal>{principles[2].lead} <span>{principles[2].rest}</span></p>
           <div class="bs-app bs-mini" data-ui data-reveal style="--d:1">
-            <div class="bs-app-bar"><span class="bs-app-title">Search · Replacement hire</span><span class="bs-app-tag">Confidential</span></div>
+            <div class="bs-app-bar"><span class="bs-app-title">Replacement hire search</span><span class="bs-app-tag">Confidential</span></div>
             <dl class="bs-app-note bs-mini-note">
               {confidentialSearch.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
             </dl>

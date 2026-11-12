@@ -9,7 +9,7 @@ import Shortlist from '../components/Shortlist.astro';
 import { hero, heroFacts, founderLine, narrowing, steps, notePitch, facts, placements, quotes, contact } from '../data/site';
 
 const title = 'Commercial and technical hires for growth companies';
-const description = 'Bolt Search finds the commercial and technical people growth companies depend on. One recruiter runs every search, with a full briefing on every name.';
+const description = 'Bolt Search finds the commercial and technical people growth companies depend on. One recruiter runs each search and sends a full briefing on each shortlisted name.';
 ---
 
 <Layout title={title} description={description}>
@@ -24,7 +24,7 @@ const description = 'Bolt Search finds the commercial and technical people growt
         <a href="#brief" class="bs-btn bs-btn-ink">{hero.action.label}</a>
       </div>
       <ul class="bs-hero-facts" data-after>
-        {heroFacts.map(([a, b]) => <li><strong>{a}</strong>{b}</li>)}
+        {heroFacts.map(([pre, num, post]) => <li>{pre && `${pre} `}<strong>{num}</strong>{post && ` ${post}`}</li>)}
       </ul>
     </div>
   </section>

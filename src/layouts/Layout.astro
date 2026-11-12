@@ -9,7 +9,7 @@ export interface Props {
 
 const {
   title,
-  description = 'Commercial and technical hires for growth companies, found by one recruiter who runs every search himself.',
+  description = 'Commercial and technical hires for growth companies, run by one recruiter.',
   image = '/og-image.png',
   article = false,
   noindex = false,
@@ -91,7 +91,7 @@ const year = new Date().getFullYear();
 
   <footer class="bs-foot">
     <div class="bs-foot-cols">
-      <div><p>Bolt Search</p><p>Commercial and technical hires for growth companies.</p></div>
+      <div><p>Bolt Search</p><p>Recruitment for growth companies, run by Alex Lockey.</p></div>
       <div><p>Pages</p>{navLinks.map((l) => <p><a href={l.href}>{l.label}</a></p>)}<p><a href="/contact/">Contact</a></p></div>
       <div><p>Contact</p><p><a href={`mailto:${contact.email}`}>{contact.email}</a></p><p><a href={contact.linkedin} target="_blank" rel="noopener">LinkedIn</a></p></div>
       <div><p>Where</p><p>{contact.where}</p></div>

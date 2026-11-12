@@ -1,9 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { contact, nextSteps, exampleReply, shortlistNote } from '../data/site';
+import { contact, nextSteps, exampleReply, briefings } from '../data/site';
 
 const title = 'Tell us about the role';
-const description = 'Send Bolt Search a short brief on the role you are hiring for. Alex Lockey reads and replies to every enquiry personally.';
+const description = 'Send Bolt Search a short brief on the role you are hiring for. Alex Lockey reads it and replies personally.';
 ---
 
 <Layout title={title} description={description}>
@@ -11,7 +11,7 @@ const description = 'Send Bolt Search a short brief on the role you are hiring f
     <div class="bs-wrap bs-contact-grid">
       <div class="bs-contact-copy">
         <h1 class="bs-page-h1" data-reveal>Tell us about the role</h1>
-        <p class="bs-two-tone" data-reveal style="--d:1">A few lines is enough. <span>The role, where it sits, and what the person has to achieve in their first year. Alex reads every enquiry and replies personally.</span></p>
+        <p class="bs-two-tone" data-reveal style="--d:1">A few lines is enough. <span>The role, where it sits, and what the person has to achieve in their first year. Alex reads each one and replies personally.</span></p>
       </div>
 
       <div class="bs-composer" data-ui data-reveal style="--d:1">
@@ -44,7 +44,7 @@ const description = 'Send Bolt Search a short brief on the role you are hiring f
     <div class="bs-wrap bs-next-grid">
       <div data-reveal>
         <h2 id="bs-next-h" class="bs-h2">What happens next</h2>
-        <p class="bs-two-tone bs-next-lead">One person, start to finish. <span>The same person who reads your brief makes every approach and writes every note.</span></p>
+        <p class="bs-two-tone bs-next-lead">One person handles your search from the first call. <span>The person who reads your brief makes the approaches and writes the briefings.</span></p>
       </div>
       <div class="bs-next-stack" data-reveal style="--d:1">
         <div class="bs-app" data-ui data-reveal style="--d:1">
@@ -61,9 +61,10 @@ const description = 'Send Bolt Search a short brief on the role you are hiring f
           <div class="bs-mini-body"><p>{exampleReply.body}</p><p class="bs-mini-from">{exampleReply.from}</p></div>
         </div>
         <div class="bs-app" data-ui data-reveal style="--d:3">
-          <div class="bs-app-bar"><span class="bs-app-title">{shortlistNote.candidate}</span></div>
+          <div class="bs-app-bar"><span class="bs-app-title">{briefings[0].id}, {briefings[0].title}</span></div>
           <dl class="bs-app-note bs-mini-note">
-            {shortlistNote.rows.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+            {briefings[0].glance.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+            <div><dt>Alex’s view</dt><dd>{briefings[0].view}</dd></div>
           </dl>
         </div>
       </div>

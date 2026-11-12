@@ -75,14 +75,14 @@ export const shortlistNote = {
     ['Why', 'Four years selling six-figure deals to UK financial services, mostly without an SE'],
     ['Earns', 'Base and OTE confirmed on the call, inside your range'],
     ['Would move for', 'First-hire scope and a say in who joins next'],
-    ['Risk', 'Has not built a team yet; a former manager’s reference covers how they bring people on'],
+    ['Risk', 'Has not built a team yet. A former manager’s reference covers how they bring people on.'],
   ],
 };
 
 export const facts = [
   { figure: '1,000+', label: 'Placements across Alex’s career.' },
-  { figure: '2007', label: 'Recruiting since. Bolt Search founded 2016.' },
-  { figure: '1', label: 'Person runs your search, start to finish.' },
+  { figure: '2007', label: 'Started recruiting. Bolt Search followed in 2016.' },
+  { figure: '1', label: 'person runs your search.' },
 ];
 
 // Verified placements only, role plus a generalised company type. No CCO or account director claim: none on file.
@@ -162,13 +162,13 @@ export const contact = {
 export const narrowing = {
   heading: 'Every search narrows to one person',
   lead: 'It starts with the whole market.',
-  rest: 'Research tools, including AI, map it fast. The judgement and every call are Alex’s.',
+  rest: 'Research tools, including AI, map it fast. The judgement and the calls are Alex’s.',
   stages: [
     { name: 'Mapped', count: 214, note: 'people at comparable companies' },
     { name: 'Matched', count: 61, note: 'on deal size, buyer and stage' },
     { name: 'Approached', count: 27, note: 'by Alex, most not looking' },
     { name: 'Spoken to', count: 12, note: 'against the brief' },
-    { name: 'Shortlisted', count: 4, note: 'each with a written note' },
+    { name: 'Shortlisted', count: 4, note: 'each with a full briefing' },
     { name: 'Hired', count: 1, note: 'the person the plan rests on' },
   ],
 };
@@ -190,7 +190,7 @@ export const slip = {
 export const notePitch = {
   heading: 'A briefing on every name',
   lead: 'You never get a CV and a phone call.',
-  rest: 'Every name arrives with a full briefing, and a straight answer on who Alex would hire. Here is what one looks like.',
+  rest: 'Each name comes with a full briefing and a straight answer on who Alex would hire. Here is what one looks like.',
   others: [
     { id: 'Candidate A', line: 'Mid-market AE, payments scale-up, Manchester', state: 'Interviewing' },
     { id: 'Candidate C', line: 'Founding AE, seed-stage analytics company, remote UK', state: 'Interviewing' },
@@ -208,7 +208,7 @@ export const placedRoles = [
 ];
 
 export const principles = [
-  { lead: 'Few searches at once.', rest: 'Each role gets real attention, not a database search and a pile of CVs.' },
+  { lead: 'Few searches at once.', rest: 'Each role gets Alex’s full attention.' },
   { lead: 'Straight answers.', rest: 'If a candidate is not right, you hear it. If the market cannot give you what the brief asks for, you hear that in week one, not week six.' },
   { lead: 'Discretion.', rest: 'Replacement hires and market entries are often confidential, so they run quietly.' },
 ];
@@ -222,9 +222,9 @@ export const openSearches = [
 ];
 
 export const straightUpdate = {
-  title: 'Update · Head of sales, UK',
+  title: 'Week one update, head of sales',
   meta: [['From', 'Alex Lockey'], ['Week', 'One']],
-  body: 'The range in the brief sits about a fifth under what the people who fit are earning. Two ways forward:',
+  body: 'The range in the brief sits about a fifth under what the people who fit are earning. There are two ways forward.',
   options: ['Widen the range to match the market', 'Open the brief to people a step earlier in their careers'],
   close: 'My view is the second. Happy to talk it through.',
 };
@@ -242,7 +242,7 @@ export const nextSteps = [
   ['Next', 'A personal reply, with any questions'],
   ['Then', 'A 30-minute call on what the hire must deliver'],
   ['After that', 'The market map and the first approaches'],
-  ['Later', 'A shortlist, each name with a written note'],
+  ['Later', 'A shortlist, with a full briefing on each name'],
 ];
 
 export const exampleReply = {
@@ -270,7 +270,7 @@ export type Briefing = {
 };
 
 export const briefingSearch = {
-  title: 'Shortlist · Founding AE, UK',
+  title: 'Founding AE, UK shortlist',
   tag: '',
   brief: 'Founding Account Executive, UK. Year one: the first ten UK customers and a repeatable mid-market motion. Reports to the VP Sales in the US.',
 };
@@ -292,16 +292,16 @@ export const briefings: Briefing[] = [
       { need: 'Sold a technical product to UK buyers', evidence: 'Data platform into banks and insurers since 2022', level: 'meets' },
       { need: 'Alone, first call to contract', evidence: 'Ran her own technical demos on 9 of last year’s 12 deals', level: 'meets' },
       { need: 'Mid-market deal sizes', evidence: 'Average deal £140k, smallest £45k', level: 'meets' },
-      { need: 'Reporting into the US', evidence: 'Current manager is in New York; weekly call at 4pm UK', level: 'meets' },
+      { need: 'Reporting into the US', evidence: 'Current manager is in New York, with a weekly call at 4pm UK', level: 'meets' },
     ],
     record: ['118% of quota in 2025, 104% in 2024', 'Opened 7 new logos last year, 5 of them outbound', 'Promoted from mid-market AE after 18 months'],
-    move: 'Wants to be first in a market rather than one of forty AEs. Has turned down two scale-up offers this year because neither was a first hire.',
+    move: 'Wants to be the first seller in a market. Has turned down two scale-up offers this year because neither was a first hire.',
     risks: [
-      { risk: 'Has not built a team', test: 'Ask how she would hire AE number two; her former manager’s reference covers how she brings people on' },
+      { risk: 'Has not built a team', test: 'Ask how she would hire AE number two. Her former manager’s reference covers how she brings people on.' },
       { risk: 'Used to a known brand opening doors', test: 'Walk through the 5 outbound wins: first touch to first meeting' },
     ],
     references: 'Former manager spoken to. Current peer to follow after first interview, with her consent.',
-    view: 'Meet first. She has done the job you are hiring for, in a harder market, and the move is about scope rather than money.',
+    view: 'Meet first. She has done the job you are hiring for, in a harder market, and she is moving for the scope of the role.',
   },
   {
     id: 'Candidate A',
@@ -352,9 +352,9 @@ export const briefings: Briefing[] = [
     move: 'Her company’s runway is short and growth hiring has paused. She wants the same job with more backing.',
     risks: [
       { risk: 'Smaller deals than yours', test: 'Look at her pipeline for any deal over £75k and how far it got' },
-      { risk: 'Leaving for safety rather than the role', test: 'Ask what would make her stay; listen for the product, not the funding' },
+      { risk: 'May be leaving for safety', test: 'Ask what would make her stay. If the answer is the product, the move is real.' },
     ],
-    references: 'Investor reference offered by the candidate; to be taken after first interview.',
+    references: 'Investor reference offered by the candidate, to be taken after the first interview.',
     view: 'Has done the job already. Meet if you want someone who will not need the founding-seller role explained.',
   },
   {
@@ -373,7 +373,7 @@ export const briefings: Briefing[] = [
       { need: 'Sold a technical product to UK buyers', evidence: 'Security software to UK mid-market', level: 'meets' },
       { need: 'Alone, first call to contract', evidence: 'Supported by an SDR team and a solutions engineer', level: 'partly' },
       { need: 'Mid-market deal sizes', evidence: 'Average deal £110k', level: 'meets' },
-      { need: 'Reporting into the US', evidence: 'Reports to Boston; three years of it', level: 'meets' },
+      { need: 'Reporting into the US', evidence: 'Has reported to Boston for three years', level: 'meets' },
     ],
     record: ['On target three years running', 'Top UK seller in 2024', 'Mentors two newer AEs'],
     move: 'Wants equity and a bigger say in how the UK is built.',
@@ -399,9 +399,9 @@ export const steps = {
 
 // Above the fold, straight under the hero (proof first).
 export const heroFacts = [
-  ['Since 2007', 'recruiting'],
-  ['1,000+', 'placements'],
-  ['1 person', 'runs every search'],
+  ['Recruiting since', '2007', ''],
+  ['', '1,000+', 'placements'],
+  ['', 'One person', 'runs your search'],
 ];
 
 export const founderLine = 'No stack of CVs. A few people, a full briefing on each, and a straight answer on who I would hire.';
