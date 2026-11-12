@@ -5,11 +5,14 @@ import vercel from '@astrojs/vercel';
 
 export default defineConfig({
   site: 'https://www.bolt-search.com',
-    trailingSlash: 'always',
+  trailingSlash: 'always',
   output: 'static',
   adapter: vercel(),
   integrations: [
-    sitemap(),
+    // Hidden pages (insights archive, onboarding forms, thank-you pages) are noindex, so keep them out of the sitemap.
+    sitemap({
+      filter: (page) => !/\/(insights|onboarding|client-onboarding)(\/|$)/.test(new URL(page).pathname),
+    }),
     mdx()
   ],
   markdown: {

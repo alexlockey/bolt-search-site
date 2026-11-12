@@ -1,380 +1,121 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { contact, nextSteps, exampleReply, briefings } from '../data/site';
 
-const title = "Get in Touch";
-const description = "Contact Bolt Search to discuss your hiring, advisory, or leadership needs. Reach out with your brief or inquiry.";
+const title = 'Tell us about the role';
+const description = 'Send Bolt Search a short brief on the role you are hiring for. Alex Lockey reads it and replies personally.';
 ---
 
 <Layout title={title} description={description}>
-  <!-- Hero with background image -->
-  <section class="contact-hero gradient-mesh" style="background: linear-gradient(135deg, var(--color-navy) 0%, #1a1a3e 50%, #0f2027 100%);">
-    <div class="gradient-orb gradient-orb-1" style="opacity: 0.08;"></div>
-    <div class="gradient-orb gradient-orb-2" style="opacity: 0.08;"></div>
-    <div class="container-wide">
-      <div style="max-width: 800px;" class="animate-on-scroll">
-        <h1 style="color: white;">Let's Talk</h1>
-        <p style="font-size: 1.125rem; margin-top: var(--space-lg); color: rgba(255, 255, 255, 0.85);">
-          Interested in executive search, board advisory, or fractional leadership? Share your brief and we'll discuss how we can help.
-        </p>
+  <section class="bs-page-head">
+    <div class="bs-wrap bs-contact-grid">
+      <div class="bs-contact-copy">
+        <h1 class="bs-page-h1" data-reveal>Tell us about the role</h1>
+        <p class="bs-two-tone" data-reveal style="--d:1">A few lines is enough. <span>The role, where it sits, and what the person has to achieve in their first year. Alex reads each one and replies personally.</span></p>
       </div>
-    </div>
-  </section>
 
-  <!-- Contact Form & Info -->
-  <section class="section">
-    <div class="container-wide">
-      <div class="contact-grid">
-        <!-- Contact Form -->
-        <div class="form-section">
-          <h2 style="margin-bottom: var(--space-lg);">Send us a message</h2>
-          <form class="contact-form">
-            <div class="form-group">
-              <label for="name">Name</label>
-              <input type="text" id="name" name="name" required placeholder="Your name" />
-            </div>
-
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" required placeholder="your@email.com" />
-            </div>
-
-            <div class="form-group">
-              <label for="company">Company</label>
-              <input type="text" id="company" name="company" placeholder="Your company" />
-            </div>
-
-            <div class="form-group">
-              <label for="subject">Subject</label>
-              <select id="subject" name="subject" required>
-                <option value="">Select a subject</option>
-                <option value="Executive Search">Executive Search</option>
-                <option value="Board Advisory">Board Advisory</option>
-                <option value="Fractional Leadership">Fractional Leadership</option>
-                <option value="Partnership/Other">Partnership/Other</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="message">Message</label>
-              <textarea id="message" name="message" required placeholder="Tell us about your needs..."></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: var(--space-md);">
-              Send Message <span aria-hidden="true">&rarr;</span>
-            </button>
-                  <input type="text" name="website" class="hp-trap" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;border:0;padding:0" />
-          </form>
-          <div class="form-success" style="display:none;">
-            <div style="text-align:center;padding:var(--space-2xl) 0;">
-              <h3 style="margin-bottom:var(--space-md);color:var(--color-navy);">Message Sent</h3>
-              <p style="color:var(--color-fg-muted);">Thanks for getting in touch. We'll get back to you shortly.</p>
-            </div>
+      <div class="bs-composer" data-ui data-reveal style="--d:1">
+        <div class="bs-app-bar"><span class="bs-app-title">New enquiry</span><span class="bs-app-tag">To Alex Lockey</span></div>
+        <form class="bs-form" id="contact-form" novalidate>
+          <div class="bs-form-row">
+            <label class="bb-field"><span>Name</span><input id="name" name="name" required autocomplete="name" maxlength="120" /></label>
+            <label class="bb-field"><span>Work email</span><input id="email" name="email" type="email" required autocomplete="email" maxlength="200" /></label>
           </div>
-        </div>
-
-        <!-- Contact Info -->
-        <div class="info-section">
-          <div class="location-card">
-            <h3>Locations</h3>
-            <div class="location">
-              <h4>London</h4>
-              <p>UK HQ</p>
-            </div>
-            <div class="location">
-              <h4>Newcastle</h4>
-              <p>Northern operations</p>
-            </div>
-            <div class="location">
-              <h4>New York</h4>
-              <p>International reach</p>
-            </div>
+          <div class="bs-form-row">
+            <label class="bb-field"><span>Company</span><input id="company" name="company" required autocomplete="organization" maxlength="160" /></label>
+            <label class="bb-field"><span>Role to hire</span><input id="role" name="role" required maxlength="160" placeholder="e.g. Founding AE, UK" /></label>
           </div>
-
-          <div class="quick-info">
-            <h3>Quick Links</h3>
-            <p style="margin-bottom: var(--space-lg); color: var(--color-fg-muted); font-size: 0.9375rem;">
-              Not sure where to start? Explore our services.
-            </p>
-            <div style="display: flex; flex-direction: column; gap: var(--space-sm);">
-              <a href="/search" class="btn btn-outline" style="width: 100%;">Executive Search</a>
-              <a href="/advisory" class="btn btn-outline" style="width: 100%;">Board Advisory</a>
-              <a href="/fractional" class="btn btn-outline" style="width: 100%;">Fractional Leadership</a>
-            </div>
+          <label class="bb-field"><span>Message</span><textarea id="message" name="message" required maxlength="5000" rows="6" placeholder="Location, timing, salary range if you have one, and anything that makes this hire hard."></textarea></label>
+          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;border:0;padding:0" />
+          <div class="bb-actions">
+            <button type="submit" class="bb-send">Send the brief</button>
+            <p class="bb-status" role="status" aria-live="polite"></p>
           </div>
+        </form>
+        <div class="bb-done" id="contact-done" hidden tabindex="-1">
+          <p class="bb-done-title">Thanks, that’s with Alex.</p>
+          <p>You’ll get a personal reply.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Best Fit Section -->
-  <section class="section section-subtle">
-    <div class="container-wide">
-      <h2 style="margin-bottom: var(--space-2xl);">Who We Serve Best</h2>
-      <div class="grid-2" style="margin-bottom: var(--space-2xl);">
-        <div class="card">
-          <h3 style="margin-bottom: var(--space-sm);">Hiring at Board or Senior Level</h3>
-          <p>
-            Looking for executive-level talent in education, training, or edtech. We specialise in confidential, strategic placements for boards and C-suite roles.
-          </p>
+  <section class="bs-next" aria-labelledby="bs-next-h">
+    <div class="bs-wrap bs-next-grid">
+      <div data-reveal>
+        <h2 id="bs-next-h" class="bs-h2">What happens next</h2>
+        <p class="bs-two-tone bs-next-lead">One person handles your search from the first call. <span>The person who reads your brief makes the approaches and writes the briefings.</span></p>
+      </div>
+      <div class="bs-next-stack" data-reveal style="--d:1">
+        <div class="bs-app" data-ui data-reveal style="--d:1">
+          <div class="bs-app-bar"><span class="bs-app-title">After you send a brief</span><span class="bs-app-tag">Timeline</span></div>
+          <dl class="bs-app-note bs-mini-note">
+            {nextSteps.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+          </dl>
         </div>
-        <div class="card">
-          <h3 style="margin-bottom: var(--space-sm);">Exploring an Acquisition</h3>
-          <p>
-            Considering a strategic acquisition in the education or training sector. We provide market intelligence, target identification, and integration advisory.
-          </p>
+        <div class="bs-app bs-mini" data-ui data-reveal style="--d:2">
+          <div class="bs-app-bar"><span class="bs-app-title">{exampleReply.title}</span></div>
+          <dl class="bs-app-note bs-mini-note bs-mini-meta">
+            {exampleReply.meta.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+          </dl>
+          <div class="bs-mini-body"><p>{exampleReply.body}</p><p class="bs-mini-from">{exampleReply.from}</p></div>
         </div>
-        <div class="card">
-          <h3 style="margin-bottom: var(--space-sm);">Need Fractional Leadership</h3>
-          <p>
-            Require experienced leadership support on a fractional or interim basis. Board roles, CEO cover, or specialist operational expertise.
-          </p>
-        </div>
-        <div class="card">
-          <h3 style="margin-bottom: var(--space-sm);">Investor Seeking Portfolio Support</h3>
-          <p>
-            Portfolio business needs leadership talent, M&A support, or operational guidance. We advise investors and their portfolio companies.
-          </p>
+        <div class="bs-app" data-ui data-reveal style="--d:3">
+          <div class="bs-app-bar"><span class="bs-app-title">{briefings[0].id}, {briefings[0].title}</span></div>
+          <dl class="bs-app-note bs-mini-note">
+            {briefings[0].glance.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+            <div><dt>Alex’s view</dt><dd>{briefings[0].view}</dd></div>
+          </dl>
         </div>
       </div>
+    </div>
+    <div class="bs-rows">
+      <a class="bs-row" href={`mailto:${contact.email}`} data-reveal><span>{contact.email}</span></a>
+      <a class="bs-row" href={contact.linkedin} target="_blank" rel="noopener" data-reveal style="--d:1"><span>LinkedIn</span></a>
     </div>
   </section>
 </Layout>
 
-<style>
-  .contact-hero {
-    padding: var(--space-3xl) 0 var(--space-2xl);
-    min-height: 50vh;
-    display: flex;
-    align-items: center;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .contact-hero > * {
-    position: relative;
-    z-index: 2;
-  }
-
-  .contact-hero h1 {
-    font-size: clamp(2rem, 5vw, 3rem);
-    color: white;
-  }
-
-  .contact-hero p {
-    color: rgba(255, 255, 255, 0.85);
-  }
-
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: var(--space-3xl);
-    align-items: start;
-  }
-
-  .form-section h2 {
-    font-size: 1.75rem;
-  }
-
-  .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
-  }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
-  }
-
-  .form-group label {
-    font-weight: 500;
-    font-size: 0.9375rem;
-    color: var(--color-fg);
-  }
-
-  .form-group input,
-  .form-group textarea,
-  .form-group select {
-    padding: 0.875rem 1rem;
-    border: 1px solid var(--color-border-strong);
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 1rem;
-    color: var(--color-fg);
-    background: var(--color-bg-elevated);
-    transition: all 0.2s ease;
-  }
-
-  .form-group input:focus,
-  .form-group textarea:focus,
-  .form-group select:focus {
-    outline: none;
-    border-color: var(--color-accent);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-  }
-
-  .form-group textarea {
-    resize: vertical;
-    min-height: 150px;
-    font-family: inherit;
-  }
-
-  .form-group select {
-    cursor: pointer;
-  }
-
-  .info-section {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2xl);
-  }
-
-  .location-card,
-  .quick-info {
-    background: var(--color-bg-elevated);
-    border: 1px solid var(--color-border);
-    border-radius: 12px;
-    padding: var(--space-xl);
-  }
-
-  .location-card h3,
-  .quick-info h3 {
-    margin-bottom: var(--space-lg);
-    font-size: 1.125rem;
-  }
-
-  .location {
-    margin-bottom: var(--space-lg);
-    padding-bottom: var(--space-lg);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .location:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-    border-bottom: none;
-  }
-
-  .location h4 {
-    margin-bottom: var(--space-xs);
-    font-size: 1rem;
-  }
-
-  .location p {
-    font-size: 0.875rem;
-    color: var(--color-fg-subtle);
-    margin-bottom: 0;
-  }
-
-  @media (max-width: 768px) {
-    .contact-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-2xl);
-    }
-
-    .grid-2 {
-      grid-template-columns: 1fr;
-    }
-  }
-  .form-error {
-    color: #DC2626;
-    font-size: 0.8125rem;
-    margin-top: 0.25rem;
-  }
-
-  .form-group input.input-error,
-  .form-group textarea.input-error,
-  .form-group select.input-error {
-    border-color: #DC2626;
-    box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.1);
-  }
-</style>
-
 <script>
-  const form = document.querySelector('.contact-form') as HTMLFormElement;
-  const successDiv = document.querySelector('.form-success') as HTMLElement;
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const done = document.getElementById('contact-done') as HTMLElement | null;
+  if (form && done) {
+    const status = form.querySelector('.bb-status') as HTMLElement;
+    const fields = ['name', 'email', 'company', 'role', 'message'];
+    const val = (n: string) => ((form.elements.namedItem(n) as HTMLInputElement)?.value || '').trim();
 
-  function clearErrors() {
-    form.querySelectorAll('.form-error').forEach(el => el.remove());
-    form.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
-  }
-
-  function showFieldError(field: HTMLElement, message: string) {
-    field.classList.add('input-error');
-    const err = document.createElement('p');
-    err.className = 'form-error';
-    err.textContent = message;
-    field.parentElement?.appendChild(err);
-  }
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    clearErrors();
-
-    const name = (form.querySelector('#name') as HTMLInputElement).value.trim();
-    const email = (form.querySelector('#email') as HTMLInputElement).value.trim();
-    const company = (form.querySelector('#company') as HTMLInputElement).value.trim();
-    const subject = (form.querySelector('#subject') as HTMLSelectElement).value;
-    const message = (form.querySelector('#message') as HTMLTextAreaElement).value.trim();
-
-    let hasError = false;
-
-    if (!name) {
-      showFieldError(form.querySelector('#name')!, 'Please enter your name.');
-      hasError = true;
-    }
-    if (!email) {
-      showFieldError(form.querySelector('#email')!, 'Please enter your email.');
-      hasError = true;
-    }
-    if (!subject) {
-      showFieldError(form.querySelector('#subject')!, 'Please select a subject.');
-      hasError = true;
-    }
-    if (!message) {
-      showFieldError(form.querySelector('#message')!, 'Please enter a message.');
-      hasError = true;
-    }
-
-    if (hasError) {
-      const firstError = form.querySelector('.input-error') as HTMLElement;
-      firstError?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      return;
-    }
-
-    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
-    const originalText = btn.innerHTML;
-    btn.innerHTML = 'Sending...';
-    btn.disabled = true;
-
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name,
-          email,
-          company,
-          subject,
-          message,
-          website: (form.querySelector('input[name="website"]') as HTMLInputElement | null)?.value || '',
-        }),
-      });
-
-      const data = await res.json();
-      if (data.success) {
-        form.style.display = 'none';
-        successDiv.style.display = 'block';
-      } else {
-        throw new Error(data.error || 'Failed');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.textContent = '';
+      form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
+      const missing = fields.filter((n) => !val(n) || (n === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val(n))));
+      if (missing.length) {
+        missing.forEach((n) => (form.elements.namedItem(n) as HTMLInputElement).setAttribute('aria-invalid', 'true'));
+        (form.elements.namedItem(missing[0]) as HTMLInputElement).focus();
+        status.textContent = 'Please fill in the highlighted fields.';
+        return;
       }
-    } catch (err) {
-      btn.innerHTML = originalText;
-      btn.disabled = false;
-      alert('There was an error sending your message. Please try again or email alex@bolt-search.com directly.');
-    }
-  });
+      const btn = form.querySelector('.bb-send') as HTMLButtonElement;
+      btn.disabled = true;
+      btn.textContent = 'Sending';
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...Object.fromEntries(fields.map((f) => [f, val(f)])), website: val('website') }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.success) throw new Error('send');
+        // @ts-ignore gtag comes from the layout
+        if (typeof window.gtag === 'function') window.gtag('event', 'generate_lead', { from: 'contact_form' });
+        form.hidden = true;
+        done.hidden = false;
+        done.focus();
+      } catch {
+        btn.disabled = false;
+        btn.textContent = 'Send the brief';
+        status.textContent = 'That did not send. Please try again, or email alex@bolt-search.com.';
+      }
+    });
+  }
 </script>

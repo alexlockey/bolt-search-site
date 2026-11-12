@@ -1,0 +1,120 @@
+---
+// The live thing: the visitor completes one sentence, which becomes the brief and is sent to Alex.
+// Structure and behaviour only. Each concept styles the .bb-* classes itself.
+// Without script it still works as a plain form posting to /contact/ (fields prefilled there are not needed).
+import { brief } from '../data/site';
+const [s1, s2, s3, s4] = brief.sentence;
+---
+
+<form class="bb" id="brief-form" action="/contact/" method="get" novalidate>
+  <p class="bb-sentence">
+    <span>{s1}</span>
+    <label class="bb-slot">
+      <span class="bb-visually-hidden">Role</span>
+      <input name="role" required maxlength="80" placeholder={brief.placeholders.role} autocomplete="off" />
+    </label>
+    <span>{s2}</span>
+    <label class="bb-slot">
+      <span class="bb-visually-hidden">Location</span>
+      <input name="where" required maxlength="60" placeholder={brief.placeholders.where} autocomplete="off" />
+    </label>
+    <span>{s3}</span>
+    <label class="bb-slot bb-slot-wide">
+      <span class="bb-visually-hidden">What the hire must achieve</span>
+      <input name="outcome" required maxlength="160" placeholder={brief.placeholders.outcome} autocomplete="off" />
+    </label><span>{s4}</span>
+  </p>
+
+  <div class="bb-who">
+    <label class="bb-field"><span>Name</span><input name="name" required autocomplete="name" maxlength="120" /></label>
+    <label class="bb-field"><span>Work email</span><input name="email" type="email" required autocomplete="email" maxlength="200" /></label>
+    <label class="bb-field"><span>Company</span><input name="company" required autocomplete="organization" maxlength="160" /></label>
+  </div>
+
+  <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;border:0;padding:0" />
+
+  <div class="bb-actions">
+    <button type="submit" class="bb-send">Send the brief to Alex</button>
+    <p class="bb-status" role="status" aria-live="polite"></p>
+  </div>
+</form>
+
+<div class="bb-done" id="brief-done" hidden tabindex="-1">
+  <p class="bb-done-title">Thanks, that’s with Alex.</p>
+  <p>You’ll get a personal reply. If it helps, forward any job description to alex@bolt-search.com.</p>
+</div>
+
+<style>
+  .bb-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .bb-slot input {
+    field-sizing: content;
+    min-width: 6ch;
+    max-width: 100%;
+    font: inherit;
+    color: inherit;
+  }
+</style>
+
+<script>
+  const form = document.getElementById('brief-form') as HTMLFormElement | null;
+  const done = document.getElementById('brief-done') as HTMLElement | null;
+  if (form && done) {
+    const status = form.querySelector('.bb-status') as HTMLElement;
+    const val = (n: string) => ((form.elements.namedItem(n) as HTMLInputElement)?.value || '').trim();
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.textContent = '';
+      form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
+
+      const required = ['role', 'where', 'outcome', 'name', 'email', 'company'];
+      const missing = required.filter((n) => !val(n) || (n === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val(n))));
+      if (missing.length) {
+        missing.forEach((n) => (form.elements.namedItem(n) as HTMLInputElement).setAttribute('aria-invalid', 'true'));
+        (form.elements.namedItem(missing[0]) as HTMLInputElement).focus();
+        status.textContent = 'Please fill in the highlighted parts.';
+        return;
+      }
+
+      const btn = form.querySelector('.bb-send') as HTMLButtonElement;
+      btn.disabled = true;
+      const label = btn.textContent;
+      btn.textContent = 'Sending';
+      const sentence = `We’re hiring a ${val('role')} in ${val('where')} who can ${val('outcome')}.`;
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: val('name'),
+            email: val('email'),
+            company: val('company'),
+            role: `${val('role')}, ${val('where')}`,
+            message: `${sentence}\n\n(Sent from the brief sentence on the homepage.)`,
+            website: val('website'),
+          }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.success) throw new Error('send');
+        // @ts-ignore gtag comes from the layout
+        if (typeof window.gtag === 'function') window.gtag('event', 'generate_lead', { from: 'home_brief' });
+        form.hidden = true;
+        done.hidden = false;
+        done.focus();
+      } catch {
+        btn.disabled = false;
+        btn.textContent = label;
+        status.textContent = 'That did not send. Please try again, or email alex@bolt-search.com.';
+      }
+    });
+  }
+</script>

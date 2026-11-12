@@ -1,0 +1,16 @@
+---
+// Bolt Search lockup, reversioned for the dark site: the icon redrawn as a vector from the brand artwork
+// (same geometry, brand blue #019EE4, smaller against the wordmark), and the original wordmark recoloured to ink.
+export interface Props { size?: 'nav' | 'foot' }
+const { size = 'nav' } = Astro.props;
+---
+
+<span class={`bs-logo bs-logo-${size}`}>
+  <svg class="bs-logo-icon" viewBox="0 0 100 100" fill="none" aria-hidden="true" focusable="false">
+    <circle cx="50" cy="50" r="42.2" stroke-width="4.2" />
+    <circle cx="59.4" cy="36.9" r="13" stroke-width="4.2" />
+    <line x1="51.37" y1="49.69" x2="36.4" y2="73.5" stroke-width="3.9" />
+    <circle class="bs-logo-dot" cx="36.4" cy="73.5" r="5" />
+  </svg>
+  <img class="bs-logo-word" src="/brand/wordmark-ink.webp" alt="Bolt Search" width="502" height="72" />
+</span>
