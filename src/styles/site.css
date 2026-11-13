@@ -166,7 +166,7 @@
     top: 0;
     left: var(--x);
     width: 11%;
-    transform: translateX(-50%);
+    translate: -50% 0;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -174,7 +174,7 @@
   }
   .bs-count { font-size: var(--s-lead); font-weight: 540; letter-spacing: -0.02em; line-height: 1.1; font-variant-numeric: tabular-nums; }
   .bs-stages li:last-child .bs-count { color: var(--accent); }
-  .bs-stages li:last-child { left: auto; right: 0; transform: none; text-align: right; width: 10%; }
+  .bs-stages li:last-child { left: auto; right: 0; translate: none; width: 11.06%; }
   .bs-stage { font-weight: 560; }
   .bs-stage-note { color: var(--muted); font-size: var(--s-small); line-height: 1.4; }
   .bs-diagram figcaption { margin-top: 2.5rem; color: var(--muted); font-size: var(--s-small); }
@@ -304,7 +304,7 @@
         .bs-log ul { list-style: none; }
   .bs [data-ui] .bs-log li, .bs [data-ui].bs-log li {
     display: grid;
-    grid-template-columns: 16px minmax(0, 1.25fr) minmax(0, 1fr) auto;
+    grid-template-columns: 16px minmax(0, 1.25fr) minmax(0, 1fr);
     gap: 14px;
     align-items: baseline;
     padding: 12px 18px;
@@ -479,7 +479,7 @@
     .bs-stage-rows { display: grid; list-style: none; gap: 0; max-width: 560px; }
     .bs-stage-rows li { display: grid; grid-template-columns: 112px minmax(0, 1fr); column-gap: 1.25rem; align-items: start; }
     .bs-stage-rows svg { display: block; width: 112px; height: auto; }
-    .bs-stage-rows .bs-row-text { display: flex; flex-direction: column; gap: 0.1rem; padding-top: 0.75rem; }
+    .bs-stage-rows .bs-row-text { display: flex; flex-direction: column; justify-content: center; gap: 0.1rem; min-height: 112px; }
     .bs-stage-rows li:last-child .bs-count { color: var(--accent); }
     .bs-stage-arrow { stroke: var(--soft); }
     .bs-about-text { columns: 1; }
@@ -493,8 +493,8 @@
     .bs-app-line { display: none; }
     .bs-app-note { padding-left: 18px; }
     .bs-app-note div { grid-template-columns: 1fr; gap: 2px; }
-    .bs-log li { grid-template-columns: 16px minmax(0, 1fr) auto; }
-    .bs-log-co { grid-column: 2 / 4; grid-row: 2; }
+    .bs [data-ui].bs-log li, .bs [data-ui] .bs-log li { grid-template-columns: 16px minmax(0, 1fr); row-gap: 2px; }
+    .bs-log-co { grid-column: 2; grid-row: 2; }
     .bs-composer .bb-who { grid-template-columns: 1fr; }
     .bs-slip { padding: 22px 18px; }
     .bs-slip-row { flex-wrap: wrap; column-gap: 8px; }
@@ -687,7 +687,7 @@
 .bs-sl-brief { margin-top: 16px; padding: 12px 14px; color: var(--muted); line-height: 1.5; }
 .bs-sl-brief span { display: block; color: var(--ink); font-weight: 560; margin-bottom: 4px; }
 
-.bs-sl-panels { max-height: min(760px, 80svh); overflow: auto; overscroll-behavior: contain; scrollbar-color: var(--line) transparent; }
+.bs-sl-panels { min-width: 0; }
 .bs-js .bs-sl-panel:not(.is-active) { display: none; }
 .bs-sl-panel { padding: 24px 28px 28px; }
 .bs-sl-panel + .bs-sl-panel { margin-top: 12px; background: var(--bg); }
